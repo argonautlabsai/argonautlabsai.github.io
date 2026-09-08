@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Argonaut Labs — ARGODRIVE</title>
+<meta name="description" content="ARGODRIVE: running a 2.8-trillion-parameter mixture-of-experts model on one laptop by streaming expert weights from SSDs, with the measurements to show what converts and what does not.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%232a78d6'/%3E%3C/svg%3E">
+<style>
+  :root { color-scheme: light dark;
+    --bg:#fcfcfb; --fg:#0b0b0b; --fg2:#52514e; --muted:#898781; --line:#e6e5df; --accent:#2a78d6; --card:#ffffff; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#1a1a19; --fg:#ffffff; --fg2:#c3c2b7; --muted:#8f8e86; --line:#383835; --accent:#3987e5; --card:#222221; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font: 16px/1.55 -apple-system, "Segoe UI", Inter, Helvetica, Arial, sans-serif; }
+  main { max-width: 880px; margin: 0 auto; padding: 48px 24px 64px; }
+  header { display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom: 40px; }
+  .brand { font-weight: 700; letter-spacing: .02em; }
+  .brand span { color: var(--accent); }
+  nav a { color: var(--fg2); text-decoration: none; margin-left: 18px; }
+  nav a:hover { color: var(--fg); }
+  h1 { font-size: clamp(28px, 4.5vw, 40px); line-height: 1.15; margin: 0 0 14px; letter-spacing: -.01em; }
+  .lede { font-size: 19px; color: var(--fg2); margin: 0 0 28px; max-width: 46em; }
+  .stats { display:grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin: 28px 0 8px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+  .stat .v { font-size: 30px; font-weight: 700; letter-spacing: -.01em; }
+  .stat .l { color: var(--fg2); font-size: 14px; margin-top: 2px; }
+  .stat.limit .v { color: var(--fg2); }
+  h2 { font-size: 22px; margin: 44px 0 10px; }
+  p { margin: 0 0 14px; max-width: 46em; }
+  figure { margin: 18px 0 8px; }
+  figure img { width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; background:#fcfcfb; }
+  figcaption { color: var(--muted); font-size: 13px; margin-top: 6px; }
+  ul { padding-left: 20px; } li { margin: 6px 0; }
+  a { color: var(--accent); }
+  .repos { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .repo { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+  .repo b { display:block; margin-bottom: 4px; }
+  footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="brand">ARGONAUT <span>LABS</span></div>
+    <nav><a href="#results">Results</a><a href="#code">Code</a><a href="https://github.com/argonautlabsai">GitHub</a></nav>
+  </header>
+
+  <h1>A 2.8-trillion-parameter model on one laptop, streamed from SSDs — and the measurements of why it runs at the speed it does.</h1>
+  <p class="lede">ARGODRIVE is the storage layer and the instruments we built to run Kimi K3 (93 layers, 896 experts per layer, 1.45 TB of expert weights) on a single MacBook Pro with 128 GB, reading the experts from four NVMe drives at decode time. Everything below is one cold run with the exact prompt, with the logs published.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="v">1.00 tok/s</div><div class="l">steady decode over a 512-token answer</div></div>
+    <div class="stat"><div class="v">1.13 tok/s</div><div class="l">over 128 tokens</div></div>
+    <div class="stat"><div class="v">0.96 tok/s</div><div class="l">17-token public prompt (0.68 reported upstream)</div></div>
+    <div class="stat limit"><div class="v">6.3 min</div><div class="l">to first token on a 512-token prompt — the honest limit, cause found, fix planned</div></div>
+  </div>
+
+  <h2 id="results">What the measurements say</h2>
+  <p>A mixture-of-experts layer needs 16 expert reads and cannot proceed until the slowest one lands. So a layer costs the <em>maximum</em> over its reads, not the sum: total bandwidth converts poorly into speed, and per-read latency converts well. Four drives at 90–100% of their individual ceilings still leave the barrier in charge.</p>
+  <figure>
+    <img src="https://raw.githubusercontent.com/argonautlabsai/deltafin/main/k3-public-bench/results/charts/drive-ladder.svg" alt="Decode speed by number of drives: one drive about 52%, two about 73%, three about 90% of four-drive speed">
+    <figcaption>Same engine, prompts and settings at one, two, three and four drives. Four-drive rows are medians of two runs; the smaller rungs are single runs, stated as such.</figcaption>
+  </figure>
+  <figure>
+    <img src="https://raw.githubusercontent.com/argonautlabsai/argodrive/main/charts/read-timeline.svg" alt="Per-drive read throughput during one 200-token run, all four drives">
+    <figcaption>What the read monitor sees: all four drives during one 200-token run, one-second windows from a 100 ms sampler.</figcaption>
+  </figure>
+  <figure>
+    <img src="https://raw.githubusercontent.com/argonautlabsai/deltafin/main/k3-public-bench/results/charts/prefill.svg" alt="First-token time versus drives, and where the four-drive prefill time goes">
+    <figcaption>Why prompts are slow: the 512-token prompt is read as ~9 TB for a 1.4 TB expert set, because rows are processed in passes that each re-read a layer's experts. A scheduling fix, not a storage one.</figcaption>
+  </figure>
+
+  <h2 id="code">Code and data</h2>
+  <div class="repos">
+    <div class="repo"><b><a href="https://github.com/argonautlabsai/deltafin">argonautlabsai/deltafin</a></b>A fork of <a href="https://github.com/gavamedia/deltafin">gavamedia/deltafin</a> (MIT), who built the engine, with the ARGODRIVE storage work and the benchmark package: exact prompts, placement manifests, per-run logs, the drive-count ladder and the prefill classification.</div>
+    <div class="repo"><b><a href="https://github.com/argonautlabsai/argodrive">argonautlabsai/argodrive</a></b>The instruments: the per-drive read monitor and dashboard, the barrier trace and its reducer, the measurement harness with its configuration checks, and the drive tools. Deltafin-specific today, published as they are.</div>
+  </div>
+
+  <h2>What we are careful to say</h2>
+  <ul>
+    <li>Output is token-identical between drafter on and off on a given storage layout; not claimed across layouts.</li>
+    <li>Expert weights are untouched at their released MXFP4 precision; the resident trunk is int8, which upstream labels non-weight-exact.</li>
+    <li>1 tok/s is not for chat. It is for unattended work — scheduled review and reporting on data that must stay on the machine.</li>
+    <li>All measurements are from one machine. Small effects on this rig need replication before they are believed.</li>
+  </ul>
+
+  <footer>Argonaut Labs, Dubai · <a href="https://github.com/argonautlabsai">github.com/argonautlabsai</a> · Discussion on <a href="https://news.ycombinator.com/item?id=49616257">Hacker News</a></footer>
+</main>
+</body>
+</html>
