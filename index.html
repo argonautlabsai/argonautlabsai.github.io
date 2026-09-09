@@ -59,15 +59,15 @@
   <h2 id="results">What the measurements say</h2>
   <p>A mixture-of-experts layer needs 16 expert reads and cannot proceed until the slowest one lands. So a layer costs the <em>maximum</em> over its reads, not the sum: total bandwidth converts poorly into speed, and per-read latency converts well. Four drives at 90–100% of their individual ceilings still leave the barrier in charge.</p>
   <figure>
-    <img src="https://raw.githubusercontent.com/argonautlabsai/deltafin/main/k3-public-bench/results/charts/drive-ladder.svg" alt="Decode speed by number of drives: one drive about 52%, two about 73%, three about 90% of four-drive speed">
+    <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/argonautlabsai/deltafin/main/k3-public-bench/results/charts/drive-ladder-dark.svg"><img src="https://raw.githubusercontent.com/argonautlabsai/deltafin/main/k3-public-bench/results/charts/drive-ladder.svg" alt="Decode speed by number of drives: one drive about 52%, two about 73%, three about 90% of four-drive speed"></picture>
     <figcaption>Same engine, prompts and settings at one, two, three and four drives. Four-drive rows are medians of two runs; the smaller rungs are single runs, stated as such.</figcaption>
   </figure>
   <figure>
-    <img src="https://raw.githubusercontent.com/argonautlabsai/argodrive/main/charts/read-timeline.svg" alt="Per-drive read throughput during one 200-token run, all four drives">
-    <figcaption>What the read monitor sees: all four drives during one 200-token run, one-second windows from a 100 ms sampler.</figcaption>
+    <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/argonautlabsai/argodrive/main/charts/drives-live-dark.svg"><img src="https://raw.githubusercontent.com/argonautlabsai/argodrive/main/charts/drives-live.svg" alt="Animated replay of the four drives' read throughput during the 200-token record arm"></picture>
+    <figcaption>What the read monitor sees: the four drives during one 200-token run, replayed from the 100 ms sampler at 8× speed; dashed lines are each drive's standalone ceiling.</figcaption>
   </figure>
   <figure>
-    <img src="https://raw.githubusercontent.com/argonautlabsai/deltafin/main/k3-public-bench/results/charts/prefill.svg" alt="First-token time versus drives, and where the four-drive prefill time goes">
+    <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/argonautlabsai/deltafin/main/k3-public-bench/results/charts/prefill-dark.svg"><img src="https://raw.githubusercontent.com/argonautlabsai/deltafin/main/k3-public-bench/results/charts/prefill.svg" alt="First-token time versus drives, and where the four-drive prefill time goes"></picture>
     <figcaption>Why prompts are slow: the 512-token prompt is read as ~9 TB for a 1.4 TB expert set, because rows are processed in passes that each re-read a layer's experts. A scheduling fix, not a storage one.</figcaption>
   </figure>
 
