@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>Argonaut Labs — understand the limits of local AI</title>
-<meta name="description" content="ARGODRIVE measures SSD-streamed AI inference: drive activity, memory, read delays and reproducible benchmarks. Explore the tools and our Kimi K3 case study.">
+<meta name="description" content="ARGODRIVE measures SSD-streamed AI inference: drive activity, memory, read delays and reproducible benchmarks. Explore the tools, Kimi K3 case study and DeepSeek V4.1 technical preview.">
 <link rel="canonical" href="https://argonautlabs.ai/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%232a78d6'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="styles.css">
@@ -34,7 +34,7 @@
           <a class="button primary" href="https://github.com/argonautlabsai/argodrive">Explore the tools <span aria-hidden="true">↗</span></a>
           <a class="button" href="#results">Read the benchmark <span aria-hidden="true">↓</span></a>
         </div>
-        <p class="availability">Source available now · macOS · setup required<br>A packaged Mac app is in development.</p>
+        <p class="availability">Source available now · macOS · setup required<br><a href="https://github.com/argonautlabsai/argodrive/releases/tag/v0.2.0-beta.3">Arm64 technical preview available ↗</a></p>
       </div>
       <aside class="case-preview" aria-labelledby="case-title">
         <div class="case-top"><span>Published case study</span><span>08 Sep 2026</span></div>
@@ -71,6 +71,17 @@
           </ul>
           <p class="project-status">Cloning the fork does not configure the reference four-drive layout. Follow the benchmark guide for the storage setup.</p>
           <a class="text-link" href="https://github.com/argonautlabsai/deltafin#1-new-installation">Install the ARGODRIVE fork <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="project">
+          <div class="project-heading"><h3>DeepSeek V4.1 Flash</h3><span class="tag">Technical preview</span></div>
+          <p>An experimental ds4 branch explores opt-in Argodrive expert streaming for DeepSeek V4.1 Flash on Apple Silicon.</p>
+          <ul>
+            <li>Optional provider hooks for external expert reads.</li>
+            <li>Matched single-machine storage experiments.</li>
+            <li>Reproducible source and release notes.</li>
+          </ul>
+          <p class="project-status">Results are preliminary while quality, first-token timing and byte-accounting gates are completed.</p>
+          <a class="text-link" href="https://github.com/argonautlabsai/ds4/tree/argonaut-v41">View the Argonaut ds4 fork <span aria-hidden="true">↗</span></a>
         </article>
       </div>
     </section>
