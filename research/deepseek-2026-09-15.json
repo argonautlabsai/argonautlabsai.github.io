@@ -3,7 +3,7 @@
   "model": "DeepSeek V4.1 Flash Q4",
   "model_bytes": 518596067328,
   "model_sha256": "a5e2e2c3ada4b2e98d9f9e4b50f6d9c2a12c2c96f5da165c07e13aff9264984e",
-  "engine": "argonautlabsai/ds4 @ 18fc795 (fork of antirez/ds4)",
+  "engine": "argonautlabsai/ds4-argodrive @ 18fc795 (fork of antirez/ds4)",
   "hardware": "Apple M5 Max, 128 GB; internal SSD plus two NVMe enclosures over TB5",
   "replicas": "four byte-identical verified copies, 10:6:6:4 weighted split read",
   "prompt_tokens": 512,
