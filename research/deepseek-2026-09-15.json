@@ -5,7 +5,7 @@
   "model_sha256": "a5e2e2c3ada4b2e98d9f9e4b50f6d9c2a12c2c96f5da165c07e13aff9264984e",
   "engine": "argonautlabsai/ds4 @ 18fc795 (fork of antirez/ds4)",
   "hardware": "Apple M5 Max, 128 GB; internal SSD plus two NVMe enclosures over TB5",
-  "replicas": "three byte-identical verified copies, 2:1:1 weighted split read",
+  "replicas": "four byte-identical verified copies, 10:6:6:4 weighted split read",
   "prompt_tokens": 512,
   "generated_tokens": 200,
   "mode": "raw completion, greedy",
@@ -14,7 +14,7 @@
     "generation": "generated tokens / generation seconds, excludes prefill and startup",
     "steady": "excludes the first response"
   },
-  "comparison": "same binary; control sets DS4_ARGODRIVE_PREFILL_SPLIT=0, which is the published pre-change behaviour",
+  "comparison": "pinned upstream ds4 bd66c40 on the internal SSD alone, versus the candidate on four verified replicas; identical output SHA-256 on every arm",
   "candidate_settings": {
     "DS4_ARGODRIVE_PREFILL_SPLIT": 1,
     "DS4_ARGODRIVE_PREFILL_AHEAD": 1,
@@ -28,42 +28,45 @@
   },
   "arms": [
     {
-      "arm": "cold-ctrl-1",
-      "side": "control",
-      "prompt_processing_tok_s": 17.34,
-      "generation_tok_s": 15.66,
-      "steady_tok_s": 16.35,
+      "arm": "upstream-1",
+      "side": "upstream, one drive",
+      "prompt_processing_tok_s": 16.0,
+      "generation_tok_s": 10.0,
+      "steady_tok_s": 10.44,
       "output_sha256": "a548d589195217aa71e99765e018c09645ff83853d09be922a6af070ab58c531"
     },
     {
-      "arm": "cold-champ-1",
-      "side": "candidate",
-      "prompt_processing_tok_s": 43.26,
-      "generation_tok_s": 16.35,
-      "steady_tok_s": 17.15,
+      "arm": "champion-1",
+      "side": "champion, four drives",
+      "prompt_processing_tok_s": 44.0,
+      "generation_tok_s": 16.25,
+      "steady_tok_s": 17.18,
       "output_sha256": "a548d589195217aa71e99765e018c09645ff83853d09be922a6af070ab58c531"
     },
     {
-      "arm": "cold-ctrl-2",
-      "side": "control",
-      "prompt_processing_tok_s": 17.31,
-      "generation_tok_s": 15.56,
-      "steady_tok_s": 16.29,
+      "arm": "upstream-2",
+      "side": "upstream, one drive",
+      "prompt_processing_tok_s": 16.55,
+      "generation_tok_s": 10.07,
+      "steady_tok_s": 10.53,
       "output_sha256": "a548d589195217aa71e99765e018c09645ff83853d09be922a6af070ab58c531"
     },
     {
-      "arm": "cold-champ-2",
-      "side": "candidate",
-      "prompt_processing_tok_s": 43.22,
-      "generation_tok_s": 15.91,
-      "steady_tok_s": 16.69,
+      "arm": "champion-2",
+      "side": "champion, four drives",
+      "prompt_processing_tok_s": 45.0,
+      "generation_tok_s": 16.28,
+      "steady_tok_s": 17.21,
       "output_sha256": "a548d589195217aa71e99765e018c09645ff83853d09be922a6af070ab58c531"
     }
   ],
   "medians": {
-    "prompt_processing_control": 17.32,
-    "prompt_processing_candidate": 43.24,
-    "ratio": 2.5
+    "prompt_processing_control": 16.28,
+    "prompt_processing_candidate": 44.5,
+    "ratio": 2.73,
+    "generation_control": 10.04,
+    "generation_candidate": 16.27,
+    "generation_ratio": 1.62
   },
   "other_rungs": [
     {
@@ -108,10 +111,27 @@
     }
   },
   "limits": [
-    "prefill change only; generation difference in the arms comes from the larger expert cache carried by the candidate",
+    "prompt-processing gain is the prefill work; the generation gain comes from decode replica streaming and a larger expert cache, not from this change",
     "selective staging applied to chunks of 512 tokens or fewer",
     "prompts under 256 tokens do not reach this path",
-    "a fourth drive was connected on 15 September and is not qualified here",
-    "one machine, one model, one prompt; no claim for other hardware or for upstream"
-  ]
+    "candidate arms measured after hours of continuous running; rested machine has measured 49.17",
+    "one machine, one model, one prompt"
+  ],
+  "upstream_read_amplification": {
+    "prefill_gb_read": 301.9,
+    "prefill_gb_touched": 149.2,
+    "ratio": 2.02,
+    "note": "measured on unmodified upstream, internal SSD only, no replicas"
+  },
+  "fourth_drive": {
+    "prefill_512": "+6.6%",
+    "prefill_2048": "+15.4%",
+    "generation_512": "+2.9%",
+    "weights": "10:6:6:4 beats capability-proportional 10:5:5:4 by 2.6% decode; the internal also serves Engram"
+  },
+  "did_not_work": {
+    "decode_prefetch": "predictor costs 3% before any prefetch (16.82 vs 17.33 gen)",
+    "page_cache_warming": "warmed read is 2.6x faster but reads every byte twice",
+    "token_chunk_pipelining": "+2.1%; expert union is front-loaded"
+  }
 }
