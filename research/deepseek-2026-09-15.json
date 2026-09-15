@@ -3,7 +3,7 @@
   "model": "DeepSeek V4.1 Flash Q4",
   "model_bytes": 518596067328,
   "model_sha256": "a5e2e2c3ada4b2e98d9f9e4b50f6d9c2a12c2c96f5da165c07e13aff9264984e",
-  "engine": "argonautlabsai/ds4-argodrive @ 18fc795 (fork of antirez/ds4)",
+  "engine": "argonautlabsai/ds4-argodrive @ 38e200a (fork of antirez/ds4)",
   "hardware": "Apple M5 Max, 128 GB; internal SSD plus two NVMe enclosures over TB5",
   "replicas": "four byte-identical verified copies, 10:6:6:4 weighted split read",
   "prompt_tokens": 512,
@@ -28,45 +28,87 @@
   },
   "arms": [
     {
-      "arm": "upstream-1",
+      "arm": "p3-up-1",
       "side": "upstream, one drive",
-      "prompt_processing_tok_s": 16.0,
-      "generation_tok_s": 10.0,
-      "steady_tok_s": 10.44,
+      "prompt_processing_tok_s": 16.37,
+      "generation_tok_s": 10.2,
+      "steady_tok_s": 10.65,
       "output_sha256": "a548d589195217aa71e99765e018c09645ff83853d09be922a6af070ab58c531"
     },
     {
-      "arm": "champion-1",
-      "side": "champion, four drives",
-      "prompt_processing_tok_s": 44.0,
-      "generation_tok_s": 16.25,
-      "steady_tok_s": 17.18,
+      "arm": "p3-ch-1b",
+      "side": "ours, three drives",
+      "prompt_processing_tok_s": 45.2,
+      "generation_tok_s": 16.87,
+      "steady_tok_s": 17.49,
       "output_sha256": "a548d589195217aa71e99765e018c09645ff83853d09be922a6af070ab58c531"
     },
     {
-      "arm": "upstream-2",
+      "arm": "p3-up-2",
       "side": "upstream, one drive",
-      "prompt_processing_tok_s": 16.55,
-      "generation_tok_s": 10.07,
-      "steady_tok_s": 10.53,
+      "prompt_processing_tok_s": 16.09,
+      "generation_tok_s": 9.95,
+      "steady_tok_s": 10.56,
       "output_sha256": "a548d589195217aa71e99765e018c09645ff83853d09be922a6af070ab58c531"
     },
     {
-      "arm": "champion-2",
-      "side": "champion, four drives",
-      "prompt_processing_tok_s": 45.0,
-      "generation_tok_s": 16.28,
-      "steady_tok_s": 17.21,
+      "arm": "p3-ch-2",
+      "side": "ours, three drives",
+      "prompt_processing_tok_s": 42.03,
+      "generation_tok_s": 15.99,
+      "steady_tok_s": 17.26,
+      "output_sha256": "a548d589195217aa71e99765e018c09645ff83853d09be922a6af070ab58c531"
+    },
+    {
+      "arm": "up1d-1",
+      "side": "upstream, one drive",
+      "prompt_processing_tok_s": 17.04,
+      "generation_tok_s": 10.19,
+      "steady_tok_s": 10.61,
+      "output_sha256": "a548d589195217aa71e99765e018c09645ff83853d09be922a6af070ab58c531"
+    },
+    {
+      "arm": "sw1d-a",
+      "side": "ours, one drive, no replicas",
+      "prompt_processing_tok_s": 27.12,
+      "generation_tok_s": 13.39,
+      "steady_tok_s": 14.53,
+      "output_sha256": "a548d589195217aa71e99765e018c09645ff83853d09be922a6af070ab58c531"
+    },
+    {
+      "arm": "up1d-2",
+      "side": "upstream, one drive",
+      "prompt_processing_tok_s": 15.97,
+      "generation_tok_s": 9.67,
+      "steady_tok_s": 10.27,
+      "output_sha256": "a548d589195217aa71e99765e018c09645ff83853d09be922a6af070ab58c531"
+    },
+    {
+      "arm": "sw1d-b",
+      "side": "ours, one drive, no replicas",
+      "prompt_processing_tok_s": 28.96,
+      "generation_tok_s": 13.59,
+      "steady_tok_s": 14.23,
       "output_sha256": "a548d589195217aa71e99765e018c09645ff83853d09be922a6af070ab58c531"
     }
   ],
   "medians": {
-    "prompt_processing_control": 16.28,
-    "prompt_processing_candidate": 44.5,
-    "ratio": 2.73,
-    "generation_control": 10.04,
-    "generation_candidate": 16.27,
-    "generation_ratio": 1.62
+    "three_drive": {
+      "prompt_processing_control": 16.23,
+      "prompt_processing_candidate": 43.62,
+      "ratio": 2.69,
+      "steady_control": 10.61,
+      "steady_candidate": 17.38,
+      "steady_ratio": 1.64
+    },
+    "one_drive_no_replicas": {
+      "prompt_processing_control": 16.5,
+      "prompt_processing_candidate": 28.04,
+      "ratio": 1.7,
+      "steady_control": 10.44,
+      "steady_candidate": 14.38,
+      "steady_ratio": 1.38
+    }
   },
   "other_rungs": [
     {
@@ -133,5 +175,6 @@
     "decode_prefetch": "predictor costs 3% before any prefetch (16.82 vs 17.33 gen)",
     "page_cache_warming": "warmed read is 2.6x faster but reads every byte twice",
     "token_chunk_pipelining": "+2.1%; expert union is front-loaded"
-  }
+  },
+  "note": "Re-measured 2026-09-15 on the branch as it ships; the published reader caps at three sources. The one-drive pair uses no replicas and isolates the selective-expert read."
 }
