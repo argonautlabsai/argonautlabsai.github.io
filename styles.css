@@ -1080,3 +1080,5 @@ footer .brand {
     color:inherit;
   }
 }
+
+.ladder-figure{margin:0 0 2.5rem;padding:0}.ladder-figure picture,.ladder-figure img{display:block;width:100%;height:auto;border-radius:12px}.ladder-figure figcaption{margin-top:.6rem;font-size:.85rem;color:var(--muted,#5d6478);line-height:1.5}
