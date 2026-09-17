@@ -8,7 +8,7 @@
   --soft:#f6f7fb;
   --purple:#6153dc;
   --blue:#286cc0;
-  --green:#177b64;
+  --green:#177b64;--indigo:#4a5fd6;
   --tint:#f2f0fc;
   font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
@@ -22,7 +22,7 @@
     --soft:#191c28;
     --purple:#b0a2ff;
     --blue:#85b7f2;
-    --green:#74d0b5;
+    --green:#74d0b5;--indigo:#9aa7f5;
     --tint:#211e34;
   }
 }
@@ -301,7 +301,7 @@ h3 {
   color:var(--blue);
 }
 .glm .big-number,.green {
-  color:var(--green);
+  color:var(--indigo);
 }
 .metric-description {
   font-size:.875rem;
