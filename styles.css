@@ -1107,3 +1107,9 @@ img,picture,svg{max-width:100%}.hero>*,.result-row>*,.method-layout>*,.about-sec
 .proof-row{position:relative;padding-left:.9rem;margin-left:-.9rem}.proof-row::before{content:"";position:absolute;left:0;top:.7rem;bottom:.7rem;width:3px;border-radius:2px;background:var(--accent);opacity:0;transition:opacity .35s}.proof-row.is-active::before{opacity:1}
 @media(max-width:800px){.proof-row{padding-left:.9rem;margin-left:-.9rem}}
 @media(prefers-reduced-motion:reduce){.chart-bar,.chart-val,.chart-ratio,.proof-row::before{transition:none}.chart-tab.is-on .tab-bar{animation:none;transform:scaleX(1)}}
+.chart-toggle{gap:.3rem}.chart-btn{font-size:.74rem;font-weight:600;padding:.22rem .55rem;border-radius:5px;line-height:1.4}
+@media(max-width:560px){.chart-btn{font-size:.72rem;padding:.2rem .5rem}}
+/* model tabs as a segmented button group */
+.chart-models{display:inline-flex;gap:2px;padding:3px;margin-left:0;border:1px solid var(--line);border-radius:8px;background:var(--soft)}.chart-tab{font-size:.86rem;font-weight:600;padding:.36rem .8rem .4rem;border-radius:6px;color:var(--muted);background:transparent}.chart-tab:hover{color:var(--text);background:var(--bg)}.chart-tab.is-on,.chart-tab.is-on:hover{color:#fff;background:var(--accent)}.chart-tab .tab-bar{left:.55rem;right:.55rem;bottom:3px;height:2px;background:rgba(255,255,255,.7)}.hero-chart.is-manual .chart-tab.is-on .tab-bar{animation:none;opacity:0}
+@media(prefers-color-scheme:dark){.chart-tab.is-on,.chart-tab.is-on:hover{color:#14161c}.chart-tab .tab-bar{background:rgba(20,22,28,.5)}}
+@media(max-width:560px){.chart-tab{font-size:.8rem;padding:.32rem .6rem .36rem}}
