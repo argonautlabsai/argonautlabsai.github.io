@@ -1117,3 +1117,14 @@ img,picture,svg{max-width:100%}.hero>*,.result-row>*,.method-layout>*,.about-sec
 /* hero chart: vertical columns (2026-09-18) */
 .chart-svg{max-width:600px}.chart-base{stroke:var(--line);stroke-width:2}.chart-bar{transform-origin:center bottom;transform:none}.chart-val,.chart-ratio,.chart-label{text-anchor:middle}.chart-val,.chart-ratio{opacity:1}.is-armed .chart-val,.is-armed .chart-ratio{opacity:0}.is-live .chart-val,.is-live .chart-ratio{opacity:1}.chart-label{font-size:11.5px}
 @media(max-width:560px){.chart-label{font-size:11.5px}.chart-val{font-size:12.5px}}
+
+/* 2026-09-18 pass: hero back to the statement, chart in results, one indigo */
+.hero h1{font-size:clamp(2.4rem,4.2vw,3.5rem);line-height:1.08;letter-spacing:-.025em;max-width:12ch}
+.results-chart{position:relative;margin:0 0 2.6rem;padding:1.4rem 1.5rem 1.2rem;border:1px solid var(--line);border-radius:12px;background:var(--bg)}.results-chart .chart-controls{margin:0 0 .7rem}.results-chart .chart-kicker{margin:0 0 1rem}.results-chart .chart-svg{max-width:none}.results-chart .chart-note{margin-top:1rem;max-width:none}
+.chart-bar{transform-origin:left center;transform:none;fill:var(--accent)}.chart-row[data-i="1"] .chart-bar,.chart-row[data-i="2"] .chart-bar,.chart-row[data-i="3"] .chart-bar{fill:var(--accent)}.chart-bar-base,.chart-row[data-i="0"] .chart-bar{fill:#b4bac7}.chart-val,.chart-ratio,.chart-label{text-anchor:inherit}.chart-label{font-size:12.5px}.chart-val{font-size:13px}.chart-ratio{font-size:11.5px}
+@media(prefers-color-scheme:dark){.chart-bar-base,.chart-row[data-i="0"] .chart-bar{fill:#6b7280}}
+.big-number,.research-card .big-number{color:var(--accent)}.model-label,.model-label.blue,.model-label.green,.model-label.indigo{color:var(--accent)}
+@media(max-width:560px){.results-chart{padding:1rem 1rem .9rem;border-radius:10px}.hero h1{font-size:2.3rem}.chart-label{font-size:12.5px}}
+.chart-label{text-anchor:end}.chart-val,.chart-ratio{text-anchor:start}
+.hero h1{font-size:clamp(2.3rem,3.9vw,3.2rem);max-width:none}
+@media(max-width:560px){.chart-models{flex-wrap:nowrap}.chart-tab{font-size:.78rem;padding:.3rem .5rem .34rem}.chart-controls{gap:.5rem}}
