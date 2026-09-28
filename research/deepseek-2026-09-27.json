@@ -1470,5 +1470,978 @@
       }
     ],
     "scope": "Steady excludes the first decode step; inclusive includes it; both exclude startup and prefill. Upstream median of six arms, fork rungs median of two: observed ranges, not confidence intervals. Output identity is regression evidence, not broad quality validation. One machine, one model, one prompt."
+  },
+  "followup_2026_09_28": {
+    "date": "2026-09-28",
+    "profile": "v41-stack-20260928",
+    "adds": {
+      "DS4_ARGODRIVE_POST_MOE_FLUSH": "1",
+      "DS4_ARGODRIVE_VICTIM_PRESCAN": "1"
+    },
+    "control": "published binary built from tag v41-stack-20260927 (engine source 9ad4a61) with profile v41-stack-20260927, cache 4600",
+    "output_identical_on_all_arms": true,
+    "groups": [
+      {
+        "id": "final512",
+        "role": "qualification",
+        "sequence": "BAAB",
+        "generated_tokens": 512,
+        "A": "published v41-stack-20260927 binary (tag build), stack profile, cache 4600",
+        "B": "candidate: stack profile + POST_MOE_FLUSH=1 + VICTIM_PRESCAN=1 (final binary)",
+        "complete": true,
+        "medians": {
+          "A": {
+            "steady_tok_s": 22.92,
+            "generation_tok_s": 22.47,
+            "prefill_tok_s": 43.93,
+            "first_decode_step_ms": 480.93899999999996
+          },
+          "B": {
+            "steady_tok_s": 23.259999999999998,
+            "generation_tok_s": 22.755,
+            "prefill_tok_s": 44.41,
+            "first_decode_step_ms": 524.0455
+          }
+        },
+        "steady_gain_pct": 1.483420593368212,
+        "inclusive_gain_pct": 1.2683578104138782,
+        "pair_deltas_steady": [
+          0.3,
+          0.38
+        ]
+      },
+      {
+        "id": "final200",
+        "role": "qualification",
+        "sequence": "ABBA",
+        "generated_tokens": 200,
+        "A": "published v41-stack-20260927 binary (tag build), stack profile, cache 4600",
+        "B": "candidate: stack profile + POST_MOE_FLUSH=1 + VICTIM_PRESCAN=1 (final binary)",
+        "complete": true,
+        "medians": {
+          "A": {
+            "steady_tok_s": 22.555,
+            "generation_tok_s": 21.485,
+            "prefill_tok_s": 43.94,
+            "first_decode_step_ms": 481.726
+          },
+          "B": {
+            "steady_tok_s": 22.94,
+            "generation_tok_s": 21.810000000000002,
+            "prefill_tok_s": 44.129999999999995,
+            "first_decode_step_ms": 493.4425
+          }
+        },
+        "steady_gain_pct": 1.7069385945466697,
+        "inclusive_gain_pct": 1.5126832673958646,
+        "pair_deltas_steady": [
+          0.33,
+          0.44
+        ]
+      },
+      {
+        "id": "flush512",
+        "role": "qualification (earlier candidate build, flush only)",
+        "sequence": "BAAB",
+        "generated_tokens": 512,
+        "A": "published v41-stack-20260927 binary (tag build), stack profile, cache 4600",
+        "B": "candidate build 2: stack profile + DS4_ARGODRIVE_POST_MOE_FLUSH=1",
+        "complete": true,
+        "medians": {
+          "A": {
+            "steady_tok_s": 22.83,
+            "generation_tok_s": 22.365000000000002,
+            "prefill_tok_s": 44.175,
+            "first_decode_step_ms": 502.56949999999995
+          },
+          "B": {
+            "steady_tok_s": 23.12,
+            "generation_tok_s": 22.64,
+            "prefill_tok_s": 44.34,
+            "first_decode_step_ms": 503.991
+          }
+        },
+        "steady_gain_pct": 1.270258431887883,
+        "inclusive_gain_pct": 1.2295998211491188,
+        "pair_deltas_steady": [
+          0.37,
+          0.21
+        ]
+      },
+      {
+        "id": "flush200",
+        "role": "qualification (earlier candidate build, flush only)",
+        "sequence": "ABBA",
+        "generated_tokens": 200,
+        "A": "published v41-stack-20260927 binary (tag build), stack profile, cache 4600",
+        "B": "candidate build 2: stack profile + DS4_ARGODRIVE_POST_MOE_FLUSH=1",
+        "complete": true,
+        "medians": {
+          "A": {
+            "steady_tok_s": 22.505000000000003,
+            "generation_tok_s": 21.405,
+            "prefill_tok_s": 44.230000000000004,
+            "first_decode_step_ms": 496.028
+          },
+          "B": {
+            "steady_tok_s": 22.634999999999998,
+            "generation_tok_s": 21.5,
+            "prefill_tok_s": 44.065,
+            "first_decode_step_ms": 506.9825
+          }
+        },
+        "steady_gain_pct": 0.5776494112419206,
+        "inclusive_gain_pct": 0.44382153702404725,
+        "pair_deltas_steady": [
+          0.18,
+          0.08
+        ]
+      },
+      {
+        "id": "post-moe-flush-miss-layers",
+        "role": "single lever",
+        "sequence": "ABAB",
+        "generated_tokens": 200,
+        "A": "candidate binary, stack profile",
+        "B": "+ DS4_ARGODRIVE_POST_MOE_FLUSH=1 (commit after the routed MoE on layers that waited for reads)",
+        "complete": true,
+        "medians": {
+          "A": {
+            "steady_tok_s": 22.41,
+            "generation_tok_s": 21.085,
+            "prefill_tok_s": 43.335,
+            "first_decode_step_ms": 602.6179999999999
+          },
+          "B": {
+            "steady_tok_s": 22.72,
+            "generation_tok_s": 21.365000000000002,
+            "prefill_tok_s": 43.5,
+            "first_decode_step_ms": 599.4784999999999
+          }
+        },
+        "steady_gain_pct": 1.3833110218652411,
+        "inclusive_gain_pct": 1.3279582641688492,
+        "pair_deltas_steady": [
+          0.32,
+          0.3
+        ]
+      },
+      {
+        "id": "post-moe-flush-all-layers",
+        "role": "single lever",
+        "sequence": "ABAB",
+        "generated_tokens": 200,
+        "A": "candidate binary, stack profile",
+        "B": "+ DS4_ARGODRIVE_POST_MOE_FLUSH=2 (commit after every layer's routed MoE)",
+        "complete": true,
+        "medians": {
+          "A": {
+            "steady_tok_s": 21.955,
+            "generation_tok_s": 20.630000000000003,
+            "prefill_tok_s": 43.74,
+            "first_decode_step_ms": 635.9395
+          },
+          "B": {
+            "steady_tok_s": 22.7,
+            "generation_tok_s": 21.59,
+            "prefill_tok_s": 44.480000000000004,
+            "first_decode_step_ms": 493.093
+          }
+        },
+        "steady_gain_pct": 3.3933044864495665,
+        "inclusive_gain_pct": 4.6534173533688605,
+        "pair_deltas_steady": [
+          1.26,
+          0.23
+        ]
+      },
+      {
+        "id": "victim-prescan",
+        "role": "single lever",
+        "sequence": "ABAB",
+        "generated_tokens": 200,
+        "A": "candidate binary, stack profile + POST_MOE_FLUSH=1",
+        "B": "+ DS4_ARGODRIVE_VICTIM_PRESCAN=1 (eviction candidates ranked during the mailbox wait)",
+        "complete": true,
+        "medians": {
+          "A": {
+            "steady_tok_s": 22.725,
+            "generation_tok_s": 21.65,
+            "prefill_tok_s": 43.965,
+            "first_decode_step_ms": 477.476
+          },
+          "B": {
+            "steady_tok_s": 22.835,
+            "generation_tok_s": 21.735,
+            "prefill_tok_s": 44.16,
+            "first_decode_step_ms": 483.8455
+          }
+        },
+        "steady_gain_pct": 0.48404840484048695,
+        "inclusive_gain_pct": 0.39260969976906424,
+        "pair_deltas_steady": [
+          0.19,
+          0.03
+        ]
+      },
+      {
+        "id": "lookahead-mailbox-k2",
+        "role": "single lever (rejected)",
+        "sequence": "ABAB",
+        "generated_tokens": 200,
+        "A": "candidate binary, stack profile",
+        "B": "+ DS4_ARGODRIVE_DECODE_AHEAD=1 (next-layer prediction through the mailbox, two most confident experts)",
+        "complete": true,
+        "medians": {
+          "A": {
+            "steady_tok_s": 22.28,
+            "generation_tok_s": 20.73,
+            "prefill_tok_s": 42.895,
+            "first_decode_step_ms": 713.2825
+          },
+          "B": {
+            "steady_tok_s": 22.060000000000002,
+            "generation_tok_s": 20.69,
+            "prefill_tok_s": 42.875,
+            "first_decode_step_ms": 642.2570000000001
+          }
+        },
+        "steady_gain_pct": -0.9874326750448748,
+        "inclusive_gain_pct": -0.1929570670525793,
+        "pair_deltas_steady": [
+          -0.21,
+          -0.23
+        ]
+      },
+      {
+        "id": "lookahead-missing-only-k3",
+        "role": "single lever (rejected, stopped after one pair)",
+        "sequence": "ABAB",
+        "generated_tokens": 200,
+        "A": "candidate binary, stack profile",
+        "B": "+ DECODE_AHEAD=1, MISSING_ONLY=1, K=3 (speculative reads only for predicted non-resident experts)",
+        "complete": false,
+        "medians": {
+          "A": {
+            "steady_tok_s": 22.42,
+            "generation_tok_s": 21.36,
+            "prefill_tok_s": 44.05,
+            "first_decode_step_ms": 483.196
+          },
+          "B": {
+            "steady_tok_s": 20.59,
+            "generation_tok_s": 19.71,
+            "prefill_tok_s": 44.06,
+            "first_decode_step_ms": 478.159
+          }
+        },
+        "steady_gain_pct": -8.162355040142732,
+        "inclusive_gain_pct": -7.72471910112359,
+        "pair_deltas_steady": [
+          -1.83
+        ]
+      },
+      {
+        "id": "lookahead-missing-only-k2",
+        "role": "excluded: swap guard",
+        "sequence": "ABAB",
+        "generated_tokens": 200,
+        "A": "candidate binary, stack profile",
+        "B": "+ DECODE_AHEAD=1, MISSING_ONLY=1, K=2 (arm 2B stopped by the swap-growth guard)",
+        "complete": false,
+        "medians": {
+          "A": {
+            "steady_tok_s": 22.47,
+            "generation_tok_s": 21.25,
+            "prefill_tok_s": 43.58,
+            "first_decode_step_ms": 552.214
+          },
+          "B": null
+        },
+        "steady_gain_pct": null,
+        "inclusive_gain_pct": null,
+        "pair_deltas_steady": null
+      }
+    ],
+    "arms": [
+      {
+        "id": "final512-1B",
+        "group": "final512",
+        "label": "B",
+        "generated_tokens": 512,
+        "prefill_tok_s": 44.56,
+        "generation_tok_s": 22.65,
+        "steady_tok_s": 23.18,
+        "first_decode_step_ms": 552.833,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1619.9999999999993,
+        "gpu_w": 35.56370735963624,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 11.060665362035225,
+        "environment_delta": {
+          "DS4_ARGODRIVE_POST_MOE_FLUSH": "1",
+          "DS4_ARGODRIVE_VICTIM_PRESCAN": "1"
+        },
+        "binary_tree": "candidate",
+        "output_sha256": "f14f5a1dcb74375d8d3e98fba56cc1cdea2d410117fd41decb82d0d273fd1ec4"
+      },
+      {
+        "id": "final512-2A",
+        "group": "final512",
+        "label": "A",
+        "generated_tokens": 512,
+        "prefill_tok_s": 43.93,
+        "generation_tok_s": 22.44,
+        "steady_tok_s": 22.88,
+        "first_decode_step_ms": 474.255,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0000000000007,
+        "gpu_w": 35.41087118420163,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 11.060665362035225,
+        "environment_delta": {},
+        "binary_tree": "published tag",
+        "output_sha256": "f14f5a1dcb74375d8d3e98fba56cc1cdea2d410117fd41decb82d0d273fd1ec4"
+      },
+      {
+        "id": "final512-3A",
+        "group": "final512",
+        "label": "A",
+        "generated_tokens": 512,
+        "prefill_tok_s": 43.93,
+        "generation_tok_s": 22.5,
+        "steady_tok_s": 22.96,
+        "first_decode_step_ms": 487.623,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0000000000011,
+        "gpu_w": 35.32181037270135,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 11.060665362035225,
+        "environment_delta": {},
+        "binary_tree": "published tag",
+        "output_sha256": "f14f5a1dcb74375d8d3e98fba56cc1cdea2d410117fd41decb82d0d273fd1ec4"
+      },
+      {
+        "id": "final512-4B",
+        "group": "final512",
+        "label": "B",
+        "generated_tokens": 512,
+        "prefill_tok_s": 44.26,
+        "generation_tok_s": 22.86,
+        "steady_tok_s": 23.34,
+        "first_decode_step_ms": 495.258,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0000000000018,
+        "gpu_w": 35.67275581593567,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 11.060665362035225,
+        "environment_delta": {
+          "DS4_ARGODRIVE_POST_MOE_FLUSH": "1",
+          "DS4_ARGODRIVE_VICTIM_PRESCAN": "1"
+        },
+        "binary_tree": "candidate",
+        "output_sha256": "f14f5a1dcb74375d8d3e98fba56cc1cdea2d410117fd41decb82d0d273fd1ec4"
+      },
+      {
+        "id": "final200-1A",
+        "group": "final200",
+        "label": "A",
+        "generated_tokens": 200,
+        "prefill_tok_s": 43.77,
+        "generation_tok_s": 21.5,
+        "steady_tok_s": 22.59,
+        "first_decode_step_ms": 488.399,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0,
+        "gpu_w": 34.78824552946018,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {},
+        "binary_tree": "published tag",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "final200-2B",
+        "group": "final200",
+        "label": "B",
+        "generated_tokens": 200,
+        "prefill_tok_s": 44.18,
+        "generation_tok_s": 21.8,
+        "steady_tok_s": 22.92,
+        "first_decode_step_ms": 491.036,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0000000000002,
+        "gpu_w": 34.15893776276427,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {
+          "DS4_ARGODRIVE_POST_MOE_FLUSH": "1",
+          "DS4_ARGODRIVE_VICTIM_PRESCAN": "1"
+        },
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "final200-3B",
+        "group": "final200",
+        "label": "B",
+        "generated_tokens": 200,
+        "prefill_tok_s": 44.08,
+        "generation_tok_s": 21.82,
+        "steady_tok_s": 22.96,
+        "first_decode_step_ms": 495.849,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0000000000002,
+        "gpu_w": 34.19304146116703,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {
+          "DS4_ARGODRIVE_POST_MOE_FLUSH": "1",
+          "DS4_ARGODRIVE_VICTIM_PRESCAN": "1"
+        },
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "final200-4A",
+        "group": "final200",
+        "label": "A",
+        "generated_tokens": 200,
+        "prefill_tok_s": 44.11,
+        "generation_tok_s": 21.47,
+        "steady_tok_s": 22.52,
+        "first_decode_step_ms": 475.053,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0,
+        "gpu_w": 33.67455563197465,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {},
+        "binary_tree": "published tag",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "flush512-1B",
+        "group": "flush512",
+        "label": "B",
+        "generated_tokens": 512,
+        "prefill_tok_s": 44.25,
+        "generation_tok_s": 22.66,
+        "steady_tok_s": 23.14,
+        "first_decode_step_ms": 507.487,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0,
+        "gpu_w": 35.58335829245858,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 11.060665362035225,
+        "environment_delta": {
+          "DS4_ARGODRIVE_POST_MOE_FLUSH": "1"
+        },
+        "binary_tree": "candidate",
+        "output_sha256": "f14f5a1dcb74375d8d3e98fba56cc1cdea2d410117fd41decb82d0d273fd1ec4"
+      },
+      {
+        "id": "flush512-2A",
+        "group": "flush512",
+        "label": "A",
+        "generated_tokens": 512,
+        "prefill_tok_s": 44.09,
+        "generation_tok_s": 22.28,
+        "steady_tok_s": 22.77,
+        "first_decode_step_ms": 528.554,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0000000000011,
+        "gpu_w": 35.36637007435779,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 11.060665362035225,
+        "environment_delta": {},
+        "binary_tree": "published tag",
+        "output_sha256": "f14f5a1dcb74375d8d3e98fba56cc1cdea2d410117fd41decb82d0d273fd1ec4"
+      },
+      {
+        "id": "flush512-3A",
+        "group": "flush512",
+        "label": "A",
+        "generated_tokens": 512,
+        "prefill_tok_s": 44.26,
+        "generation_tok_s": 22.45,
+        "steady_tok_s": 22.89,
+        "first_decode_step_ms": 476.585,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0,
+        "gpu_w": 35.43045191207663,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 11.060665362035225,
+        "environment_delta": {},
+        "binary_tree": "published tag",
+        "output_sha256": "f14f5a1dcb74375d8d3e98fba56cc1cdea2d410117fd41decb82d0d273fd1ec4"
+      },
+      {
+        "id": "flush512-4B",
+        "group": "flush512",
+        "label": "B",
+        "generated_tokens": 512,
+        "prefill_tok_s": 44.43,
+        "generation_tok_s": 22.62,
+        "steady_tok_s": 23.1,
+        "first_decode_step_ms": 500.495,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0000000000014,
+        "gpu_w": 35.566178071764675,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 11.060665362035225,
+        "environment_delta": {
+          "DS4_ARGODRIVE_POST_MOE_FLUSH": "1"
+        },
+        "binary_tree": "candidate",
+        "output_sha256": "f14f5a1dcb74375d8d3e98fba56cc1cdea2d410117fd41decb82d0d273fd1ec4"
+      },
+      {
+        "id": "flush200-1A",
+        "group": "flush200",
+        "label": "A",
+        "generated_tokens": 200,
+        "prefill_tok_s": 44.15,
+        "generation_tok_s": 21.43,
+        "steady_tok_s": 22.53,
+        "first_decode_step_ms": 493.336,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1619.9999999999998,
+        "gpu_w": 34.865078270404275,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {},
+        "binary_tree": "published tag",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "flush200-2B",
+        "group": "flush200",
+        "label": "B",
+        "generated_tokens": 200,
+        "prefill_tok_s": 44.32,
+        "generation_tok_s": 21.61,
+        "steady_tok_s": 22.71,
+        "first_decode_step_ms": 485.548,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0000000000002,
+        "gpu_w": 33.962447441905375,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {
+          "DS4_ARGODRIVE_POST_MOE_FLUSH": "1"
+        },
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "flush200-3B",
+        "group": "flush200",
+        "label": "B",
+        "generated_tokens": 200,
+        "prefill_tok_s": 43.81,
+        "generation_tok_s": 21.39,
+        "steady_tok_s": 22.56,
+        "first_decode_step_ms": 528.417,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0000000000007,
+        "gpu_w": 33.76219694107462,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {
+          "DS4_ARGODRIVE_POST_MOE_FLUSH": "1"
+        },
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "flush200-4A",
+        "group": "flush200",
+        "label": "A",
+        "generated_tokens": 200,
+        "prefill_tok_s": 44.31,
+        "generation_tok_s": 21.38,
+        "steady_tok_s": 22.48,
+        "first_decode_step_ms": 498.72,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0000000000007,
+        "gpu_w": 33.67172727118506,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {},
+        "binary_tree": "published tag",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "post-moe-flush-miss-layers-1A",
+        "group": "post-moe-flush-miss-layers",
+        "label": "A",
+        "generated_tokens": 200,
+        "prefill_tok_s": 43.03,
+        "generation_tok_s": 20.91,
+        "steady_tok_s": 22.35,
+        "first_decode_step_ms": 658.406,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0000000000002,
+        "gpu_w": 33.799379325065686,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {},
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "post-moe-flush-miss-layers-2B",
+        "group": "post-moe-flush-miss-layers",
+        "label": "B",
+        "generated_tokens": 200,
+        "prefill_tok_s": 43.66,
+        "generation_tok_s": 21.25,
+        "steady_tok_s": 22.67,
+        "first_decode_step_ms": 628.486,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0000000000007,
+        "gpu_w": 34.72615978661302,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {
+          "DS4_ARGODRIVE_POST_MOE_FLUSH": "1"
+        },
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "post-moe-flush-miss-layers-3A",
+        "group": "post-moe-flush-miss-layers",
+        "label": "A",
+        "generated_tokens": 200,
+        "prefill_tok_s": 43.64,
+        "generation_tok_s": 21.26,
+        "steady_tok_s": 22.47,
+        "first_decode_step_ms": 546.83,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1619.9999999999993,
+        "gpu_w": 34.72088762162371,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {},
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "post-moe-flush-miss-layers-4B",
+        "group": "post-moe-flush-miss-layers",
+        "label": "B",
+        "generated_tokens": 200,
+        "prefill_tok_s": 43.34,
+        "generation_tok_s": 21.48,
+        "steady_tok_s": 22.77,
+        "first_decode_step_ms": 570.471,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1619.9999999999998,
+        "gpu_w": 35.30115064671999,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {
+          "DS4_ARGODRIVE_POST_MOE_FLUSH": "1"
+        },
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "post-moe-flush-all-layers-1A",
+        "group": "post-moe-flush-all-layers",
+        "label": "A",
+        "generated_tokens": 200,
+        "prefill_tok_s": 43.03,
+        "generation_tok_s": 19.82,
+        "steady_tok_s": 21.42,
+        "first_decode_step_ms": 796.361,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0,
+        "gpu_w": 34.97409567381799,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {},
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "post-moe-flush-all-layers-2B",
+        "group": "post-moe-flush-all-layers",
+        "label": "B",
+        "generated_tokens": 200,
+        "prefill_tok_s": 44.56,
+        "generation_tok_s": 21.6,
+        "steady_tok_s": 22.68,
+        "first_decode_step_ms": 479.749,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0000000000002,
+        "gpu_w": 34.70197302808477,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {
+          "DS4_ARGODRIVE_POST_MOE_FLUSH": "2"
+        },
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "post-moe-flush-all-layers-3A",
+        "group": "post-moe-flush-all-layers",
+        "label": "A",
+        "generated_tokens": 200,
+        "prefill_tok_s": 44.45,
+        "generation_tok_s": 21.44,
+        "steady_tok_s": 22.49,
+        "first_decode_step_ms": 475.518,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0000000000002,
+        "gpu_w": 34.26246519410018,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {},
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "post-moe-flush-all-layers-4B",
+        "group": "post-moe-flush-all-layers",
+        "label": "B",
+        "generated_tokens": 200,
+        "prefill_tok_s": 44.4,
+        "generation_tok_s": 21.58,
+        "steady_tok_s": 22.72,
+        "first_decode_step_ms": 506.437,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1619.9999999999993,
+        "gpu_w": 34.554637658361585,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {
+          "DS4_ARGODRIVE_POST_MOE_FLUSH": "2"
+        },
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "victim-prescan-1A",
+        "group": "victim-prescan",
+        "label": "A",
+        "generated_tokens": 200,
+        "prefill_tok_s": 43.92,
+        "generation_tok_s": 21.61,
+        "steady_tok_s": 22.67,
+        "first_decode_step_ms": 471.679,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1619.9999999999998,
+        "gpu_w": 34.11126140335785,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {
+          "DS4_ARGODRIVE_POST_MOE_FLUSH": "1"
+        },
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "victim-prescan-2B",
+        "group": "victim-prescan",
+        "label": "B",
+        "generated_tokens": 200,
+        "prefill_tok_s": 44.49,
+        "generation_tok_s": 21.79,
+        "steady_tok_s": 22.86,
+        "first_decode_step_ms": 471.879,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0,
+        "gpu_w": 34.30506919604722,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {
+          "DS4_ARGODRIVE_POST_MOE_FLUSH": "1",
+          "DS4_ARGODRIVE_VICTIM_PRESCAN": "1"
+        },
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "victim-prescan-3A",
+        "group": "victim-prescan",
+        "label": "A",
+        "generated_tokens": 200,
+        "prefill_tok_s": 44.01,
+        "generation_tok_s": 21.69,
+        "steady_tok_s": 22.78,
+        "first_decode_step_ms": 483.273,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0000000000005,
+        "gpu_w": 34.18726697608164,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {
+          "DS4_ARGODRIVE_POST_MOE_FLUSH": "1"
+        },
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "victim-prescan-4B",
+        "group": "victim-prescan",
+        "label": "B",
+        "generated_tokens": 200,
+        "prefill_tok_s": 43.83,
+        "generation_tok_s": 21.68,
+        "steady_tok_s": 22.81,
+        "first_decode_step_ms": 495.812,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0000000000002,
+        "gpu_w": 34.41937484395672,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {
+          "DS4_ARGODRIVE_POST_MOE_FLUSH": "1",
+          "DS4_ARGODRIVE_VICTIM_PRESCAN": "1"
+        },
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "lookahead-mailbox-k2-1A",
+        "group": "lookahead-mailbox-k2",
+        "label": "A",
+        "generated_tokens": 200,
+        "prefill_tok_s": 42.77,
+        "generation_tok_s": 20.54,
+        "steady_tok_s": 22.23,
+        "first_decode_step_ms": 780.955,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.000000000001,
+        "gpu_w": 33.12296870005367,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {},
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "lookahead-mailbox-k2-2B",
+        "group": "lookahead-mailbox-k2",
+        "label": "B",
+        "generated_tokens": 200,
+        "prefill_tok_s": 43.06,
+        "generation_tok_s": 20.69,
+        "steady_tok_s": 22.02,
+        "first_decode_step_ms": 626.15,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0,
+        "gpu_w": 34.009584264111325,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 11.371859296482413,
+        "environment_delta": {
+          "DS4_ARGODRIVE_DECODE_AHEAD": "1"
+        },
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "lookahead-mailbox-k2-3A",
+        "group": "lookahead-mailbox-k2",
+        "label": "A",
+        "generated_tokens": 200,
+        "prefill_tok_s": 43.02,
+        "generation_tok_s": 20.92,
+        "steady_tok_s": 22.33,
+        "first_decode_step_ms": 645.61,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0000000000002,
+        "gpu_w": 34.35291255296814,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {},
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "lookahead-mailbox-k2-4B",
+        "group": "lookahead-mailbox-k2",
+        "label": "B",
+        "generated_tokens": 200,
+        "prefill_tok_s": 42.69,
+        "generation_tok_s": 20.69,
+        "steady_tok_s": 22.1,
+        "first_decode_step_ms": 658.364,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1619.9999999999998,
+        "gpu_w": 34.35877204769018,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 11.371859296482413,
+        "environment_delta": {
+          "DS4_ARGODRIVE_DECODE_AHEAD": "1"
+        },
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "lookahead-missing-only-k3-1A",
+        "group": "lookahead-missing-only-k3",
+        "label": "A",
+        "generated_tokens": 200,
+        "prefill_tok_s": 44.05,
+        "generation_tok_s": 21.36,
+        "steady_tok_s": 22.42,
+        "first_decode_step_ms": 483.196,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0000000000002,
+        "gpu_w": 34.687590112850884,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {},
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "lookahead-missing-only-k3-2B",
+        "group": "lookahead-missing-only-k3",
+        "label": "B",
+        "generated_tokens": 200,
+        "prefill_tok_s": 44.06,
+        "generation_tok_s": 19.71,
+        "steady_tok_s": 20.59,
+        "first_decode_step_ms": 478.159,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0000000000007,
+        "gpu_w": 32.32701918352478,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 8.371859296482413,
+        "environment_delta": {
+          "DS4_ARGODRIVE_DECODE_AHEAD": "1",
+          "DS4_ARGODRIVE_DECODE_AHEAD_MISSING_ONLY": "1",
+          "DS4_ARGODRIVE_DECODE_AHEAD_K": "3"
+        },
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      },
+      {
+        "id": "lookahead-missing-only-k2-1A",
+        "group": "lookahead-missing-only-k2",
+        "label": "A",
+        "generated_tokens": 200,
+        "prefill_tok_s": 43.58,
+        "generation_tok_s": 21.25,
+        "steady_tok_s": 22.47,
+        "first_decode_step_ms": 552.214,
+        "requested_cache_experts": 4600,
+        "gpu_active_mhz": 1620.0000000000002,
+        "gpu_w": 35.70494999349978,
+        "swap_growth_mb": 0.0,
+        "steady_misses_per_token": 12.21608040201005,
+        "environment_delta": {},
+        "binary_tree": "candidate",
+        "output_sha256": "8182ab832dcc07c11d4d36028b9b3f4f5cc672538011495e60fcb4f40b91044f"
+      }
+    ],
+    "scope": "Steady excludes the first decode step; inclusive includes it. Both exclude startup and prefill. Two repeats are an observed range, not a confidence interval. Output identity is regression evidence, not broad quality validation. Single-lever groups are screens on the candidate binary and are not the qualification. Excluded groups are retained in full. No comparison with current upstream is established.",
+    "release": "v41-stack-20260928"
   }
 }
