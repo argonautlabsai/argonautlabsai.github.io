@@ -1,0 +1,24 @@
+# Argonaut Labs
+
+> Independent measurements of frontier-scale open-weight models (DeepSeek V4.1 Flash, Kimi K3, GLM-5.3) streamed from SSD on a single 128 GB Apple M5 Max MacBook Pro, against pinned upstream engines, with every run published as CSV plus a verifier.
+
+Key numbers (512-token prompt, 200 generated unless stated; tokens per second; output byte-identical to upstream on every arm):
+- DeepSeek V4.1 Flash Q4 (518 GB), our ds4 fork vs pinned upstream ds4 on the same single internal SSD: prompt processing 16.12 -> 43.75 (2.71x), steady decode 10.18 -> 18.66 (1.83x, 27 Sept session). With two Thunderbolt 5 NVMe enclosures: 68.29 prompt tokens/s and 22.25 decode (23.26 at 512 generated).
+- Kimi K3 (2.78T), deltafin fork: 0.55 tok/s on the internal SSD, 0.96 with three enclosures on the public 17-token prompt; 1.00 steady over 512 generated tokens on four drives.
+- GLM-5.3 (744B, 434 GB at 4-bit), ds4 fork: 2.02 tok/s on the internal SSD, 3.70 with three enclosures; a scheduling change measured +15 to +16%.
+
+## Pages
+- [DeepSeek V4.1 stack, drive ladder, prefill follow-ups](https://argonautlabs.ai/research/deepseek-2026-09-27.html): method, levers, every arm, 30 September prefill qualification.
+- [DeepSeek V4.1 prefill experiment, 15 September](https://argonautlabs.ai/research/deepseek-2026-09-15.html)
+- [GLM-5.3 scheduling experiment](https://argonautlabs.ai/research/glm.html)
+- [Home: all three models and the Argodrive Mac app](https://argonautlabs.ai/)
+
+## Machine-readable results
+- https://argonautlabs.ai/research/deepseek-2026-09-27.json
+- https://argonautlabs.ai/research/deepseek-2026-09-15.json
+- https://argonautlabs.ai/research/glm-2026-09-11.json
+
+## Code and evidence
+- DeepSeek fork of antirez/ds4 with evidence packages and verifiers: https://github.com/argonautlabsai/ds4-argodrive (tag v41-stack-20260930)
+- Kimi K3 fork of gavamedia/deltafin with the K3 benchmark package: https://github.com/argonautlabsai/deltafin
+- Charts and instruments: https://github.com/argonautlabsai/argodrive
