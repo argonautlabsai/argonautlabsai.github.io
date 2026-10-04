@@ -2556,5 +2556,117 @@
   "package": "https://github.com/argonautlabsai/ds4-argodrive/blob/v41-stack-20260930/argodrive/candidates/2026-09-30-prefill/README.md",
   "ladder_package": "https://github.com/argonautlabsai/ds4-argodrive/blob/v41-stack-20260930/argodrive/candidates/2026-09-30-ladder/README.md",
   "release": "https://github.com/argonautlabsai/ds4-argodrive/releases/tag/v41-stack-20260930"
+ },
+ "prefill_20261004": {
+  "date": "2026-10-04",
+  "profile": "v41-stack-20261004",
+  "cache_experts": 3600,
+  "qualification": {
+   "pp512_tg512": {
+    "sequence": "BAAB",
+    "generated_tokens": 512,
+    "prefill_tok_s": {
+     "A": 68.85,
+     "B": 73.265
+    },
+    "prefill_gain_pct": 6.412490922294856,
+    "steady_gain_pct": -0.024850894632189036,
+    "pair_deltas_prefill": [
+     4.3,
+     4.53
+    ]
+   },
+   "pp512_tg200": {
+    "sequence": "ABBA",
+    "generated_tokens": 200,
+    "prefill_tok_s": {
+     "A": 68.66999999999999,
+     "B": 73.155
+    },
+    "prefill_gain_pct": 6.5312363477501245,
+    "steady_gain_pct": -2.065272819989805,
+    "pair_deltas_prefill": [
+     3.93,
+     5.04
+    ]
+   }
+  },
+  "ladder": {
+   "upstream-internal": {
+    "runs": 6,
+    "medians": {
+     "steady_tok_s": 10.17,
+     "generation_tok_s": 9.805,
+     "prefill_tok_s": 17.305,
+     "first_decode_step_ms": 823.8235
+    },
+    "vs_upstream": {
+     "steady_tok_s": 1.0,
+     "generation_tok_s": 1.0,
+     "prefill_tok_s": 1.0
+    }
+   },
+   "fork-internal": {
+    "runs": 2,
+    "medians": {
+     "steady_tok_s": 16.935000000000002,
+     "generation_tok_s": 16.285,
+     "prefill_tok_s": 47.71,
+     "first_decode_step_ms": 522.159
+    },
+    "vs_upstream": {
+     "steady_tok_s": 1.6651917404129797,
+     "generation_tok_s": 1.6608873023967363,
+     "prefill_tok_s": 2.7570066454781856
+    }
+   },
+   "fork-plus-one": {
+    "runs": 2,
+    "medians": {
+     "steady_tok_s": 18.64,
+     "generation_tok_s": 17.825000000000003,
+     "prefill_tok_s": 62.989999999999995,
+     "first_decode_step_ms": 537.539
+    },
+    "vs_upstream": {
+     "steady_tok_s": 1.832841691248771,
+     "generation_tok_s": 1.8179500254971956,
+     "prefill_tok_s": 3.639988442646634
+    }
+   },
+   "fork-plus-two": {
+    "runs": 2,
+    "medians": {
+     "steady_tok_s": 19.314999999999998,
+     "generation_tok_s": 18.560000000000002,
+     "prefill_tok_s": 75.065,
+     "first_decode_step_ms": 471.746
+    },
+    "vs_upstream": {
+     "steady_tok_s": 1.8992133726646998,
+     "generation_tok_s": 1.8929117797042327,
+     "prefill_tok_s": 4.337763652123663
+    }
+   }
+  },
+  "ladder_sequence": [
+   "U",
+   "S1",
+   "U",
+   "S2",
+   "U",
+   "S3",
+   "S3",
+   "U",
+   "S2",
+   "U",
+   "S1",
+   "U"
+  ],
+  "ladder_max_swap_growth_mb": 0.0,
+  "output_identical_on_all_arms": true,
+  "package": "https://github.com/argonautlabsai/ds4-argodrive/blob/v41-stack-20261004/argodrive/candidates/2026-10-04-engram/README.md",
+  "ladder_package": "https://github.com/argonautlabsai/ds4-argodrive/blob/v41-stack-20261004/argodrive/candidates/2026-10-04-ladder/README.md",
+  "release": "https://github.com/argonautlabsai/ds4-argodrive/releases/tag/v41-stack-20261004"
  }
 }
