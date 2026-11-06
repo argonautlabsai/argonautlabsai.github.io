@@ -1,0 +1,85 @@
+/* A conceptual illustration. Measured results remain separate and static. */
+.kimi-launch{grid-template-columns:minmax(0,.96fr) minmax(0,1.04fr);gap:46px;padding-top:58px;padding-bottom:38px}
+.kimi-launch .hero-lede{font-size:1.08rem;line-height:1.75}
+.kimi-launch .actions{gap:17px 22px}
+.engine-diagram{--engine-purple:var(--accent);--engine-ram:#177b71;--engine-disk:#b96a16;margin:0;min-width:0;border:1px solid var(--line);border-radius:14px;padding:23px;background:var(--bg);box-shadow:0 10px 40px #20243006;text-align:left}
+.engine-diagram *{box-sizing:border-box}
+.engine-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:17px;font:600 .66rem/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.055em;color:var(--muted)}
+.engine-concept{padding:3px 7px;border:1px solid var(--line);border-radius:4px;font-size:.62rem;letter-spacing:.035em;font-weight:500}
+.engine-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:23px}
+.engine-controls[hidden]{display:none}
+.engine-mode-group{display:inline-flex;gap:3px;padding:3px;border:1px solid var(--line);border-radius:7px;background:var(--soft)}
+.engine-diagram button{font:500 .78rem/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer;min-height:36px}
+.engine-mode-group button{padding:6px 13px;border:0;background:transparent;color:var(--muted);border-radius:4px}
+.engine-mode-group button[aria-pressed="true"]{background:var(--bg);color:var(--text);box-shadow:0 1px 4px #20243014}
+.engine-diagram button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.engine-pause{display:inline-flex;align-items:center;gap:6px;padding:5px 7px;border:0;background:transparent;color:var(--muted)}
+.engine-pause svg{width:13px;height:13px;fill:currentColor}
+.engine-pause:disabled{cursor:default;opacity:.7}
+.engine-icon{width:23px;height:23px;stroke:currentColor;stroke-width:1.4;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.engine-tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.engine-tier{padding:13px 9px 12px;border:1px solid var(--line);border-radius:7px;background:var(--soft);min-width:0}
+.engine-tier-top{display:flex;align-items:center;gap:6px;color:var(--muted);font:.61rem/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.02em}
+.engine-tier .engine-icon{color:var(--accent);width:20px;height:20px}
+.engine-tier strong{display:block;font-size:.78rem;line-height:1.45;letter-spacing:-.02em;margin-top:10px;font-weight:600}
+.engine-tier small{display:block;font-size:.67rem;color:var(--muted);line-height:1.45;margin-top:3px}
+.engine-wires{display:block;width:100%;height:33px;overflow:visible;fill:none;stroke:var(--line);stroke-width:1.4}
+.engine-wires path{vector-effect:non-scaling-stroke}
+.engine-wires .engine-flow{stroke:var(--accent);stroke-width:2;stroke-dasharray:7 82;animation:engine-flow 3.8s linear infinite;animation-play-state:paused;opacity:.75}
+.engine-wires .engine-flow:nth-of-type(2){animation-delay:-1.2s}
+.engine-wires .engine-flow:nth-of-type(3){animation-delay:-2.4s}
+.engine-diagram[data-mode="decode"] .engine-flow{stroke-dasharray:5 124}
+.engine-diagram[data-running="true"] .engine-flow{animation-play-state:running}
+.engine-memory{display:flex;align-items:center;gap:12px;padding:12px 15px;border:1px solid var(--line);border-radius:7px;background:var(--bg)}
+.engine-memory .engine-icon{color:var(--engine-ram)}
+.engine-memory strong{display:block;font-size:.79rem;font-weight:600;line-height:1.5}
+.engine-memory span{display:block;font-size:.68rem;line-height:1.5;color:var(--muted)}
+.engine-memory .engine-pins{margin-left:auto;display:flex;gap:3px;align-items:center}
+.engine-pins i{display:block;width:5px;height:16px;border-radius:1px;background:var(--engine-ram);opacity:.2}
+.engine-pins i:nth-child(3n+1){opacity:.65}
+.engine-pins i:nth-child(3n+2){opacity:.4}
+.engine-gpu{padding:14px 15px;border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));border-radius:8px;background:var(--tint)}
+.engine-gpu-head{display:flex;align-items:center;gap:11px}
+.engine-gpu-head .engine-icon{width:27px;height:27px;color:var(--accent)}
+.engine-gpu-head strong{display:block;font-size:.8rem;font-weight:600;line-height:1.5}
+.engine-gpu-head span{display:block;font-size:.68rem;color:var(--muted);line-height:1.5}
+.engine-gpu-head small{margin-left:auto;font:500 .7rem/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:nowrap;color:var(--accent)}
+.engine-cache{margin-top:15px;padding-top:12px;border-top:1px solid color-mix(in srgb,var(--accent) 18%,transparent);display:grid;grid-template-columns:1fr 1.2fr;gap:15px;align-items:center}
+.engine-cache strong{display:block;font-size:.72rem;font-weight:500;color:var(--text)}
+.engine-cache small{display:block;font-size:.64rem;color:var(--muted);margin-top:3px}
+.engine-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:4px;min-width:0}
+.engine-grid span{display:block;height:7px;border-radius:1.5px;background:var(--line);transition:background-color .45s ease,opacity .45s ease;opacity:.65}
+.engine-grid .from-gpu{background:var(--engine-purple);opacity:.85}
+.engine-grid .from-ram{background:var(--engine-ram);opacity:.8}
+.engine-grid .from-disk{background:var(--engine-disk);opacity:.8}
+.engine-legend{display:flex;gap:8px 15px;flex-wrap:wrap;margin-top:14px;color:var(--muted);font-size:.63rem;line-height:1.5}
+.engine-legend span{display:flex;align-items:center;gap:5px}
+.engine-legend i{display:block;width:6px;height:6px;border-radius:1px;background:var(--engine-purple)}
+.engine-legend .legend-ram{background:var(--engine-ram)}
+.engine-legend .legend-disk{background:var(--engine-disk)}
+.engine-diagram figcaption{margin-top:16px;font-size:.77rem;line-height:1.6;color:var(--muted);min-height:3.2em}
+.engine-diagram figcaption strong{color:var(--text);font-weight:600}
+.engine-disclaimer{border-top:1px solid var(--line);padding-top:11px;margin-top:13px;font-size:.63rem;line-height:1.6;color:var(--muted)}
+.engine-diagram[data-running="false"] .engine-grid span{transition:none}
+.launch-evidence{padding-bottom:65px}
+.launch-evidence-grid{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.launch-evidence-grid a{display:flex;gap:17px;align-items:center;padding:23px 22px;color:var(--text);text-decoration:none;min-width:0}
+.launch-evidence-grid a:first-child{padding-left:0}
+.launch-evidence-grid a+a{border-left:1px solid var(--line)}
+.launch-evidence-grid a:last-child{padding-right:0}
+.launch-evidence-grid a:hover strong{color:var(--accent)}
+.launch-evidence-grid strong{font-size:2.6rem;line-height:1.1;font-weight:600;letter-spacing:-.05em;color:var(--accent);white-space:nowrap}
+.launch-evidence-grid strong small{font-size:.75rem;letter-spacing:0;font-weight:500;margin-left:4px;color:var(--muted)}
+.launch-evidence-grid span{font-size:.78rem;line-height:1.55;min-width:0}
+.launch-evidence-grid b{display:block;font-weight:600}
+.launch-evidence-grid em{display:block;font-style:normal;font-size:.7rem;color:var(--muted)}
+.launch-evidence>p{font-size:.72rem;color:var(--muted);margin-top:14px;line-height:1.7}
+.k31-article .engine-diagram{max-width:590px;margin:32px auto}
+.k31-article .engine-diagram p{max-width:none}
+@keyframes engine-flow{to{stroke-dashoffset:-178}}
+@media(prefers-color-scheme:dark){.engine-diagram{--engine-ram:#74d0b5;--engine-disk:#e8b06c;box-shadow:none}.engine-mode-group button[aria-pressed="true"]{box-shadow:none}.engine-grid span{opacity:.8}}
+@media(max-width:1050px){.kimi-launch{gap:30px}.engine-diagram{padding:19px}.engine-tier{padding:11px 7px}.engine-tier-top{font-size:.58rem;gap:4px}.engine-tier strong{font-size:.73rem}.engine-tiers{gap:7px}.launch-evidence-grid a{gap:12px;padding-left:17px;padding-right:17px}.launch-evidence-grid strong{font-size:2.2rem}.launch-evidence-grid span{font-size:.74rem}}
+@media(max-width:800px){.kimi-launch{grid-template-columns:1fr;padding-top:42px;gap:32px}.kimi-launch>div:first-child{max-width:630px}.engine-diagram{width:100%;max-width:590px;justify-self:center;padding:23px}.engine-tier{padding:13px 11px}.engine-tier strong{font-size:.8rem}.engine-tier-top{font-size:.65rem}.launch-evidence{padding-bottom:45px}.launch-evidence-grid a{display:block;padding:20px 15px}.launch-evidence-grid strong{display:block;margin-bottom:9px}.launch-evidence-grid span{display:block}}
+@media(max-width:450px){.engine-diagram{padding:16px 13px;border-radius:10px}.engine-heading{font-size:.6rem;gap:5px;margin-bottom:12px}.engine-concept{font-size:.56rem;padding:3px 5px}.engine-controls{margin-bottom:17px;gap:5px}.engine-mode-group button{padding:6px 11px}.engine-tiers{gap:6px}.engine-tier{padding:11px 6px}.engine-tier-top{display:block;font-size:.57rem}.engine-tier .engine-icon{display:block;margin-bottom:7px}.engine-tier strong{font-size:.7rem;min-height:2.9em;margin-top:7px}.engine-tier small{font-size:.6rem}.engine-memory{padding:10px;gap:9px}.engine-memory .engine-pins{gap:2px}.engine-pins i{width:3px;height:13px}.engine-gpu{padding:12px 10px}.engine-gpu-head{gap:7px}.engine-gpu-head strong{font-size:.72rem}.engine-gpu-head span{font-size:.64rem}.engine-gpu-head small{font-size:.63rem}.engine-gpu-head .engine-icon{width:23px;height:23px}.engine-cache{grid-template-columns:1fr 1.25fr;gap:8px}.engine-cache strong{font-size:.67rem}.engine-cache small{font-size:.59rem}.engine-grid{gap:3px}.engine-grid span{height:6px}.engine-legend{gap:7px 12px;font-size:.59rem}.engine-diagram figcaption{font-size:.73rem}.launch-evidence-grid{grid-template-columns:1fr}.launch-evidence-grid a,.launch-evidence-grid a:first-child,.launch-evidence-grid a:last-child{display:flex;gap:23px;padding:18px 0}.launch-evidence-grid a+a{border-left:0;border-top:1px solid var(--line)}.launch-evidence-grid strong{min-width:122px;margin:0}.launch-evidence-grid span{font-size:.8rem}.launch-evidence-grid em{font-size:.72rem}}
+@media(prefers-reduced-motion:reduce){.engine-wires .engine-flow{animation:none;stroke-dasharray:6 8;opacity:.45}.engine-grid span{transition:none}}
+@media print{.engine-controls{display:none}.engine-flow{animation:none!important}.engine-diagram{break-inside:avoid}.launch-evidence-grid{display:flex}}
