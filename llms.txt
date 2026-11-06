@@ -10,6 +10,7 @@ Earlier, on the M5 Max. Key numbers (512-token prompt, 200 generated unless stat
 - GLM-5.3 (744B, 434 GB at 4-bit), ds4 fork: 2.02 tok/s on the internal SSD, 3.70 with three enclosures; a scheduling change measured +15 to +16%.
 
 ## Pages
+- [Running Kimi K3.1 Pro on a single 96 GB GPU](https://argonautlabs.ai/research/kimi-k31-single-gpu.html): November 6 measurements, NVMe layout, pinned CUDA build, metric definitions, and the 2,048-token context and reference-validation limits.
 - [DeepSeek V4.1 stack, drive ladder, prefill follow-ups](https://argonautlabs.ai/research/deepseek-2026-09-27.html): method, levers, every arm, 30 September prefill qualification.
 - [DeepSeek V4.1 prefill experiment, 15 September](https://argonautlabs.ai/research/deepseek-2026-09-15.html)
 - [GLM-5.3 scheduling experiment](https://argonautlabs.ai/research/glm.html)
