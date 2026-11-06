@@ -10,6 +10,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236153dc'/%3E%3Cpath d='M7 24 16 7l9 17h-6l-3-6-3 6Z' fill='white'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="../styles.css?v=20261106-2">
   <link rel="stylesheet" href="../assets/kimi-article.css?v=20261106-1">
+  <link rel="stylesheet" href="../assets/workstation.css?v=20261106-1">
   <link rel="stylesheet" href="../assets/engine-diagram.css?v=20261106-1">
   <script src="../assets/engine-diagram.js?v=20261106-1" defer></script>
   <meta property="og:type" content="article">
@@ -106,6 +107,10 @@
       <section id="hardware">
         <h2>One GPU, three storage tiers.</h2>
         <p>The tested environment is a 70 GiB VM on a Threadripper host with one 96 GB RTX PRO 6000 Blackwell. The reported allocation includes a 27.5 GB device expert cache and a 53.7 GB pinned host pool. The non-expert spine resides in VRAM, with matrices quantised to Q8_0.</p>
+        <figure class="workstation-photo">
+          <a href="../assets/argonaut-workstation-1600.jpg" aria-label="View the workstation photograph at full size"><img src="../assets/argonaut-workstation-1600.jpg" srcset="../assets/argonaut-workstation-800.jpg 800w, ../assets/argonaut-workstation-1600.jpg 1600w" sizes="(max-width: 1060px) calc(100vw - 48px), 972px" width="1600" height="885" loading="lazy" decoding="async" alt="Argonaut Labs workstation with two installed NVIDIA RTX PRO 6000 cards and a Hyper M.2 x16 Gen5 expansion card beneath them."></a>
+          <figcaption><strong>Two GPUs are physically installed; the reported Kimi K3.1 benchmarks use one 96 GB RTX PRO 6000.</strong> The Hyper M.2 expansion card is visible beneath the GPUs. This is a crop of the original workstation photograph, not a recording of a benchmark run.</figcaption>
+        </figure>
         <div class="k31-tiers">
           <div><span class="eyebrow">TIER A / RAID0</span><h3>3 NVMe devices</h3><strong>79,365 experts</strong><p>The hottest experts occupy the primary array.</p></div>
           <div><span class="eyebrow">TIER B / NVME</span><h3>1 NVMe device</h3><strong>41,078 experts</strong><p>Completes the model’s coverage and holds additional copies.</p></div>
