@@ -10,6 +10,8 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236153dc'/%3E%3Cpath d='M7 24 16 7l9 17h-6l-3-6-3 6Z' fill='white'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="../styles.css?v=20261106-2">
   <link rel="stylesheet" href="../assets/kimi-article.css?v=20261106-1">
+  <link rel="stylesheet" href="../assets/engine-diagram.css?v=20261106-1">
+  <script src="../assets/engine-diagram.js?v=20261106-1" defer></script>
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Argonaut Labs">
   <meta property="og:title" content="Running Kimi K3.1 Pro on a single 96 GB GPU">
@@ -114,6 +116,26 @@
 
       <section id="method">
         <h2>Read the experts the router needs.</h2>
+<figure class="engine-diagram" data-engine-diagram data-mode="prefill" data-running="false" aria-labelledby="article-engine-title" aria-describedby="article-engine-disclaimer">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="article-engine-ssd" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><rect x="6" y="8" width="7" height="6" rx="1"/><path d="M16 8h2m-2 3h2M7 19v2m4-2v2m4-2v2m4-2v2"/><circle cx="17" cy="15" r="1"/></symbol>
+<symbol id="article-engine-ram" viewBox="0 0 24 24"><path d="M2 6h20v11H2zM5 17v3m4-3v3m6-3v3m4-3v3"/><rect x="5" y="9" width="5" height="5" rx=".5"/><rect x="14" y="9" width="5" height="5" rx=".5"/></symbol>
+<symbol id="article-engine-gpu" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M8 2v3m4-3v3m4-3v3M8 19v3m4-3v3m4-3v3M2 8h3m-3 4h3m-3 4h3M19 8h3m-3 4h3m-3 4h3"/></symbol>
+</defs></svg>
+<div class="engine-heading"><span id="article-engine-title">INSIDE THE KIMI ENGINE</span><span class="engine-concept">CONCEPTUAL</span></div>
+<div class="engine-controls" hidden><div class="engine-mode-group" role="group" aria-label="Inference phase"><button type="button" data-engine-mode="prefill" aria-pressed="true" aria-controls="article-engine-caption">Prefill</button><button type="button" data-engine-mode="decode" aria-pressed="false" aria-controls="article-engine-caption">Decode</button></div><button class="engine-pause" type="button" aria-label="Pause diagram animation"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 2h2v10H3zM9 2h2v10H9z"/></svg><span>Pause</span></button></div>
+<div class="engine-tiers">
+<div class="engine-tier"><div class="engine-tier-top"><svg class="engine-icon" aria-hidden="true"><use href="#article-engine-ssd"/></svg>TIER A</div><strong>3 × NVMe</strong><small>RAID0 array</small></div>
+<div class="engine-tier"><div class="engine-tier-top"><svg class="engine-icon" aria-hidden="true"><use href="#article-engine-ssd"/></svg>TIER B</div><strong>1 × NVMe</strong><small>Base + replicas</small></div>
+<div class="engine-tier"><div class="engine-tier-top"><svg class="engine-icon" aria-hidden="true"><use href="#article-engine-ssd"/></svg>TIER C</div><strong>1 × NVMe</strong><small>Thunderbolt</small></div>
+</div>
+<svg class="engine-wires" viewBox="0 0 600 36" preserveAspectRatio="none" aria-hidden="true"><g><path d="M100 0v10q0 8 8 8h184q8 0 8 8v10"/><path d="M300 0v36"/><path d="M500 0v10q0 8-8 8H308q-8 0-8 8v10"/></g><g><path class="engine-flow" d="M100 0v10q0 8 8 8h184q8 0 8 8v10"/><path class="engine-flow" d="M300 0v36"/><path class="engine-flow" d="M500 0v10q0 8-8 8H308q-8 0-8 8v10"/></g></svg>
+<div class="engine-memory"><svg class="engine-icon" aria-hidden="true"><use href="#article-engine-ram"/></svg><div><strong>Host memory</strong><span>Pinned staging + expert pool</span></div><div class="engine-pins" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+<svg class="engine-wires" viewBox="0 0 600 36" preserveAspectRatio="none" aria-hidden="true"><path d="M300 0v36"/><path class="engine-flow" d="M300 0v36"/></svg>
+<div class="engine-gpu"><div class="engine-gpu-head"><svg class="engine-icon" aria-hidden="true"><use href="#article-engine-gpu"/></svg><div><strong>RTX PRO 6000 Blackwell</strong><span>Resident spine + expert cache</span></div><small>96 GB</small></div><div class="engine-cache"><div><strong>Selected experts</strong><small>Illustrative subset</small></div><div class="engine-grid" aria-hidden="true"><span class="from-gpu"></span><span class="from-ram"></span><span></span><span></span><span class="from-ram"></span><span class="from-disk"></span><span></span><span class="from-ram"></span><span class="from-disk"></span><span></span><span class="from-ram"></span><span class="from-disk"></span><span></span><span class="from-ram"></span><span class="from-disk"></span><span></span><span class="from-ram"></span><span class="from-disk"></span><span></span><span class="from-ram"></span><span class="from-disk"></span><span></span><span class="from-ram"></span><span class="from-disk"></span><span></span><span class="from-ram"></span><span class="from-disk"></span><span></span><span></span><span class="from-disk"></span><span class="from-gpu"></span><span></span><span class="from-disk"></span><span class="from-gpu"></span><span></span><span class="from-disk"></span><span class="from-gpu"></span><span></span><span class="from-disk"></span><span class="from-gpu"></span><span></span><span class="from-disk"></span><span class="from-gpu"></span><span></span><span class="from-disk"></span><span class="from-gpu"></span><span></span><span class="from-disk"></span></div></div><div class="engine-legend"><span><i></i>VRAM hit</span><span><i class="legend-ram"></i>RAM hit</span><span><i class="legend-disk"></i>SSD fetch</span></div></div>
+<figcaption id="article-engine-caption" data-engine-caption aria-live="polite"><strong>Prefill: process the prompt.</strong> A batch can reuse each loaded expert across several input tokens.</figcaption>
+<p class="engine-disclaimer" id="article-engine-disclaimer">Illustrative activity, not live telemetry or a recorded trace. Colours show possible sources, not measured hit rates.</p>
+</figure>
         <p>Kimi K3.1 Pro has 92 MoE layers, 896 experts per layer and 16 selected experts per token. The engine keeps the resident computation on the GPU and schedules the selected experts through three paths:</p>
         <ol class="k31-steps">
           <li><strong>Use a cached expert.</strong> A device-cache hit is ready to compute; a host-pool hit needs an upload.</li>
