@@ -1,0 +1,181 @@
+{
+ "date": "2026-11-06",
+ "model": "Kimi K3.1 Pro: 2.8T MoE, 92 MoE layers, 896 experts per layer, 16 routed per token; Q8_0 spine, MXFP4 experts (82,432 files, 1.45 TB)",
+ "engine": "argonautlabsai/argodrive-ds4-kimi-k3.1, tag k31-cuda-20261105 (port on top of antirez/ds4 c97964b)",
+ "hardware": "one RTX PRO 6000 Blackwell (96 GB) in a 70 GiB VM; RAID0 of three NVMe (19 GB/s) with 79,365 experts; second NVMe (6.2 GB/s) with 41,078; Thunderbolt NVMe (3.7 GB/s) with 74,000",
+ "settings": "defaults plus a third expert directory: full-precision attention cache, no drafter, no expert skipping, -c 2048, greedy, monitoring off",
+ "prompts": {
+  "france": "The capital of France is",
+  "record": "The three main financial statements are"
+ },
+ "repeats": "token ids (fresh process) or text (chat endpoint) identical across the repeats of each arm",
+ "not_established": [
+  "comparison with Moonshot's own implementation",
+  "identity across arithmetic paths: see the README's table"
+ ],
+ "runs": {
+  "fresh_process": {
+   "france_17_sequential": [
+    {
+     "generated": 17,
+     "decode_seconds": 18.46,
+     "steady_seconds": 7.74,
+     "steady_tok_s": 2.07,
+     "wall_seconds": 29.329
+    },
+    {
+     "generated": 17,
+     "decode_seconds": 18.45,
+     "steady_seconds": 7.71,
+     "steady_tok_s": 2.08,
+     "wall_seconds": 29.231
+    },
+    {
+     "generated": 17,
+     "decode_seconds": 18.37,
+     "steady_seconds": 7.71,
+     "steady_tok_s": 2.08,
+     "wall_seconds": 29.131
+    }
+   ],
+   "france_17_batched": [
+    {
+     "generated": 17,
+     "decode_seconds": 8.08,
+     "steady_seconds": 8.07,
+     "steady_tok_s": 1.98,
+     "prompt_tokens": 5,
+     "prompt_pass_seconds": 17.23,
+     "prompt_pass_expert_gb": 100.07,
+     "wall_seconds": 36.135
+    },
+    {
+     "generated": 17,
+     "decode_seconds": 8.13,
+     "steady_seconds": 8.13,
+     "steady_tok_s": 1.97,
+     "prompt_tokens": 5,
+     "prompt_pass_seconds": 17.22,
+     "prompt_pass_expert_gb": 100.07,
+     "wall_seconds": 36.032
+    },
+    {
+     "generated": 17,
+     "decode_seconds": 8.17,
+     "steady_seconds": 8.17,
+     "steady_tok_s": 1.96,
+     "prompt_tokens": 5,
+     "prompt_pass_seconds": 17.25,
+     "prompt_pass_expert_gb": 100.07,
+     "wall_seconds": 36.034
+    }
+   ],
+   "record_128": [
+    {
+     "generated": 128,
+     "decode_seconds": 62.23,
+     "steady_seconds": 62.23,
+     "steady_tok_s": 2.04,
+     "prompt_tokens": 6,
+     "prompt_pass_seconds": 17.25,
+     "prompt_pass_expert_gb": 105.28,
+     "wall_seconds": 90.275
+    },
+    {
+     "generated": 128,
+     "decode_seconds": 62.27,
+     "steady_seconds": 62.27,
+     "steady_tok_s": 2.04,
+     "prompt_tokens": 6,
+     "prompt_pass_seconds": 17.23,
+     "prompt_pass_expert_gb": 105.28,
+     "wall_seconds": 90.274
+    }
+   ],
+   "record_512": [
+    {
+     "generated": 512,
+     "decode_seconds": 263.22,
+     "steady_seconds": 263.22,
+     "steady_tok_s": 1.94,
+     "prompt_tokens": 6,
+     "prompt_pass_seconds": 17.34,
+     "prompt_pass_expert_gb": 105.28,
+     "wall_seconds": 291.319
+    },
+    {
+     "generated": 512,
+     "decode_seconds": 263.12,
+     "steady_seconds": 263.12,
+     "steady_tok_s": 1.94,
+     "prompt_tokens": 6,
+     "prompt_pass_seconds": 17.35,
+     "prompt_pass_expert_gb": 105.28,
+     "wall_seconds": 291.323
+    }
+   ]
+  },
+  "chat_endpoint": {
+   "prompt_270_generated_200": [
+    {
+     "prompt_tokens": 270,
+     "prompt_pass_seconds": 25.38,
+     "prompt_pass_expert_gb": 924.53,
+     "generated": 200,
+     "decode_seconds": 101.99,
+     "decode_tok_s": 1.96,
+     "steady_tok_s": 1.95
+    },
+    {
+     "prompt_tokens": 270,
+     "prompt_pass_seconds": 25.34,
+     "prompt_pass_expert_gb": 924.53,
+     "generated": 200,
+     "decode_seconds": 103.61,
+     "decode_tok_s": 1.93,
+     "steady_tok_s": 1.92
+    }
+   ],
+   "prompt_618_generated_200": [
+    {
+     "prompt_tokens": 618,
+     "prompt_pass_seconds": 31.71,
+     "prompt_pass_expert_gb": 1122.31,
+     "generated": 200,
+     "decode_seconds": 105.15,
+     "decode_tok_s": 1.9,
+     "steady_tok_s": 1.89
+    },
+    {
+     "prompt_tokens": 618,
+     "prompt_pass_seconds": 31.51,
+     "prompt_pass_expert_gb": 1122.31,
+     "generated": 200,
+     "decode_seconds": 105.11,
+     "decode_tok_s": 1.9,
+     "steady_tok_s": 1.89
+    }
+   ],
+   "prompt_1533_generated_8": [
+    {
+     "prompt_tokens": 1533,
+     "prompt_pass_seconds": 36.81,
+     "prompt_pass_expert_gb": 1240.82,
+     "generated": 8,
+     "decode_seconds": 3.85,
+     "decode_tok_s": 2.08,
+     "steady_tok_s": 1.82
+    },
+    {
+     "prompt_tokens": 1533,
+     "prompt_pass_seconds": 37.12,
+     "prompt_pass_expert_gb": 1240.82,
+     "generated": 8,
+     "decode_seconds": 3.84,
+     "decode_tok_s": 2.08,
+     "steady_tok_s": 1.82
+    }
+   ]
+  }
+ }
+}
