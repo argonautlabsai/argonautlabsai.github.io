@@ -1130,6 +1130,14 @@ img,picture,svg{max-width:100%}.hero>*,.result-row>*,.method-layout>*,.about-sec
 @media(max-width:560px){.chart-models{flex-wrap:nowrap}.chart-tab{font-size:.78rem;padding:.3rem .5rem .34rem}.chart-controls{gap:.5rem}}
 
 /* 2026-11-06: Kimi K3.1 Pro first */
+.kimi-launch .hero-lede{font-size:1.18rem}
+.launch-scope{margin-top:22px;color:var(--muted);font-size:.85rem;line-height:1.7}
+.proof-setup{margin:22px 0 0;font-size:.82rem;line-height:1.5}
+.proof-setup>div{display:grid;grid-template-columns:55px minmax(0,1fr);gap:12px;margin-top:11px}
+.proof-setup dt{color:var(--muted)}
+.proof-setup dd{margin:0}
+.kimi-launch .proof-foot{font-size:.79rem;line-height:1.6}
+@media(min-width:561px) and (max-width:800px){.kimi-launch .hero-proof{grid-template-columns:repeat(2,minmax(0,1fr))}.proof-setup{grid-column:1/-1}}
 .hero-proof .proof-group{margin-top:1.1rem}
 .hero-proof .proof-row.older .proof-num{font-size:1.35rem;flex-basis:5.4rem}
 .hero-proof .proof-row.older .proof-label{font-size:.85rem}

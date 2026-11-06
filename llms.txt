@@ -4,10 +4,14 @@
 
 Kimi K3.1 Pro (2.8T, 1.45 TB of experts), one 96 GB RTX PRO 6000, 6 November 2026: decode 2.04 tok/s over 128 generated tokens, 1.94 over 512, 1.93-1.96 for 200 tokens after a 270-token chat prompt; prefill 10.6 tok/s at 270 tokens (25 s), 19.5 at 618 (32 s), 41 at 1,533 (37 s). Code and caveats: https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1
 
-Earlier, on the M5 Max. Key numbers (512-token prompt, 200 generated unless stated; tokens per second; output byte-identical to upstream on every arm):
+Earlier, on the M5 Max. Key numbers (workloads, timing definitions and output comparisons differ by experiment; see the linked evidence):
 - DeepSeek V4.1 Flash Q4 (518 GB), our ds4 fork vs pinned upstream ds4 on the same single internal SSD: prompt processing 16.12 -> 43.75 (2.71x), steady decode 10.18 -> 18.66 (1.83x, 27 Sept session). With two Thunderbolt 5 NVMe enclosures: 68.29 prompt tokens/s and 22.25 decode (23.26 at 512 generated).
 - Kimi K3 (2.78T), deltafin fork: 0.55 tok/s on the internal SSD, 0.96 with three enclosures on the public 17-token prompt; 1.00 steady over 512 generated tokens on four drives.
 - GLM-5.3 (744B, 434 GB at 4-bit), ds4 fork: 2.02 tok/s on the internal SSD, 3.70 with three enclosures; a scheduling change measured +15 to +16%.
+
+## Start here
+- [Try the Kimi K3.1 CUDA fork](https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1): an experimental single-GPU port built on Antirez’s ds4. Tested on an RTX PRO 6000 Blackwell with 96 GB VRAM, 70 GiB VM RAM and five NVMe devices. Current total context limit: 2,048 tokens; reference-model equivalence has not been validated. The separate Argodrive Mac app is not required.
+- [Build and setup](https://argonautlabs.ai/research/kimi-k31-single-gpu.html#reproduce): pinned release, weight preparation links and reproduction limits.
 
 ## Pages
 - [Running Kimi K3.1 Pro on a single 96 GB GPU](https://argonautlabs.ai/research/kimi-k31-single-gpu.html): November 6 measurements, NVMe layout, pinned CUDA build, metric definitions, and the 2,048-token context and reference-validation limits.
