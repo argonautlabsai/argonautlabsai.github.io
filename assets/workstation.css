@@ -4,7 +4,7 @@
 .workstation-layout>*{min-width:0}
 .workstation-photo{margin:0}
 .workstation-photo a{display:block;border-radius:8px}
-.workstation-photo img{display:block;width:100%;height:auto;border-radius:8px;background:#17191c}
+.workstation-photo img{display:block;width:100%;height:auto;border-radius:8px;background:#191c1b}
 .workstation-photo figcaption{margin-top:13px;color:var(--muted);font-size:.82rem;line-height:1.65}
 .workstation-photo figcaption strong{color:var(--text);font-weight:600}
 .workstation-copy .eyebrow{margin-bottom:15px}

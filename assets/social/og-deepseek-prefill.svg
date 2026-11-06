@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><rect width="1200" height="630" fill="#f5f4ef"/><g font-family="Helvetica,Arial,sans-serif">
+<path d="M60 90 80 52l20 38H87l-7-14-7 14Z" fill="#77603f"/>
+<text x="115" y="83" font-size="24" font-weight="700" fill="#222523">ARGONAUT LABS</text>
+<text x="60" y="183" font-size="60" font-weight="700" fill="#222523">DeepSeek V4.1 Flash</text>
+<text x="60" y="253" font-size="60" font-weight="700" fill="#222523">Streaming from SSD.</text>
+<text x="60" y="302" font-size="23" font-weight="400" fill="#656963">Prompt processing and generation benchmarks · ds4 fork</text>
+<rect x="60" y="343" width="530" height="163" rx="10" fill="#191c1b"/>
+<text x="86" y="378" font-size="14" font-weight="700" fill="#b5b9b1">APPLE SILICON</text>
+<text x="86" y="439" font-size="53" font-weight="700" fill="#d2bc95">128</text>
+<text x="255" y="437" font-size="22" font-weight="400" fill="#f2f1eb">GB RAM</text>
+<text x="86" y="480" font-size="17" font-weight="400" fill="#b5b9b1">MacBook Pro M5 Max</text>
+<rect x="610" y="343" width="530" height="163" rx="10" fill="#191c1b"/>
+<text x="636" y="378" font-size="14" font-weight="700" fill="#b5b9b1">STORAGE SCALING</text>
+<text x="636" y="439" font-size="53" font-weight="700" fill="#d2bc95">1–3</text>
+<text x="805" y="437" font-size="22" font-weight="400" fill="#f2f1eb">SSDs</text>
+<text x="636" y="480" font-size="17" font-weight="400" fill="#b5b9b1">Internal storage + external NVMe enclosures</text>
+<path d="M60 546h1080" stroke="#dddad2"/>
+<text x="60" y="584" font-size="21" font-weight="700" fill="#77603f">argonautlabs.ai</text>
+<text x="350" y="584" font-size="17" font-weight="400" fill="#656963">Per-arm results, conditions and reproduction instructions</text>
+</g></svg>

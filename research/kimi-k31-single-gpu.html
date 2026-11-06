@@ -7,25 +7,25 @@
   <title>Running Kimi K3.1 Pro on a single 96 GB GPU — Argonaut Labs</title>
   <meta name="description" content="Kimi K3.1 Pro (2.8T) on one RTX PRO 6000 Blackwell: 2.04 tok/s steady decode at 128 tokens, 1.94 at 512, and up to 41 tok/s prefill. NVMe streaming, CUDA code, measurements and limitations.">
   <link rel="canonical" href="https://argonautlabs.ai/research/kimi-k31-single-gpu.html">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236153dc'/%3E%3Cpath d='M7 24 16 7l9 17h-6l-3-6-3 6Z' fill='white'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="../styles.css?v=20261106-2">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2377603f'/%3E%3Cpath d='M7 24 16 7l9 17h-6l-3-6-3 6Z' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../styles.css?v=20261106-bronze">
   <link rel="stylesheet" href="../assets/kimi-article.css?v=20261106-1">
-  <link rel="stylesheet" href="../assets/workstation.css?v=20261106-1">
-  <link rel="stylesheet" href="../assets/engine-diagram.css?v=20261106-1">
+  <link rel="stylesheet" href="../assets/workstation.css?v=20261106-bronze">
+  <link rel="stylesheet" href="../assets/engine-diagram.css?v=20261106-bronze">
   <script src="../assets/engine-diagram.js?v=20261106-1" defer></script>
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Argonaut Labs">
   <meta property="og:title" content="Running Kimi K3.1 Pro on a single 96 GB GPU">
   <meta property="og:description" content="About 2 tok/s decode. Up to 41 tok/s prefill. A 2.8T model with 1.45 TB of experts streamed from NVMe, with code, measurements and limitations.">
   <meta property="og:url" content="https://argonautlabs.ai/research/kimi-k31-single-gpu.html">
-  <meta property="og:image" content="https://argonautlabs.ai/assets/og-kimi-k31.png">
+  <meta property="og:image" content="https://argonautlabs.ai/assets/og-kimi-k31.png?v=20261106-bronze">
   <meta property="og:image:alt" content="Argonaut Labs: Kimi K3.1 Pro on one 96 GB GPU, streamed from NVMe">
   <meta property="article:published_time" content="2026-11-06">
   <meta property="article:modified_time" content="2026-11-06">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Running Kimi K3.1 Pro on a single 96 GB GPU">
   <meta name="twitter:description" content="NVMe-streamed inference on one RTX PRO 6000: measured decode and prefill, open CUDA code, and the current 2,048-token context limit.">
-  <meta name="twitter:image" content="https://argonautlabs.ai/assets/og-kimi-k31.png">
+  <meta name="twitter:image" content="https://argonautlabs.ai/assets/og-kimi-k31.png?v=20261106-bronze">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -34,7 +34,7 @@
     "description": "Kimi K3.1 Pro (2.8T) on one RTX PRO 6000 Blackwell: 2.04 tok/s steady decode at 128 tokens, 1.94 at 512, and up to 41 tok/s prefill. NVMe streaming, CUDA code, measurements and limitations.",
     "url": "https://argonautlabs.ai/research/kimi-k31-single-gpu.html",
     "mainEntityOfPage": "https://argonautlabs.ai/research/kimi-k31-single-gpu.html",
-    "image": "https://argonautlabs.ai/assets/og-kimi-k31.png",
+    "image": "https://argonautlabs.ai/assets/og-kimi-k31.png?v=20261106-bronze",
     "datePublished": "2026-11-06",
     "dateModified": "2026-11-06",
     "inLanguage": "en",
@@ -45,7 +45,7 @@
     "citation": ["https://argonautlabs.ai/research/kimi-k31-2026-11-06.json", "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/a871ef5f28a92ea5a85b04207788d9a0f21c1e8e/tools/kimi-k3/README.md"]
   }
   </script>
-</head>
+<meta name="theme-color" content="#f5f4ef" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#191c1b" media="(prefers-color-scheme: dark)"></head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
   <header class="header wrap">
