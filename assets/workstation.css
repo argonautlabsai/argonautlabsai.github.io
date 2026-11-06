@@ -1,0 +1,24 @@
+/* Original workstation photograph; shared by the homepage and research note. */
+.workstation-section{padding-top:54px;padding-bottom:60px;border-bottom:1px solid var(--line)}
+.workstation-layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);align-items:center;gap:44px}
+.workstation-layout>*{min-width:0}
+.workstation-photo{margin:0}
+.workstation-photo a{display:block;border-radius:8px}
+.workstation-photo img{display:block;width:100%;height:auto;border-radius:8px;background:#17191c}
+.workstation-photo figcaption{margin-top:13px;color:var(--muted);font-size:.82rem;line-height:1.65}
+.workstation-photo figcaption strong{color:var(--text);font-weight:600}
+.workstation-copy .eyebrow{margin-bottom:15px}
+.workstation-copy h2{font-size:clamp(1.7rem,3vw,2.35rem);line-height:1.15;margin-bottom:19px}
+.workstation-copy>p:not(.eyebrow){color:var(--muted);font-size:.96rem;line-height:1.75}
+.workstation-specs{margin:22px 0 25px;border-top:1px solid var(--line);font-size:.86rem}
+.workstation-specs>div{display:grid;grid-template-columns:100px minmax(0,1fr);gap:15px;padding:11px 0;border-bottom:1px solid var(--line)}
+.workstation-specs dt{color:var(--muted)}
+.workstation-specs dd{margin:0;color:var(--text)}
+.k31-article .workstation-photo{margin:27px 0 30px}
+@media(max-width:800px){
+  .workstation-layout{grid-template-columns:1fr;gap:27px}
+  .workstation-section{padding-top:35px;padding-bottom:40px}
+  .workstation-copy{grid-row:1}
+  .workstation-specs{margin-bottom:20px}
+}
+@media print{.workstation-photo{break-inside:avoid}.workstation-layout{display:block}}
