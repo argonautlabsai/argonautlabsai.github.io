@@ -1,0 +1,39 @@
+{
+  "base_commit": "d33a9e5b563e2cc013845c1a79752d8e227b7275",
+  "existing_files_unchanged_except_homepage": 34,
+  "tables_preserved": 6,
+  "original_main_paragraphs_headings_captions_cells_preserved": true,
+  "original_anchor_ids_preserved": true,
+  "original_link_destinations_preserved": true,
+  "inline_chart_code_preserved": true,
+  "local_http_200": 51,
+  "missing_url_http_404": true,
+  "new_asset_bytes": 498424,
+  "external_urls_http_200": 34,
+  "primary_cta_minimum_contrast_ratio": 7.76,
+  "page_console_errors_observed": 0,
+  "reviewed_viewports": [
+    [
+      1536,
+      1024
+    ],
+    [
+      1440,
+      900
+    ],
+    [
+      768,
+      1024
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "production_deployed": false,
+  "hero_source_pixels": [
+    1448,
+    1086
+  ],
+  "hero_webp_bytes": 346764
+}
