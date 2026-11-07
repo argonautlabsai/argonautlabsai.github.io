@@ -1,0 +1,211 @@
+/* Homepage-only presentation. Research styles and benchmark assets stay unchanged. */
+:root {
+  color-scheme: dark;
+  --bg: #020f20;
+  --surface: #062338;
+  --text: #f5faff;
+  --muted: #bdd1e2;
+  --line: rgba(108, 206, 242, .23);
+  --accent: #8de4f5;
+  --on-accent: #061827;
+  --soft: #041b2c;
+  --tint: #073047;
+  --purple: #c6a1ff;
+  --blue: #68c7ff;
+  --green: #6edfd0;
+  --indigo: #6edfd0;
+  --chart-base: #8ba6b8;
+  font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+html { scroll-padding-top: 24px; }
+.al-home { overflow-x: clip; background: radial-gradient(ellipse 700px 600px at 85% 8%, #05365366, transparent), var(--bg); }
+.al-home main { overflow: visible; }
+.al-home .skip { z-index: 100; }
+.al-home a:focus-visible, .al-home button:focus-visible, .al-home [tabindex]:focus-visible { outline: 3px solid #ffb366; outline-offset: 5px; }
+.al-home section[id], .al-home [id=contact] { scroll-margin-top: 24px; }
+.al-header, .al-hero, .al-pillars, .al-feature { max-width: 1680px; margin-inline: auto; }
+.al-header { height: 120px; padding: 0 clamp(24px, 4.7vw, 80px); display: flex; align-items: center; gap: 32px; position: relative; z-index: 20; }
+.al-brand { display: flex; align-items: center; gap: 16px; flex-shrink: 0; color: var(--text); }
+.al-brand:hover { text-decoration: none; }
+.al-brand-symbol { width: 108px; height: 86px; object-fit: contain; filter: drop-shadow(0 0 10px #00d7ed33); }
+.al-brand-text { display: flex; flex-direction: column; align-items: center; gap: 9px; line-height: 1; }
+.al-brand-text strong { font-size: 28px; font-weight: 700; letter-spacing: .17em; }
+.al-brand-labs { display: flex; align-items: center; gap: 14px; padding-left: 7px; font-size: 16px; letter-spacing: .65em; }
+.al-brand-labs i { display: block; height: 1px; width: 44px; background: #adcfdd; }
+.al-site-nav { display: flex; align-items: center; gap: clamp(24px, 3.4vw, 55px); margin: 0 auto; }
+.al-site-nav a { color: var(--text); font-weight: 700; font-size: 16px; padding: 14px 0; position: relative; }
+.al-site-nav a:hover { color: #a8edff; text-decoration: none; }
+.al-site-nav .al-active::after { content: ""; position: absolute; bottom: 0; left: -12px; right: -12px; height: 2px; background: #ff9c36; box-shadow: 0 2px 12px #ff9c36a0; }
+.al-contact-button { display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 10px 22px; border: 1px solid #ffac50; border-radius: 20px; color: var(--text); font-size: 16px; font-weight: 700; }
+.al-contact-button svg { width: 22px; height: 22px; }
+.al-contact-button:hover { background: #ff9c3615; text-decoration: none; }
+.al-mobile-toggle { display: none; }
+.al-hero { position: relative; min-height: 428px; padding: 37px clamp(24px, 4.7vw, 80px) 66px; }
+.al-hero-content { position: relative; z-index: 2; max-width: 770px; }
+.al-eyebrow { font-size: 14px; line-height: 1.5; font-weight: 700; letter-spacing: .49em; color: #ffb873; margin: 0 0 19px; }
+.al-hero h1 { font-size: clamp(42px, 3.8vw, 63px); font-weight: 800; line-height: 1.03; letter-spacing: -.035em; margin: 0; white-space: nowrap; }
+.al-hero h1 span { color: #c7eaff; }
+.al-hero-description { margin: 22px 0 24px; max-width: 610px; font-size: 19px; line-height: 1.45; color: #e2ecf5; }
+.al-hero-aura { position: absolute; inset: -120px 0 -30px; background: radial-gradient(ellipse 52% 85% at 89% 40%, #07537b5c, transparent 80%); pointer-events: none; }
+.al-hero-art { position: absolute; z-index: 1; inset: -55px 0 -50px; overflow: hidden; pointer-events: none; }
+.al-hero-creature { position: absolute; right: 0; top: 0; width: 57.68%; height: auto; pointer-events: none;
+  /* The supplied crop includes edge text. Keep that area fully transparent. */
+  mask-image: linear-gradient(to right, transparent 0 13%, #000 25%), linear-gradient(to bottom, transparent 0 8px, #000 16px 87%, transparent 100%);
+  mask-composite: intersect;
+}
+.al-hero-mesh { position: absolute; left: 0; right: 0; bottom: -10px; height: 140px; background: url("data-wave.svg") center bottom / 100% 100% no-repeat; opacity: .6; pointer-events: none; }
+.al-hero-actions, .al-feature-actions { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+.al-btn { display: inline-flex; align-items: center; justify-content: center; gap: 18px; min-height: 50px; padding: 12px 30px; border-radius: 28px; font-size: 15px; font-weight: 700; line-height: 1.5; white-space: nowrap; transition: transform .18s, box-shadow .18s; }
+.al-btn:hover { text-decoration: none; transform: translateY(-2px); }
+.al-btn-primary { color: #231508; background: linear-gradient(115deg, #ffb456, #ff8e36); border: 1px solid #ffb25b; box-shadow: 0 5px 23px #f36d172c; }
+.al-btn-primary:hover { box-shadow: 0 7px 27px #f36d1750; }
+.al-btn-primary span { font-size: 23px; line-height: 1; font-weight: 400; }
+.al-btn-secondary { border: 1px solid #d5ebf5b5; background: #021321a0; color: var(--text); }
+.al-btn svg { width: 21px; height: 21px; }
+.al-pillars { position: relative; z-index: 3; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; padding: 8px clamp(24px, 4.7vw, 80px) 50px; }
+.al-pillar { display: flex; align-items: center; gap: 24px; min-height: 82px; }
+.al-pillar:not(:first-child) { border-left: 1px solid var(--line); padding-left: 32px; }
+.al-pillar-icon { width: 62px; height: 62px; flex-shrink: 0; }
+.al-orange { color: #ffa84b; }
+.al-blue { color: #3fb9ff; }
+.al-violet { color: #b58aff; }
+.al-cyan { color: #00d7ed; }
+.al-pillar h2 { font-size: 21px; letter-spacing: -.035em; line-height: 1.3; font-weight: 750; margin-bottom: 5px; }
+.al-pillar p { font-size: 15px; line-height: 1.5; color: #d3e3ef; }
+.al-feature { position: relative; isolation: isolate; overflow: hidden; margin-inline: max(20px, calc((100vw - 1680px)/2)); min-height: 300px; padding: 35px 56px; display: flex; align-items: center; gap: 32px; border: 1px solid #3b9cbd66; border-radius: 24px; background: linear-gradient(110deg, #032133, #032a40 60%, #032132); }
+.al-feature-glow { position: absolute; z-index: -1; inset: 0; background: radial-gradient(ellipse 50% 85% at 52% 100%, #0488bc44, transparent); }
+.al-fin-image { position: absolute; z-index: -1; width: 50%; height: auto; left: 26%; bottom: 0; pointer-events: none; mask-image: linear-gradient(to right, transparent 0 26%, #000 40% 93%, transparent); }
+.al-feature-copy { max-width: 470px; }
+.al-feature .al-eyebrow { margin-bottom: 10px; font-size: 13px; letter-spacing: .42em; }
+.al-feature h2 { font-size: 56px; font-weight: 800; letter-spacing: -.04em; margin-bottom: 8px; }
+.al-feature-copy > p:not(.al-eyebrow) { font-size: 16px; line-height: 1.55; margin-bottom: 22px; color: #e1eaf2; }
+.al-feature-actions { gap: 20px; }
+.al-feature .al-btn { padding: 11px 23px; font-size: 14px; }
+.al-feature-metrics { margin-left: auto; width: 320px; padding-left: 42px; flex-shrink: 0; border-left: 1px solid #a1d2e64d; display: flex; flex-direction: column; gap: 23px; }
+.al-feature-metrics > div { display: flex; align-items: center; gap: 23px; }
+.al-feature-metrics svg { width: 39px; height: 39px; flex-shrink: 0; }
+.al-feature-metrics span { display: flex; flex-direction: column; gap: 4px; }
+.al-feature-metrics strong { font-size: 18px; font-weight: 750; }
+.al-feature-metrics small { font-size: 13px; color: #cfdeec; line-height: 1.5; }
+/* Existing evidence, charts, photograph and project sections continue the palette. */
+.al-home .wrap { max-width: 1476px; padding-inline: 52px; }
+.al-home .kimi-launch { padding-top: 100px; padding-bottom: 48px; gap: 70px; }
+.al-study-title { font-size: clamp(34px, 3.5vw, 54px); font-weight: 750; }
+.al-home .eyebrow { color: #ffb873; letter-spacing: .18em; }
+.al-home .button { border-radius: 24px; }
+.al-home .button.primary { color: #231508; border-color: #ffb25b; background: linear-gradient(115deg, #ffb456, #ff8e36); }
+.al-home .engine-diagram { --bg: #041b2c; --soft: #08283c; --text: #f5faff; --muted: #bdd1e2; --line: #6ccef23b; --accent: #8de4f5; --tint: #073047; --engine-gpu: #ffb366; --engine-ram: #66e2d0; --engine-disk: #69c8fc; border-radius: 20px; }
+.al-home .research { padding-block: 90px; }
+.al-home .research-grid { gap: 18px; border: 0; }
+.al-home .research-card { border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(140deg, #072a40, #041b2c); padding: 30px; }
+.al-home .research-card + .research-card { border: 1px solid var(--line); }
+.al-home .research-card.lead { background: linear-gradient(120deg, #11243a, #082c3e); }
+.al-home .method-band { background: linear-gradient(110deg, #032137, #031a2b); }
+.al-home .product-band { background: linear-gradient(130deg, #031b2d, #052a3c); }
+.al-home .product-image { border-radius: 16px; overflow: hidden; }
+.al-home .result-row { padding-block: 48px; }
+.al-home .table-scroll { border-radius: 12px; }
+.al-home footer { min-height: 130px; }
+.al-home footer .brand img { object-fit: contain; }
+@media (min-width: 1680px) { .al-feature { margin-inline: auto; max-width: 1640px; } }
+@media (max-width: 1250px) {
+  .al-header { gap: 20px; }
+  .al-brand-symbol { width: 76px; height: 68px; }
+  .al-brand-text strong { font-size: 23px; }
+  .al-brand-labs { font-size: 12px; }
+  .al-brand-labs i { width: 30px; }
+  .al-site-nav { gap: 22px; }
+  .al-site-nav a { font-size: 14px; }
+  .al-contact-button { font-size: 14px; padding: 10px 16px; }
+  .al-hero-description { max-width: 530px; font-size: 17px; }
+  .al-pillars { gap: 18px; }
+  .al-pillar { gap: 15px; }
+  .al-pillar:not(:first-child) { padding-left: 20px; }
+  .al-pillar-icon { width: 43px; height: 50px; }
+  .al-pillar h2 { font-size: 17px; }
+  .al-pillar p { font-size: 13px; }
+  .al-feature { padding-inline: 36px; }
+  .al-feature-copy { max-width: 420px; }
+  .al-feature-metrics { width: 270px; padding-left: 25px; }
+  .al-feature-metrics strong { font-size: 16px; }
+  .al-home .wrap { padding-inline: 36px; }
+}
+@media (max-width: 1000px) {
+  .al-header { height: 96px; }
+  .al-mobile-toggle { display: flex; order: 3; flex-direction: column; align-items: center; justify-content: center; width: 44px; height: 44px; gap: 6px; background: transparent; border: 1px solid var(--line); border-radius: 10px; cursor: pointer; }
+  .al-mobile-toggle span { display: block; height: 2px; width: 22px; background: var(--text); }
+  .al-contact-button { margin-left: auto; }
+  .al-site-nav { position: absolute; top: 88px; left: 24px; right: 24px; margin: 0; padding: 12px 20px; flex-direction: column; align-items: stretch; gap: 2px; border: 1px solid var(--line); border-radius: 16px; background: #062338; box-shadow: 0 16px 30px #0006; }
+  .al-home.al-js .al-site-nav:not(.al-open) { display: none; }
+  .al-site-nav a { padding: 12px; font-size: 16px; }
+  .al-site-nav .al-active::after { left: 12px; right: auto; width: 30px; }
+  .al-home:not(.al-js) .al-header { height: auto; min-height: 96px; flex-wrap: wrap; padding-block: 12px; }
+  .al-home:not(.al-js) .al-site-nav { position: static; width: 100%; order: 4; flex-direction: row; flex-wrap: wrap; }
+  .al-home:not(.al-js) .al-mobile-toggle { display: none; }
+  .al-hero { min-height: 650px; padding-top: 30px; }
+  .al-hero h1 { white-space: normal; font-size: clamp(42px, 6vw, 58px); max-width: 720px; }
+  .al-hero-description { max-width: 540px; }
+  .al-hero-art { inset: 0 0 -50px; }
+  .al-hero-creature { top: 230px; width: 75%; right: -2%; }
+  .al-pillars { grid-template-columns: repeat(2, 1fr); padding-top: 20px; gap: 25px; }
+  .al-pillar { gap: 20px; }
+  .al-pillar:nth-child(3) { padding-left: 0; border: 0; }
+  .al-pillar h2 { font-size: 20px; }
+  .al-pillar p { font-size: 14px; }
+  .al-feature { align-items: flex-start; min-height: 420px; padding: 32px; gap: 18px; }
+  .al-feature-copy { max-width: 53%; }
+  .al-feature h2 { font-size: 48px; }
+  .al-feature-metrics { width: 230px; padding-left: 20px; margin-top: 18px; }
+  .al-feature-metrics > div { gap: 12px; }
+  .al-fin-image { width: 80%; left: 11%; bottom: -10px; opacity: .65; }
+  .al-home .kimi-launch { gap: 35px; }
+}
+@media (max-width: 620px) {
+  .al-header { padding-inline: 20px; gap: 12px; height: 88px; }
+  .al-brand { gap: 7px; }
+  .al-brand-symbol { width: 64px; height: 55px; }
+  .al-brand-text strong { font-size: 17px; letter-spacing: .12em; }
+  .al-brand-labs { font-size: 10px; gap: 8px; }
+  .al-brand-labs i { width: 19px; }
+  .al-contact-button { width: 42px; height: 42px; padding: 10px; font-size: 0; gap: 0; flex-shrink: 0; }
+  .al-contact-button svg { width: 20px; height: 20px; }
+  .al-mobile-toggle { flex-shrink: 0; }
+  .al-site-nav { left: 20px; right: 20px; top: 82px; }
+  .al-hero { padding: 30px 24px 0; min-height: 690px; }
+  .al-hero .al-eyebrow { font-size: 11px; letter-spacing: .26em; margin-bottom: 20px; }
+  .al-hero h1 { font-size: clamp(35px, 9.5vw, 51px); line-height: 1.12; letter-spacing: -.045em; }
+  .al-hero h1 br { display: none; }
+  .al-hero h1 span { display: block; }
+  .al-hero-description { font-size: 15px; line-height: 1.65; margin-block: 20px 24px; }
+  .al-hero-actions { gap: 12px; }
+  .al-hero-actions .al-btn { min-height: 48px; padding: 11px 16px; gap: 11px; font-size: 12px; }
+  .al-hero-creature { top: 385px; width: 125%; max-width: none; right: -18%; }
+  .al-hero-mesh { bottom: -20px; opacity: .3; }
+  .al-pillars { padding: 18px 24px 38px; gap: 28px 18px; }
+  .al-pillar { gap: 10px; align-items: flex-start; }
+  .al-pillar:not(:first-child) { padding: 0; border: 0; }
+  .al-pillar-icon { width: 33px; height: 39px; }
+  .al-pillar h2 { font-size: 15px; letter-spacing: -.02em; }
+  .al-pillar p { font-size: 12px; line-height: 1.65; }
+  .al-pillar p br { display: none; }
+  .al-feature { margin-inline: 12px; min-height: 660px; padding: 28px 24px; display: block; border-radius: 20px; }
+  .al-feature-copy { max-width: none; }
+  .al-feature-copy > p:not(.al-eyebrow) { font-size: 15px; }
+  .al-feature .al-eyebrow { font-size: 11px; letter-spacing: .32em; }
+  .al-feature h2 { font-size: 48px; }
+  .al-feature-actions { gap: 12px; }
+  .al-feature .al-btn { font-size: 12px; padding: 11px 15px; gap: 10px; }
+  .al-fin-image { width: 150%; left: -50%; bottom: 190px; opacity: .85; }
+  .al-feature-metrics { position: absolute; bottom: 27px; left: 24px; right: 24px; width: auto; margin: 0; padding: 0; border: 0; gap: 17px; }
+  .al-feature-metrics svg { width: 30px; height: 30px; }
+  .al-feature-metrics strong { font-size: 16px; }
+  .al-feature-metrics small { font-size: 12px; }
+  .al-home .wrap { padding-inline: 24px; }
+  .al-home .kimi-launch { padding-top: 65px; }
+  .al-study-title { font-size: 37px; }
+  .al-home .research { padding-block: 65px; }
+  .al-home .research-card { padding: 24px; }
+  .al-home footer { padding-block: 30px; }
+}
+@media (max-width: 370px) { .al-header { gap: 7px; padding-inline: 14px; } .al-brand-symbol { width: 49px; } .al-brand-text strong { font-size: 15px; } .al-hero { min-height: 730px; } .al-hero-creature { top: 450px; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .al-btn { transition: none; } }
