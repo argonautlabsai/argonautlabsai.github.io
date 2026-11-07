@@ -2,7 +2,7 @@
 
 > Independent measurements of frontier-scale open-weight models streamed from NVMe on one machine: Kimi K3.1 Pro on one 96 GB RTX PRO 6000, and DeepSeek V4.1 Flash, Kimi K3 and GLM-5.3 on a single 128 GB Apple M5 Max MacBook Pro.
 
-Kimi K3.1 Pro (2.8T, 1.45 TB of experts), one 96 GB RTX PRO 6000, 6 November 2026: decode 2.04 tok/s over 128 generated tokens, 1.94 over 512, 1.93-1.96 for 200 tokens after a 270-token chat prompt; prefill 10.6 tok/s at 270 tokens (25 s), 19.5 at 618 (32 s), 41 at 1,533 (37 s). Code and caveats: https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1
+Kimi K3.1 Pro (2.8T, 1.45 TB of experts), one 96 GB RTX PRO 6000, 6 November 2026: decode 2.04 tok/s over 128 generated tokens, 1.94 over 512, 1.93-1.96 for 200 tokens after a 270-token chat prompt; prefill 10.6 tok/s at 270 tokens (25 s), 19.5 at 618 (32 s), 41 at 1,533 (37 s). With an optional Qwen drafter on raw completions, 7 November: 2.34 tok/s over 128 generated tokens, 2.52 over 200, 2.61 over 512, with the same tokens as plain decoding; it doesn't help chat, which stays at about 2 tok/s. Code and caveats: https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1
 
 Earlier, on the M5 Max. Key numbers (workloads, timing definitions and output comparisons differ by experiment; see the linked evidence):
 - DeepSeek V4.1 Flash Q4 (518 GB), our ds4 fork vs pinned upstream ds4 on the same single internal SSD: prompt processing 16.12 -> 43.75 (2.71x), steady decode 10.18 -> 18.66 (1.83x, 27 Sept session). With two Thunderbolt 5 NVMe enclosures: 68.29 prompt tokens/s and 22.25 decode (23.26 at 512 generated).
@@ -22,6 +22,7 @@ Earlier, on the M5 Max. Key numbers (workloads, timing definitions and output co
 
 ## Machine-readable results
 - https://argonautlabs.ai/research/kimi-k31-2026-11-06.json
+- https://argonautlabs.ai/research/kimi-k31-2026-11-07.json
 - https://argonautlabs.ai/research/deepseek-2026-09-27.json
 - https://argonautlabs.ai/research/deepseek-2026-09-15.json
 - https://argonautlabs.ai/research/glm-2026-09-11.json
