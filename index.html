@@ -30,11 +30,11 @@
 <div class="launch-evidence wrap" aria-label="Measured results, separate from the conceptual animation">
 <div class="launch-evidence-grid">
 <a href="research/kimi-k31-single-gpu.html#results"><strong>2.04<small>tok/s</small></strong><span><b>Steady decode</b><em>128 generated tokens · 1.94 at 512</em></span></a>
-<a href="research/kimi-k31-single-gpu.html#drafter"><strong>2.61<small>tok/s</small></strong><span><b>With the optional drafter</b><em>Raw text, 512 tokens · same tokens as plain</em></span></a>
+<a href="research/kimi-k31-single-gpu.html#drafter"><strong>3.11<small>tok/s</small></strong><span><b>With the optional drafter</b><em>Raw text, 512 tokens · same tokens as plain</em></span></a>
 <a href="research/kimi-k31-single-gpu.html#results"><strong>41<small>tok/s</small></strong><span><b>Prompt processing</b><em>1,533-token prompt · 10.6 at 270</em></span></a>
 <a href="research/kimi-k31-single-gpu.html#hardware"><strong>1<small>GPU</small></strong><span><b>96 GB VRAM · 70 GiB VM RAM</b><em>1.45 TB of experts, plus replicas</em></span></a>
 </div>
-<p>Measured 6 and 7 November 2026. Steady decode excludes loading, prefill and the first decode step. No expert skipping. The drafter is optional and for raw completions; chat stays at about 2 tok/s. <a href="research/kimi-k31-single-gpu.html#results">Inspect every repeat →</a></p>
+<p>Measured 6 and 7 November 2026. Steady decode excludes loading, prefill and the first decode step. No expert skipping. The drafter is optional and gains most on predictable raw text; on chat it gains a little, with a stricter gate. <a href="research/kimi-k31-single-gpu.html#results">Inspect every repeat →</a></p>
 </div>
 <section id="testbench" class="workstation-section wrap" aria-labelledby="testbench-title">
 <div class="workstation-layout">

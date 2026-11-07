@@ -35,8 +35,8 @@
    "calls": 0,
    "call_ms": 0,
    "blk_tokens": 0,
-   "ids": "identical over 128",
-   "hashes": "128 common, 0 differ"
+   "ids": "reference: the other runs of this prompt are compared with this one",
+   "hashes": "reference: the other runs of this prompt are compared with this one"
   },
   {
    "tag": "128Q",
@@ -115,8 +115,8 @@
    "calls": 0,
    "call_ms": 0,
    "blk_tokens": 0,
-   "ids": "identical over 200",
-   "hashes": "200 common, 0 differ"
+   "ids": "reference: the other runs of this prompt are compared with this one",
+   "hashes": "reference: the other runs of this prompt are compared with this one"
   },
   {
    "tag": "200Q",
@@ -195,8 +195,8 @@
    "calls": 0,
    "call_ms": 0,
    "blk_tokens": 0,
-   "ids": "identical over 512",
-   "hashes": "512 common, 0 differ"
+   "ids": "reference: the other runs of this prompt are compared with this one",
+   "hashes": "reference: the other runs of this prompt are compared with this one"
   },
   {
    "tag": "512Q",
@@ -275,8 +275,8 @@
    "calls": 0,
    "call_ms": 0,
    "blk_tokens": 0,
-   "ids": "identical over 200",
-   "hashes": "200 common, 0 differ"
+   "ids": "reference: the other runs of this prompt are compared with this one",
+   "hashes": "reference: the other runs of this prompt are compared with this one"
   },
   {
    "tag": "OQ",
