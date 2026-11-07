@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <title>Running Kimi K3.1 Pro on a single 96 GB GPU — Argonaut Labs</title>
-  <meta name="description" content="Kimi K3.1 Pro (2.8T) on one RTX PRO 6000 Blackwell: 3.1 tok/s decode on raw text with a Qwen drafter that keeps the answer identical, and up to 45 tok/s prefill. NVMe streaming, CUDA code, measurements and limitations.">
+  <meta name="description" content="Kimi K3.1 Pro (2.8T) on one RTX PRO 6000 Blackwell: 3.1 tok/s decode on raw text with a Qwen drafter that keeps the answer identical, and up to 44 tok/s prefill. NVMe streaming, CUDA code, measurements and limitations.">
   <link rel="canonical" href="https://argonautlabs.ai/research/kimi-k31-single-gpu.html">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2377603f'/%3E%3Cpath d='M7 24 16 7l9 17h-6l-3-6-3 6Z' fill='white'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="../styles.css?v=20261106-bronze">
@@ -16,7 +16,7 @@
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Argonaut Labs">
   <meta property="og:title" content="Running Kimi K3.1 Pro on a single 96 GB GPU">
-  <meta property="og:description" content="3.1 tok/s decode on raw text with a Qwen drafter that keeps the answer identical. Up to 45 tok/s prefill. A 2.8T model with 1.45 TB of experts streamed from NVMe, with code, measurements and limitations.">
+  <meta property="og:description" content="3.1 tok/s decode on raw text with a Qwen drafter that keeps the answer identical. Up to 44 tok/s prefill. A 2.8T model with 1.45 TB of experts streamed from NVMe, with code, measurements and limitations.">
   <meta property="og:url" content="https://argonautlabs.ai/research/kimi-k31-single-gpu.html">
   <meta property="og:image" content="https://argonautlabs.ai/assets/og-kimi-k31.png?v=20261106-bronze">
   <meta property="og:image:alt" content="Argonaut Labs: Kimi K3.1 Pro on one 96 GB GPU, streamed from NVMe">
@@ -31,7 +31,7 @@
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "Running Kimi K3.1 Pro on a single 96 GB GPU",
-    "description": "Kimi K3.1 Pro (2.8T) on one RTX PRO 6000 Blackwell: 3.1 tok/s decode on raw text with a Qwen drafter that keeps the answer identical, and up to 45 tok/s prefill. NVMe streaming, CUDA code, measurements and limitations.",
+    "description": "Kimi K3.1 Pro (2.8T) on one RTX PRO 6000 Blackwell: 3.1 tok/s decode on raw text with a Qwen drafter that keeps the answer identical, and up to 44 tok/s prefill. NVMe streaming, CUDA code, measurements and limitations.",
     "url": "https://argonautlabs.ai/research/kimi-k31-single-gpu.html",
     "mainEntityOfPage": "https://argonautlabs.ai/research/kimi-k31-single-gpu.html",
     "image": "https://argonautlabs.ai/assets/og-kimi-k31.png?v=20261106-bronze",
@@ -64,7 +64,7 @@
 
       <div class="k31-metrics" aria-label="Highlights">
         <div><span class="k31-metric-label">DECODE WITH THE DRAFTER / 512 TOKENS</span><strong>3.11 <small>tok/s</small></strong><span>Raw text, same tokens as plain</span></div>
-        <div><span class="k31-metric-label">PREFILL / 1,549-TOKEN PROMPT</span><strong>45 <small>tok/s</small></strong><span>34.1 seconds</span></div>
+        <div><span class="k31-metric-label">PREFILL / 1,512-TOKEN PROMPT</span><strong>44 <small>tok/s</small></strong><span>33.9–34.3 seconds</span></div>
         <div><span class="k31-metric-label">PARAMETERS</span><strong>2.8 <small>T</small></strong><span>1.45 TB of experts on NVMe</span></div>
         <div><span class="k31-metric-label">GPU</span><strong>1 <small>GPU</small></strong><span>RTX PRO 6000 Blackwell, 96 GB</span></div>
       </div>
