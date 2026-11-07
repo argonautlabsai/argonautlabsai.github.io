@@ -8,7 +8,7 @@
   "inline_chart_code_preserved": true,
   "local_http_200": 51,
   "missing_url_http_404": true,
-  "new_asset_bytes": 281244,
+  "new_asset_bytes": 498424,
   "external_urls_http_200": 34,
   "primary_cta_minimum_contrast_ratio": 7.76,
   "page_console_errors_observed": 0,
@@ -30,5 +30,10 @@
       844
     ]
   ],
-  "production_deployed": false
+  "production_deployed": false,
+  "hero_source_pixels": [
+    1448,
+    1086
+  ],
+  "hero_webp_bytes": 346764
 }

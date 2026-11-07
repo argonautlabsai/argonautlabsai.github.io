@@ -48,9 +48,9 @@ html { scroll-padding-top: 24px; }
 .al-hero-description { margin: 22px 0 24px; max-width: 610px; font-size: 19px; line-height: 1.45; color: #e2ecf5; }
 .al-hero-aura { position: absolute; inset: -120px 0 -30px; background: radial-gradient(ellipse 52% 85% at 89% 40%, #07537b5c, transparent 80%); pointer-events: none; }
 .al-hero-art { position: absolute; z-index: 1; inset: -55px 0 -50px; overflow: hidden; pointer-events: none; }
-.al-hero-creature { position: absolute; right: 0; top: 0; width: 57.68%; height: auto; pointer-events: none;
-  /* The supplied crop includes edge text. Keep that area fully transparent. */
-  mask-image: linear-gradient(to right, transparent 0 13%, #000 25%), linear-gradient(to bottom, transparent 0 8px, #000 16px 87%, transparent 100%);
+.al-hero-creature { position: absolute; right: 0; top: 0; width: auto; max-width: 57.68%; height: 100%; object-fit: contain; object-position: right center; pointer-events: none;
+  /* Blend the full-resolution illustration into the page without distorting it. */
+  mask-image: linear-gradient(to right, transparent 0 10%, #000 30%), linear-gradient(to bottom, transparent 0, #000 8% 85%, transparent 100%);
   mask-composite: intersect;
 }
 .al-hero-mesh { position: absolute; left: 0; right: 0; bottom: -10px; height: 140px; background: url("data-wave.svg") center bottom / 100% 100% no-repeat; opacity: .6; pointer-events: none; }
@@ -146,7 +146,7 @@ html { scroll-padding-top: 24px; }
   .al-hero h1 { white-space: normal; font-size: clamp(42px, 6vw, 58px); max-width: 720px; }
   .al-hero-description { max-width: 540px; }
   .al-hero-art { inset: 0 0 -50px; }
-  .al-hero-creature { top: 230px; width: 75%; right: -2%; }
+  .al-hero-creature { top: 230px; width: 75%; max-width: none; height: auto; right: -2%; }
   .al-pillars { grid-template-columns: repeat(2, 1fr); padding-top: 20px; gap: 25px; }
   .al-pillar { gap: 20px; }
   .al-pillar:nth-child(3) { padding-left: 0; border: 0; }
@@ -179,7 +179,7 @@ html { scroll-padding-top: 24px; }
   .al-hero-description { font-size: 15px; line-height: 1.65; margin-block: 20px 24px; }
   .al-hero-actions { gap: 12px; }
   .al-hero-actions .al-btn { min-height: 48px; padding: 11px 16px; gap: 11px; font-size: 12px; }
-  .al-hero-creature { top: 385px; width: 125%; max-width: none; right: -18%; }
+  .al-hero-creature { top: 355px; width: 115%; max-width: none; right: -12%; }
   .al-hero-mesh { bottom: -20px; opacity: .3; }
   .al-pillars { padding: 18px 24px 38px; gap: 28px 18px; }
   .al-pillar { gap: 10px; align-items: flex-start; }
@@ -207,5 +207,5 @@ html { scroll-padding-top: 24px; }
   .al-home .research-card { padding: 24px; }
   .al-home footer { padding-block: 30px; }
 }
-@media (max-width: 370px) { .al-header { gap: 7px; padding-inline: 14px; } .al-brand-symbol { width: 49px; } .al-brand-text strong { font-size: 15px; } .al-hero { min-height: 730px; } .al-hero-creature { top: 450px; } }
+@media (max-width: 370px) { .al-header { gap: 7px; padding-inline: 14px; } .al-brand-symbol { width: 49px; } .al-brand-text strong { font-size: 15px; } .al-hero { min-height: 730px; } .al-hero-creature { top: 410px; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .al-btn { transition: none; } }
