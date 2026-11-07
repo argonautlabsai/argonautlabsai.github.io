@@ -1,13 +1,13 @@
 # Cinematic homepage redesign — review
 
-Implements the supplied, approved Argonaut Labs homepage mockup in the existing GitHub Pages site. This branch is for review; merging into `main` publishes through the existing Pages configuration.
+Implements the supplied, approved Argonaut Labs homepage mockup in the existing GitHub Pages site. The user approved publication after review; merging into `main` publishes through the existing Pages configuration.
 
 ## Changes
 
 - Midnight navy homepage, the original shell/tentacle/orbit brand, luminous argonaut hero, amber calls to action, horizontal desktop navigation and a keyboard-friendly mobile menu.
-- Four value pillars and a Deltafin feature panel using the supplied illustrations, compressed to WebP. New text and controls are real HTML.
+- Four value pillars and a Deltafin feature panel using the supplied illustrations, compressed to WebP. The hero now uses the cleaner 1448 × 1086 source supplied after review (346,764-byte WebP from a 2,615,628-byte PNG). New text and controls are real HTML.
 - The complete existing research, measured results, hardware photograph, engine diagram, Argodrive section, credits and footer remain below the new opening. Their homepage presentation follows the new palette.
-- Homepage-only CSS and JavaScript live in `assets/cinematic/`. The Manrope font is self-hosted with its OFL license. New runtime assets total 281,244 bytes; no framework, tracking service or runtime CDN was added.
+- Homepage-only CSS and JavaScript live in `assets/cinematic/`. The Manrope font is self-hosted with its OFL license. New runtime assets total 498,424 bytes; no framework, tracking service or runtime CDN was added.
 
 ## Preservation and validation
 
@@ -31,7 +31,7 @@ Machine-readable check summary: [validation.json](validation.json).
 
 - Uses the provided original-brand vector rather than turning the illustrated hero creature into the logo.
 - Uses dark text on amber buttons for contrast instead of the mockup's white button text.
-- Illustrations are blended with CSS masks to remove text remnants in the supplied crops. Mobile artwork and feature content reflow instead of shrinking a screenshot.
+- The full-resolution hero is blended into the background with CSS masks; the fin mask removes edge text remnants from its supplied crop. Mobile artwork and feature content reflow instead of shrinking a screenshot.
 - Keeps the existing research pages' own presentation and public URLs intact. The new style is scoped to the homepage.
 
 ## Previews
