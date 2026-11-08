@@ -35,7 +35,7 @@
     "author": {"@type": "Organization", "name": "Argonaut Labs", "url": "https://argonautlabs.ai/"},
     "publisher": {"@type": "Organization", "name": "Argonaut Labs", "url": "https://argonautlabs.ai/"},
     "about": {"@type": "SoftwareSourceCode", "@id": "https://argonautlabs.ai/#kimi-engine", "name": "Argodrive DS4 Kimi K3.1", "codeRepository": "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1"},
-    "isBasedOn": "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/tree/6808130f7ff9fc94ff89e5535d308fc6b9589eb4",
+    "isBasedOn": "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/tree/b959c899ce311de29754eca096fea35deda67f50",
     "citation": ["https://huggingface.co/moonshotai/Kimi-K3.1-Pro", "https://huggingface.co/docs/huggingface_hub/en/guides/cli", "https://docs.nvidia.com/cuda/cuda-installation-guide-linux/"]
   }
   </script>
@@ -52,7 +52,7 @@
         <p class="eyebrow">INSTALLATION GUIDE / LINUX + NVIDIA CUDA</p>
         <h1>From download<br>to your first Kimi response.</h1>
         <p class="k31-lede"><strong>Argodrive DS4 Kimi K3.1</strong> already includes the Kimi inference engine, expert caches and NVMe streaming. Get the engine, download and prepare the weights, then run Kimi locally. You do not need a separate ds4 installation or the Argodrive Mac app.</p>
-        <p class="k31-byline">Argonaut Labs · <time datetime="2026-11-08">8 November 2026</time> · Engine release: <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/releases/tag/k31-cuda-qwen-20261107b">7 November</a></p>
+        <p class="k31-byline">Argonaut Labs · <time datetime="2026-11-08">8 November 2026</time> · Engine release: <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/releases/tag/k31-cuda-20261108">8 November</a></p>
         <nav class="install-route" aria-label="Installation steps">
           <a href="#engine"><span>01</span><strong>Get the engine</strong><small>Clone and build</small></a>
           <a href="#weights"><span>02</span><strong>Prepare the weights</strong><small>Download and convert once</small></a>
@@ -72,14 +72,14 @@
         <div class="install-code"><div class="install-code-head"><span>Check the GPU and compiler</span></div><pre><code>nvidia-smi
 nvcc --version</code></pre></div>
         <p class="install-note">If either command fails, finish the driver/toolkit setup first. The engine build below targets Blackwell; its compiler must support <code>sm_120a</code>.</p>
-        <aside class="k31-limit"><strong>Scope of this release:</strong> text inference, with prompt plus output limited to 2,048 tokens. The DSA indexer is not implemented and equivalence to Moonshot’s reference implementation has not been validated. <a href="../research/kimi-k31-single-gpu.html#validation">Read the limits.</a></aside>
+        <aside class="k31-limit"><strong>Scope of this release:</strong> text inference. The basic recipe keeps prompt plus output within 2,048 tokens; contexts up to 16,384 tokens use K3.1’s sparse attention and need one more file, prepared in an optional step below. Equivalence to Moonshot’s reference implementation has not been validated. <a href="../research/kimi-k31-single-gpu.html#validation">Read the limits.</a></aside>
       </section>
 
       <section id="engine">
         <p class="eyebrow">STEP 01</p>
         <h2>Get and build the Kimi engine.</h2>
-        <p>Open a Bash terminal on your Linux machine. This downloads our integrated engine at the release used by the published November 7 measurements. It builds a program called <code>ds4</code> inside the repository.</p>
-        <div class="install-code"><div class="install-code-head"><span>Download and build</span></div><pre><code>git clone --branch k31-cuda-qwen-20261107b --depth 1 \
+        <p>Open a Bash terminal on your Linux machine. This downloads our integrated engine at the release used by the published November 8 measurements. It builds a program called <code>ds4</code> inside the repository.</p>
+        <div class="install-code"><div class="install-code-head"><span>Download and build</span></div><pre><code>git clone --branch k31-cuda-20261108 --depth 1 \
   https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1.git
 cd argodrive-ds4-kimi-k3.1
 make ds4 CUDA_ARCH=sm_120</code></pre></div>
@@ -142,6 +142,11 @@ PY</code></pre></div></details>
   --primary-experts "$KIMI_DATA/experts" \
   --name "Kimi K3.1 Pro"</code></pre></div>
         <p class="install-note">The resulting GGUF is sparse: its apparent size is larger than the disk space it actually occupies. Use <code>du -h "$KIMI_DATA/k3-spine.gguf"</code> to inspect allocated space. Keep the source files until you have a working run and a recovery plan.</p>
+        <h3>Optional: prepare long context</h3>
+        <p>Above 2,048 tokens K3.1 uses sparse attention, and its indexer weights are not in the spine. Cut them out of the checkpoint once. The tool reads only the indexer’s byte ranges and needs nothing beyond Python itself.</p>
+        <div class="install-code"><div class="install-code-head"><span>Extract the indexer weights</span></div><pre><code>python tools/kimi-k3/k31_indexer_extract.py \
+  "$KIMI_DATA/checkpoint" "$KIMI_DATA/k31-indexer"</code></pre></div>
+        <p>It writes <code>k31-indexer.bin</code> (about 357 MB) and <code>k31-indexer.json</code>, a manifest with sha256 hashes.</p>
       </section>
 
       <section id="run">
@@ -165,11 +170,18 @@ PY</code></pre></div></details>
   --k3-serve 127.0.0.1:8080</code></pre></div><p>In a second terminal:</p><div class="install-code"><div class="install-code-head"><span>Send a chat request</span></div><pre><code>curl http://127.0.0.1:8080/v1/chat/completions \
   -H 'Content-Type: application/json' \
   -d '{"model":"kimi-k3","messages":[{"role":"user","content":"Explain cash flow in two sentences."}],"max_tokens":128,"temperature":0}'</code></pre></div><p>The API model identifier is <code>kimi-k3</code> in this release even when the loaded weights are K3.1 Pro. Stop the server with Ctrl+C.</p></details>
+        <details class="k31-details"><summary>Optional: a long context</summary><p>With the indexer file from step 02, sparse attention takes contexts up to 16,384 tokens; we tested 8,192 through this API and 4k, 8k and 16k from the command line. A long prompt pass reads most of the model once: about a minute for 6,800 tokens.</p><div class="install-code"><div class="install-code-head"><span>Serve with an 8k context</span></div><pre><code>CUDA_VISIBLE_DEVICES=0 DS4_K3_QWEN=0 \
+DS4_K3_DSA="$KIMI_DATA/k31-indexer.bin" DS4_K3_CACHE_CAP=8192 \
+./ds4 -m "$KIMI_DATA/k3-spine.gguf" \
+  --cuda --ssd-streaming --ssd-streaming-cold \
+  --ssd-streaming-cache-experts 16 \
+  --temp 0 -c 8192 -n 256 \
+  --k3-serve 127.0.0.1:8080</code></pre></div><p>For 16,384 tokens set both <code>DS4_K3_CACHE_CAP</code> and <code>-c</code> to 16384.</p></details>
       </section>
 
       <section id="next">
         <h2>Get it running first. Then tune it.</h2>
-        <p>The basic recipe above is not the 3.11 tok/s benchmark configuration. That result uses a Qwen drafter, a specific raw-text prompt and five NVMe devices across three storage tiers. Chat gains are smaller. <strong>44 tok/s is prefill, not output generation.</strong></p>
+        <p>The basic recipe above is not the 3.05 tok/s benchmark configuration. That result uses a Qwen drafter, a specific raw-text prompt and five NVMe devices across three storage tiers. Chat gains are smaller. <strong>43 tok/s is prefill, not output generation.</strong></p>
         <div class="install-next">
           <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/kimi-k3/tools/kimi-k3/README.md#the-optional-qwen-drafter"><strong>Add the optional drafter ↗</strong><span>Additional Qwen weights and Python dependencies.</span></a>
           <a href="../research/kimi-k31-single-gpu.html#hardware"><strong>Explore the multi-drive setup →</strong><span>Placement, replicas and the measured hardware.</span></a>
@@ -191,7 +203,7 @@ PY</code></pre></div></details>
 
       <section class="k31-evidence" id="sources">
         <h2>Versions and references.</h2>
-        <p>Commands were checked against the published engine source at <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/tree/6808130f7ff9fc94ff89e5535d308fc6b9589eb4">6808130</a>, including both converters and the chat endpoint. The download pins Moonshot revision <code>d9e99b0</code>, inspected on 8 November. This guide has not yet had an independent full download-to-inference test on a fresh machine.</p>
+        <p>Commands were checked against the published engine source at <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/tree/b959c899ce311de29754eca096fea35deda67f50">b959c89</a> (release k31-cuda-20261108), including both converters, the indexer extractor and the chat endpoint. The download pins Moonshot revision <code>d9e99b0</code>, inspected on 8 November. This guide has not yet had an independent full download-to-inference test on a fresh machine.</p>
         <ul>
           <li><a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1">Argodrive DS4 Kimi K3.1 — engine source</a></li>
           <li><a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/kimi-k3/tools/kimi-k3/README.md">Engine configuration and weight layout</a></li>
