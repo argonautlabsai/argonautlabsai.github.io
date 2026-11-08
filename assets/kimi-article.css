@@ -1,4 +1,5 @@
 .k31-article{max-width:1060px;padding-top:64px;padding-bottom:64px}
+.header .brand-mark{background:#0b1624;border-radius:50%;padding:3px}
 .k31-intro h1{font-size:clamp(2.5rem,5vw,4.15rem);line-height:1.1;letter-spacing:-.045em}
 .k31-lede{font-size:1.22rem;line-height:1.7;max-width:65ch;color:var(--muted);margin-top:24px}
 .k31-byline{margin-top:22px;color:var(--muted);font-size:.85rem}
@@ -11,6 +12,8 @@
 .k31-metrics>div>span:last-child{font-size:.8rem;color:var(--muted)}
 @media(max-width:900px){.k31-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.k31-metrics>div:nth-child(3){border-left:0;padding-left:0}.k31-metrics>div:nth-child(n+3){border-top:1px solid var(--line)}}
 .k31-answer{font-size:1.06rem;line-height:1.75;max-width:82ch}
+.k31-article .k31-answer-heading{font-size:1.4rem;margin:30px 0 14px}
+.k31-questions h3{font-size:1.12rem;line-height:1.5;margin:28px 0 10px}
 .k31-limit{margin-top:24px;border-left:3px solid var(--accent);padding:18px 22px;background:var(--tint);font-size:.95rem;line-height:1.7}
 .k31-contents{display:flex;gap:12px 25px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding:24px 0;font-size:.9rem}
 .k31-article section{padding-top:44px;scroll-margin-top:22px}

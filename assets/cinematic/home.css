@@ -209,3 +209,11 @@ html { scroll-padding-top: 24px; }
 }
 @media (max-width: 370px) { .al-header { gap: 7px; padding-inline: 14px; } .al-brand-symbol { width: 49px; } .al-brand-text strong { font-size: 15px; } .al-hero { min-height: 730px; } .al-hero-creature { top: 410px; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .al-btn { transition: none; } }
+
+/* A direct route from the lab homepage to the current research guide. */
+.al-latest-research{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin:28px 0 0;max-width:590px;padding-left:15px;border-left:2px solid var(--al-cyan,#48cce5)}
+.al-latest-research>span{font-size:10px;letter-spacing:.15em;color:#9eb5c5}
+.al-latest-research>a{font-size:16px;line-height:1.5;font-weight:600;color:#d5f4fc;text-underline-offset:4px}
+.al-latest-research>a:hover{text-decoration:underline}
+.al-latest-research small{font-size:12px;line-height:1.5;color:#a8bac8}
+@media(max-width:650px){.al-latest-research{padding:12px 14px;background:rgba(6,18,31,.92);border-radius:0 8px 8px 0}.al-latest-research>a{font-size:15px}}

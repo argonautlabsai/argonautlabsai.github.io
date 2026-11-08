@@ -4,61 +4,61 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <title>Running Kimi K3.1 Pro on a single 96 GB GPU — Argonaut Labs</title>
+  <title>Run Kimi 3.1 locally on one GPU — Argonaut Labs</title>
   <meta name="description" content="Kimi K3.1 Pro (2.8T) on one RTX PRO 6000 Blackwell: 3.1 tok/s decode on raw text with a Qwen drafter that keeps the answer identical, and up to 44 tok/s prefill. NVMe streaming, CUDA code, measurements and limitations.">
   <link rel="canonical" href="https://argonautlabs.ai/research/kimi-k31-single-gpu.html">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2377603f'/%3E%3Cpath d='M7 24 16 7l9 17h-6l-3-6-3 6Z' fill='white'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="../assets/cinematic/favicon.svg">
   <link rel="stylesheet" href="../styles.css?v=20261106-bronze">
-  <link rel="stylesheet" href="../assets/kimi-article.css?v=20261107b">
+  <link rel="stylesheet" href="../assets/kimi-article.css?v=20261108">
   <link rel="stylesheet" href="../assets/workstation.css?v=20261106-compact">
   <link rel="stylesheet" href="../assets/engine-diagram.css?v=20261107b">
   <script src="../assets/engine-diagram.js?v=20261106-1" defer></script>
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Argonaut Labs">
-  <meta property="og:title" content="Running Kimi K3.1 Pro on a single 96 GB GPU">
+  <meta property="og:title" content="Run Kimi 3.1 locally on one GPU — benchmarks and setup">
   <meta property="og:description" content="3.1 tok/s decode on raw text with a Qwen drafter that keeps the answer identical. Up to 44 tok/s prefill. A 2.8T model with 1.45 TB of experts streamed from NVMe, with code, measurements and limitations.">
   <meta property="og:url" content="https://argonautlabs.ai/research/kimi-k31-single-gpu.html">
   <meta property="og:image" content="https://argonautlabs.ai/assets/og-kimi-k31.png?v=20261106-bronze">
   <meta property="og:image:alt" content="Argonaut Labs: Kimi K3.1 Pro on one 96 GB GPU, streamed from NVMe">
   <meta property="article:published_time" content="2026-11-06">
-  <meta property="article:modified_time" content="2026-11-07">
+  <meta property="article:modified_time" content="2026-11-08">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Running Kimi K3.1 Pro on a single 96 GB GPU">
+  <meta name="twitter:title" content="Run Kimi 3.1 locally on one GPU — benchmarks and setup">
   <meta name="twitter:description" content="NVMe-streamed inference on one RTX PRO 6000: measured decode and prefill, open CUDA code, and the current 2,048-token context limit.">
   <meta name="twitter:image" content="https://argonautlabs.ai/assets/og-kimi-k31.png?v=20261106-bronze">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "Running Kimi K3.1 Pro on a single 96 GB GPU",
+    "headline": "Run Kimi 3.1 locally on one GPU",
     "description": "Kimi K3.1 Pro (2.8T) on one RTX PRO 6000 Blackwell: 3.1 tok/s decode on raw text with a Qwen drafter that keeps the answer identical, and up to 44 tok/s prefill. NVMe streaming, CUDA code, measurements and limitations.",
     "url": "https://argonautlabs.ai/research/kimi-k31-single-gpu.html",
     "mainEntityOfPage": "https://argonautlabs.ai/research/kimi-k31-single-gpu.html",
     "image": "https://argonautlabs.ai/assets/og-kimi-k31.png?v=20261106-bronze",
     "datePublished": "2026-11-06",
-    "dateModified": "2026-11-07",
+    "dateModified": "2026-11-08",
     "inLanguage": "en",
     "author": {"@type": "Organization", "name": "Argonaut Labs", "url": "https://argonautlabs.ai/"},
     "publisher": {"@type": "Organization", "name": "Argonaut Labs", "url": "https://argonautlabs.ai/"},
     "about": ["Kimi K3.1 Pro", "RTX PRO 6000 Blackwell", "CUDA", "NVMe expert streaming", "single-GPU inference"],
-    "isBasedOn": "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/tree/k31-cuda-20261105",
-    "citation": ["https://argonautlabs.ai/research/kimi-k31-2026-11-07.json", "https://argonautlabs.ai/research/kimi-k31-2026-11-06.json", "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/a871ef5f28a92ea5a85b04207788d9a0f21c1e8e/tools/kimi-k3/README.md"]
+    "isBasedOn": "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/tree/6808130f7ff9fc94ff89e5535d308fc6b9589eb4",
+    "citation": ["https://argonautlabs.ai/research/kimi-k31-2026-11-07b.json", "https://argonautlabs.ai/research/kimi-k31-2026-11-07.json", "https://argonautlabs.ai/research/kimi-k31-2026-11-06.json", "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/6808130f7ff9fc94ff89e5535d308fc6b9589eb4/tools/kimi-k3/README.md"]
   }
   </script>
 <meta name="theme-color" content="#f5f4ef" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#191c1b" media="(prefers-color-scheme: dark)"></head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
   <header class="header wrap">
-    <a class="brand" href="../" aria-label="Argonaut Labs home"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 24 16 7l9 17h-6l-3-6-3 6Z" fill="currentColor"/></svg><span>ARGONAUT <b>LABS</b></span></a>
+    <a class="brand" href="../" aria-label="Argonaut Labs home"><img class="brand-mark" src="../assets/cinematic/brand-icon.svg" width="32" height="32" alt=""><span>ARGONAUT <b>LABS</b></span></a>
     <nav aria-label="Main navigation"><a href="../#research">Research</a><a href="../#argodrive">Argodrive</a><a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1" class="nav-source">Source code ↗</a></nav>
   </header>
   <main id="main" class="wrap k31-article">
     <article>
       <header class="k31-intro">
         <p class="eyebrow">RESEARCH NOTE / CUDA + NVME</p>
-        <h1>Running Kimi K3.1 Pro<br>on a single 96 GB GPU.</h1>
-        <p class="k31-lede">A 2.8-trillion-parameter model, 1.45 TB of experts on disk, and 3.1 tokens per second on raw text with a drafter that keeps the answer identical. Here is what we measured, how the streaming works, and what remains unverified.</p>
-        <p class="k31-byline">By <a href="../#about">Argonaut Labs</a> · <time datetime="2026-11-06">6 November 2026</time>, updated <time datetime="2026-11-07">7 November</time> · Built on Salvatore Sanfilippo’s ds4</p>
+        <h1>Run Kimi 3.1 locally<br>on one GPU.</h1>
+        <p class="k31-lede">Kimi K3.1 Pro: a 2.8-trillion-parameter model, 1.45 TB of experts on disk, and 3.1 tokens per second on raw text with a drafter that keeps the answer identical. Tested on one 96 GB RTX PRO 6000 Blackwell. Here is the CUDA code, the setup, the measurements and the limits.</p>
+        <p class="k31-byline">By <a href="../#about">Argonaut Labs</a> · Published <time datetime="2026-11-06">6 November 2026</time> · Guide updated <time datetime="2026-11-08">8 November</time> · Benchmarks: 6–7 November · Built on Salvatore Sanfilippo’s ds4</p>
         <div class="actions"><a class="button primary" href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1">Try the Kimi K3.1 fork ↗</a><a class="text-link" href="#reproduce">Build &amp; setup ↓</a><a class="text-link" href="#results">Read the measurements ↓</a></div>
       </header>
 
@@ -69,9 +69,10 @@
         <div><span class="k31-metric-label">GPU</span><strong>1 <small>GPU</small></strong><span>RTX PRO 6000 Blackwell, 96 GB</span></div>
       </div>
 
-      <p class="k31-answer"><strong>Yes: this port runs Kimi K3.1 Pro on one RTX PRO 6000 Blackwell with 96 GB of VRAM.</strong> The experts remain on NVMe and pass through GPU and host-memory caches. The measured machine also has 70 GiB of VM RAM and five physical NVMe devices arranged as three storage tiers. The model does not fit entirely in GPU memory.</p>
+      <h2 class="k31-answer-heading">Can I run Kimi 3.1 locally on one GPU?</h2>
+      <p class="k31-answer"><strong>Yes, using this experimental CUDA port on one RTX PRO 6000 Blackwell with 96 GB of VRAM.</strong> Argodrive DS4 Kimi K3.1 streams the selected experts from NVMe through GPU and host-memory caches. The measured machine also has 70 GiB of VM RAM and five physical NVMe devices arranged as three storage tiers. The full model does not need to fit in GPU memory. This is explicit expert streaming, not operating-system swap or a cloud API.</p>
       <aside class="k31-limit" aria-label="Current implementation limit"><strong>Current scope: 2,048 tokens total.</strong> Prompt plus generation must stay within that limit. K3.1’s DSA indexer is not implemented; this port uses dense attention. Equivalence to Moonshot’s implementation has not been validated.</aside>
-      <nav class="k31-contents" aria-label="Article contents"><a href="#results">Measurements</a><a href="#drafter">Drafter</a><a href="#hardware">Hardware</a><a href="#method">Streaming method</a><a href="#reproduce">Reproduce</a><a href="#validation">Validation</a></nav>
+      <nav class="k31-contents" aria-label="Article contents"><a href="#results">Measurements</a><a href="#drafter">Drafter</a><a href="#hardware">Hardware</a><a href="#method">Streaming method</a><a href="#reproduce">Reproduce</a><a href="#validation">Validation</a><a href="#questions">Common questions</a></nav>
 
       <section id="results">
         <h2>Decode and prefill are different measurements.</h2>
@@ -170,13 +171,13 @@
 
       <section id="reproduce">
         <h2>Build the released engine.</h2>
-        <p>The CUDA port is public as <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1">argodrive-ds4-kimi-k3.1</a>. Use a compatible NVIDIA driver, CUDA toolkit, C/C++ build tools and prepared K3.1 weights. The release tag pins the engine; the November 6 documentation update changes the READMEs, not the engine code.</p>
+        <p>The CUDA port is public as <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1">argodrive-ds4-kimi-k3.1</a>. Use a compatible NVIDIA driver, CUDA toolkit, C/C++ build tools and prepared K3.1 weights. This checkout pins the November 7 engine used for the 3.11 tok/s drafter result. The drafter is optional and needs the additional setup below.</p>
         <pre tabindex="0" aria-label="Build the pinned CUDA release"><code>git clone https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1.git
 cd argodrive-ds4-kimi-k3.1
-git checkout k31-cuda-20261105
+git checkout 6808130f7ff9fc94ff89e5535d308fc6b9589eb4
 make ds4 CUDA_ARCH=sm_120</code></pre>
         <p>Prepare the checkpoint using <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/k31-cuda-20261105/tools/kimi-k3/k31_extract.py">k31_extract.py</a> and <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/k31-cuda-20261105/tools/kimi-k3/k3_spine_to_gguf.py">k3_spine_to_gguf.py</a>. The spine metadata records the primary and secondary expert directories. The <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/kimi-k3/tools/kimi-k3/README.md#weight-layout">weight-layout guide</a> explains sparse-file requirements and the optional third and fourth directories.</p>
-        <p>With the converted spine and all expert files in place, this is the raw 128-token financial-prompt configuration. Replace the example paths with your own prepared files:</p>
+        <p>With the converted spine and all expert files in place, this is the plain, drafter-off 128-token financial-prompt configuration. Replace the example paths with your own prepared files:</p>
         <pre tabindex="0" aria-label="Run the financial prompt with a third expert directory"><code>DS4_K3_EXPERT_DIR_C=/data/tier-c/experts \
 ./ds4 -m /data/kimi/k3-spine.gguf \
   --cuda --ssd-streaming --ssd-streaming-cold \
@@ -195,6 +196,20 @@ make ds4 CUDA_ARCH=sm_120</code></pre>
         <p>That does not establish equality across arithmetic paths. Sequential versus batched prefill, attention-cache precision and expert GEMM choices can change near-tie tokens. Nor does repeatability validate the Q8_0 spine against the original model. <strong>No comparison with Moonshot’s own implementation has been completed.</strong></p>
         <p><strong>The DSA indexer remains unimplemented.</strong> Dense attention is used within a 2,048-token total context. The expected equivalence inside that window is the implementation’s rationale, not a completed reference-quality test. Long-context K3.1 support is outside this release’s claim.</p>
         <p>These results concern K3.1 Pro on CUDA. Earlier Kimi K3 results on a Mac used a different model version, backend, hardware and drafting configuration, so they are not a controlled speedup baseline for this article.</p>
+      </section>
+
+      <section class="k31-questions" id="questions">
+        <h2>Kimi 3.1 local inference: common questions.</h2>
+        <h3>What hardware do I need?</h3>
+        <p>The published setup uses one 96 GB RTX PRO 6000 Blackwell, 70 GiB of RAM assigned to an Ubuntu VM, and five NVMe devices. The unique expert files occupy about 1.45 TB; allow additional space for the checkpoint, spine and replicas. These are tested conditions, not proven minimum requirements. This article does not establish that the port runs on a 24 GB or 32 GB GPU.</p>
+        <h3>Is Kimi generating 44 tokens per second?</h3>
+        <p>No. <strong>44 tok/s is prompt processing (prefill)</strong> on a 1,512-token prompt. <strong>3.11 tok/s is measured decode</strong> on a predictable raw financial-text completion with the optional Qwen drafter. The tested chat prompt reached 2.01–2.02 tok/s with its chat settings. Prompt, output length and timing definition matter; see the <a href="#drafter">complete drafter table</a>.</p>
+        <h3>Does the drafter replace Kimi with a smaller model?</h3>
+        <p>No. Qwen proposes tokens and Kimi verifies them. The published tests produced the same token IDs as plain decoding, including the 512-token run. This comparison is against this port’s plain path; it is not validation against Moonshot’s reference implementation.</p>
+        <h3>Do I need the Argodrive Mac app?</h3>
+        <p>No. Use the <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1">Kimi K3.1 CUDA engine</a> for this Linux/NVIDIA setup. <a href="https://github.com/argonautlabsai/argodrive">Argodrive</a> is the separate storage measurement and monitoring project. Earlier <a href="https://github.com/argonautlabsai/deltafin">Deltafin results</a> concern Kimi K3 on Apple silicon, not this K3.1 CUDA benchmark.</p>
+        <h3>Is this full long-context Kimi K3.1 support?</h3>
+        <p>No. The published benchmark profile has a 2,048-token total context limit and uses dense attention without the DSA indexer. The code and results demonstrate local, single-GPU execution within that scope. Read the <a href="#validation">validation limits</a> before choosing it for your workload.</p>
       </section>
 
       <section class="k31-evidence" id="evidence">

@@ -14,7 +14,7 @@ Earlier, on the M5 Max. Key numbers (workloads, timing definitions and output co
 - [Build and setup](https://argonautlabs.ai/research/kimi-k31-single-gpu.html#reproduce): pinned release, weight preparation links and reproduction limits.
 
 ## Pages
-- [Running Kimi K3.1 Pro on a single 96 GB GPU](https://argonautlabs.ai/research/kimi-k31-single-gpu.html): November 6 measurements, NVMe layout, pinned CUDA build, metric definitions, and the 2,048-token context and reference-validation limits.
+- [Run Kimi 3.1 locally on one GPU](https://argonautlabs.ai/research/kimi-k31-single-gpu.html): November 6–7 measurements, drafter results, NVMe layout, pinned CUDA build, metric definitions, and the 2,048-token context and reference-validation limits.
 - [DeepSeek V4.1 stack, drive ladder, prefill follow-ups](https://argonautlabs.ai/research/deepseek-2026-09-27.html): method, levers, every arm, 30 September prefill qualification.
 - [DeepSeek V4.1 prefill experiment, 15 September](https://argonautlabs.ai/research/deepseek-2026-09-15.html)
 - [GLM-5.3 scheduling experiment](https://argonautlabs.ai/research/glm.html)
@@ -23,6 +23,7 @@ Earlier, on the M5 Max. Key numbers (workloads, timing definitions and output co
 ## Machine-readable results
 - https://argonautlabs.ai/research/kimi-k31-2026-11-06.json
 - https://argonautlabs.ai/research/kimi-k31-2026-11-07.json
+- https://argonautlabs.ai/research/kimi-k31-2026-11-07b.json
 - https://argonautlabs.ai/research/deepseek-2026-09-27.json
 - https://argonautlabs.ai/research/deepseek-2026-09-15.json
 - https://argonautlabs.ai/research/glm-2026-09-11.json
