@@ -2,7 +2,7 @@
 
 Public website and reproducible research notes for local AI inference. The site is static HTML, CSS and JavaScript, published with GitHub Pages at [argonautlabs.ai](https://argonautlabs.ai/).
 
-## Run Kimi 3.1 locally on one GPU
+## Run Kimi K3.1 Pro locally on one GPU
 
 **New installation:** [Get the engine, prepare the weights and run Kimi](https://argonautlabs.ai/guides/install-kimi-k31.html).
 
@@ -11,8 +11,9 @@ Public website and reproducible research notes for local AI inference. The site 
 Our [Kimi K3.1 Pro guide](https://argonautlabs.ai/research/kimi-k31-single-gpu.html) documents an experimental CUDA port tested on one 96 GB RTX PRO 6000 Blackwell, with experts streamed from NVMe. It includes hardware, build instructions, benchmark definitions and validation limits.
 
 - [Kimi K3.1 engine, based on Salvatore Sanfilippo’s ds4](https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1)
-- [November 7 drafter measurements](https://argonautlabs.ai/research/kimi-k31-2026-11-07b.json): 3.11 tok/s decode on the raw financial prompt; chat gains are smaller. Up to 44 tok/s is prefill, not decode.
-- Published benchmark profile: 2,048 tokens total; dense attention without DSA. Equivalence to Moonshot’s reference implementation has not been validated.
+- [November 8 measurements](https://argonautlabs.ai/research/kimi-k31-2026-11-08.json): 3.05 tok/s on the raw financial prompt with the drafter; 43 tok/s is prefill, not decode. The November 7 short-chat test measured 2.01–2.02 tok/s; historical results remain in the article.
+- Current sparse-attention release: context caches measured at 4k, 8k and 16k; long-prompt decode 1.48–1.51 tok/s. Equivalence to Moonshot’s reference implementation has not been validated.
+- [Apple silicon benchmark archive](https://argonautlabs.ai/research/apple-silicon-results.html): preserved drive ladders and tables for the earlier models.
 
 ## Other projects
 

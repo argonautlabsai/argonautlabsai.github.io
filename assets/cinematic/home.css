@@ -217,3 +217,47 @@ html { scroll-padding-top: 24px; }
 .al-latest-research>a:hover{text-decoration:underline}
 .al-latest-research small{font-size:12px;line-height:1.5;color:#a8bac8}
 @media(max-width:650px){.al-latest-research{padding:12px 14px;background:rgba(6,18,31,.92);border-radius:0 8px 8px 0}.al-latest-research>a{font-size:15px}}
+
+/* Current research leads; hardware and workload travel with each number. */
+.al-hero { min-height: 610px; padding-bottom: 48px; }
+.al-hero-content { max-width: 760px; }
+.al-hero h1 { white-space: normal; }
+.al-hero-description { max-width: 610px; font-size: 18px; }
+.al-hero-description a, .al-hero-scope a { color: #b5edfa; text-decoration: underline; text-underline-offset: 3px; }
+.al-hardware { max-width: 640px; margin: 0 0 24px; color: #c4d7e5; font-size: 14px; line-height: 1.7; }
+.al-hero-results { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); max-width: 720px; margin-top: 30px; border: 1px solid #6ccef23b; border-radius: 14px; background: #031624e8; }
+.al-hero-results a { display: flex; flex-direction: column; gap: 7px; padding: 18px 16px; color: #e7f5fc; }
+.al-hero-results a + a { border-left: 1px solid #6ccef23b; }
+.al-hero-results strong { color: #ffbd82; font-size: 32px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.al-hero-results strong small { font-size: 13px; font-weight: 500; }
+.al-hero-results span { font-size: 13px; font-weight: 650; }
+.al-hero-results a > small { font-size: 11px; color: #b8cddb; line-height: 1.5; }
+.al-hero-scope { max-width: 690px; margin-top: 17px; font-size: 12px; color: #c0d2e1; line-height: 1.7; }
+.al-home .kimi-launch { padding-top: 58px; }
+.al-home .al-feature { margin-bottom: 50px; }
+.al-home .al-pillars { padding-top: 40px; }
+.al-archive { border-top: 1px solid var(--line); padding-block: 32px; }
+.al-archive h3 { margin-bottom: 12px; }
+.al-archive p { color: var(--muted); }
+.al-archive-links { display: flex; gap: 16px 28px; flex-wrap: wrap; margin-top: 20px; }
+.al-archive-links a { scroll-margin-top: 80px; }
+@media (max-width: 1000px) {
+ .al-hero { min-height: 740px; }
+ .al-hero-art { opacity: .45; }
+ .al-hero-creature { top: 80px; right: -18%; }
+ .al-hero-content { max-width: 700px; }
+}
+@media (max-width: 620px) {
+ .al-hero { min-height: auto; padding: 30px 24px 40px; }
+ .al-hero-art { opacity: .24; }
+ .al-hero-creature { top: 120px; right: -42%; }
+ .al-hero-description { font-size: 16px; }
+ .al-hardware { font-size: 12px; }
+ .al-hero-results { grid-template-columns: 1fr; margin-top: 25px; }
+ .al-hero-results a { display: grid; grid-template-columns: 115px 1fr; gap: 5px 12px; padding: 14px; }
+ .al-hero-results a + a { border-left: 0; border-top: 1px solid #6ccef23b; }
+ .al-hero-results strong { grid-row: span 2; align-self: center; font-size: 28px; }
+ .al-hero-results span { font-size: 12px; }
+ .al-hero-results a > small { font-size: 10px; }
+ .al-hero-scope { font-size: 12px; }
+}

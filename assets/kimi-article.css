@@ -68,3 +68,4 @@
   .k31-limit{padding:16px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.k31-hardware-line{margin:20px 0 0;padding:12px 0;border-block:1px solid var(--line);font-size:.92rem;color:var(--muted);line-height:1.75;max-width:82ch}
