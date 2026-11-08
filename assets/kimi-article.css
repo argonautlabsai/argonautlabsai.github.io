@@ -2,6 +2,8 @@
 .header .brand-mark{background:#0b1624;border-radius:50%;padding:3px}
 .k31-intro h1{font-size:clamp(2.5rem,5vw,4.15rem);line-height:1.1;letter-spacing:-.045em}
 .k31-lede{font-size:1.22rem;line-height:1.7;max-width:65ch;color:var(--muted);margin-top:24px}
+.k31-product{max-width:78ch;margin-top:24px;padding:18px 22px;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:6px;background:var(--soft);font-size:1rem;line-height:1.7;color:var(--muted)}
+.k31-product strong{color:var(--text)}
 .k31-byline{margin-top:22px;color:var(--muted);font-size:.85rem}
 .k31-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:42px 0 30px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .k31-metrics>div{padding:23px 22px 24px 0;display:flex;flex-direction:column;gap:9px;min-width:0}
