@@ -4,6 +4,8 @@ Public website and reproducible research notes for local AI inference. The site 
 
 ## Run Kimi 3.1 locally on one GPU
 
+**New installation:** [Get the engine, prepare the weights and run Kimi](https://argonautlabs.ai/guides/install-kimi-k31.html).
+
 [**Argodrive DS4 Kimi K3.1**](https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1) is the integrated Linux/CUDA engine. The Kimi port, NVMe expert streaming, caches and weight-preparation tools are included. Build that repository and prepare the separately downloaded model weights; no separate upstream ds4 or Argodrive Mac app installation is required. It is currently a source release, not a prebuilt installer.
 
 Our [Kimi K3.1 Pro guide](https://argonautlabs.ai/research/kimi-k31-single-gpu.html) documents an experimental CUDA port tested on one 96 GB RTX PRO 6000 Blackwell, with experts streamed from NVMe. It includes hardware, build instructions, benchmark definitions and validation limits.

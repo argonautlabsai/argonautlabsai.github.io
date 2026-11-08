@@ -14,6 +14,7 @@ Earlier, on the M5 Max. Key numbers (workloads, timing definitions and output co
 Argodrive DS4 Kimi K3.1 is the integrated Linux/CUDA inference engine, not an add-on to install alongside upstream ds4. Its repository includes the Kimi port, NVMe streaming, expert caches and weight-preparation tools. Users build this repository and download the model checkpoint separately. NVIDIA/CUDA build dependencies are required. There is currently no prebuilt installer. The separate Argodrive Mac monitoring app is not required.
 
 ## Start here
+- [Install and run Kimi 3.1 — step-by-step guide](https://argonautlabs.ai/guides/install-kimi-k31.html): build the integrated engine, download Moonshot’s original checkpoint, extract experts, convert the spine, then run a local completion. Includes copyable Linux commands, storage planning and troubleshooting.
 - [Get Argodrive DS4 Kimi K3.1 — the inference engine](https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1): an experimental single-GPU port built on Antirez’s ds4. Tested on an RTX PRO 6000 Blackwell with 96 GB VRAM, 70 GiB VM RAM and five NVMe devices. Current total context limit: 2,048 tokens; reference-model equivalence has not been validated. The separate Argodrive Mac app is not required.
 - [Build and setup](https://argonautlabs.ai/research/kimi-k31-single-gpu.html#reproduce): pinned release, weight preparation links and reproduction limits.
 

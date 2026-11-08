@@ -85,7 +85,7 @@
         <p class="k31-product"><strong>Argodrive DS4 Kimi K3.1 is the inference engine.</strong> This one repository includes the Kimi CUDA port, NVMe expert streaming, caches and weight-preparation tools. You do not need to install upstream ds4 or the separate Argodrive Mac app.</p>
         <p class="k31-lede">Kimi K3.1 Pro: a 2.8-trillion-parameter model, 1.45 TB of experts on disk, and 3.1 tokens per second on raw text with a drafter that keeps the answer identical. Tested on one 96 GB RTX PRO 6000 Blackwell. Here is the CUDA code, the setup, the measurements and the limits.</p>
         <p class="k31-byline">By <a href="../#about">Argonaut Labs</a> · Published <time datetime="2026-11-06">6 November 2026</time> · Guide updated <time datetime="2026-11-08">8 November</time> · Benchmarks: 6–7 November · Built on Salvatore Sanfilippo’s ds4</p>
-        <div class="actions"><a class="button primary" href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1">Get the Kimi engine ↗</a><a class="text-link" href="#reproduce">Build &amp; setup ↓</a><a class="text-link" href="#results">Read the measurements ↓</a></div>
+        <div class="actions"><a class="button primary" href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1">Get the Kimi engine ↗</a><a class="text-link" href="../guides/install-kimi-k31.html">Installation guide →</a><a class="text-link" href="#results">Read the measurements ↓</a></div>
       </header>
 
       <div class="k31-metrics" aria-label="Highlights">
@@ -197,6 +197,7 @@
 
       <section id="reproduce">
         <h2>Get Argodrive DS4 Kimi K3.1. Build, prepare, run.</h2>
+        <p><strong>Installing for the first time?</strong> Follow the <a href="../guides/install-kimi-k31.html">step-by-step Kimi installation guide</a> for download, extraction, conversion and first-run commands. The summary below pins the benchmark engine.</p>
         <ol class="k31-steps">
           <li><strong>Get and build this repository.</strong> The ds4-based runtime and Kimi support are already integrated.</li>
           <li><strong>Download the Kimi K3.1 checkpoint separately.</strong> Use the included tools to prepare the spine and expert files for your NVMe storage.</li>
