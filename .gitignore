@@ -1,0 +1,17 @@
+# Local audit evidence and private analytics exports never belong in this site.
+/artifacts/
+/private/
+/analytics-exports/
+.DS_Store
+
+# Credentials and network captures. Public GA measurement IDs are not secrets.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.har
+service-account*.json
+credentials*.json
