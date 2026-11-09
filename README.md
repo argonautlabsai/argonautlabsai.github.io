@@ -27,3 +27,5 @@ Our [Kimi K3.1 Pro guide](https://argonautlabs.ai/research/kimi-k31-single-gpu.h
 Serve this directory with a static HTTP server to preview it. Research pages and their JSON evidence live in `research/`. Keep their stable URLs and original benchmark data when updating presentation. Use `sitemap.xml` for the canonical article URLs and `robots.txt` for crawl policy. Changes to the sitemap’s `lastmod` values should reflect actual page updates.
 
 Published results describe the stated hardware, workload and timing definition; they are not guarantees for another machine. Engine credits and validation limits remain linked alongside each result.
+
+Website measurement is documented in [Analytics](docs/ANALYTICS.md), including daily visitors, referral sources, per-repository GitHub clicks and consent controls. The public [privacy page](https://argonautlabs.ai/privacy.html) explains visitors’ choices.
