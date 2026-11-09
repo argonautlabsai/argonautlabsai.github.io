@@ -22,7 +22,7 @@
 <meta content="https://argonautlabs.ai/assets/og-kimi-k31.png?v=20261106-bronze" property="og:image"/>
 <meta content="Argonaut Labs: Kimi K3.1 Pro on one 96 GB GPU, streamed from NVMe" property="og:image:alt"/>
 <meta content="2026-11-06" property="article:published_time"/>
-<meta content="2026-11-08" property="article:modified_time"/>
+<meta content="2026-11-09" property="article:modified_time"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="Run Kimi K3.1 Pro locally on one GPU — Argonaut Labs" name="twitter:title"/>
 <meta content="Run Kimi K3.1 Pro on one 96 GB RTX PRO 6000 with NVMe streaming. Measured chat and raw-text decode, hardware, 16k context tests, setup and validation limits." name="twitter:description"/>
@@ -36,7 +36,7 @@
   "mainEntityOfPage": "https://argonautlabs.ai/research/kimi-k31-single-gpu.html",
   "image": "https://argonautlabs.ai/assets/og-kimi-k31.png?v=20261106-bronze",
   "datePublished": "2026-11-06",
-  "dateModified": "2026-11-08",
+  "dateModified": "2026-11-09",
   "inLanguage": "en",
   "author": {
     "@type": "Organization",
@@ -84,7 +84,7 @@
 <h1>Run Kimi K3.1 Pro locally<br/>on one GPU.</h1><p class="k31-hardware-line">Tested: 96 GB RTX PRO 6000 Blackwell · 70 GiB VM RAM · five NVMe drives · 1.45 TB of unique experts.</p>
 
 <p class="k31-lede">Measured decode is about <strong>2 tok/s on the short chat test</strong> (7 November) and <strong>3.05 tok/s on predictable raw text with the Qwen drafter</strong> (8 November). Sparse attention is measured up to 16,384 tokens of context; the long-prompt tests decode at 1.48–1.51 tok/s. This is an experimental port, not a validated replacement for Moonshot’s reference implementation.</p><p class="k31-product"><strong>Argodrive DS4 Kimi K3.1 is the integrated engine.</strong> One source build includes the CUDA port, NVMe streaming, caches and weight-preparation tools. Download the model weights separately.</p>
-<p class="k31-byline">By <a href="../#about">Argonaut Labs</a> · Published <time datetime="2026-11-06">6 November 2026</time> · Guide updated <time datetime="2026-11-08">8 November</time> · Benchmarks: 6–8 November · Built on Salvatore Sanfilippo’s ds4</p>
+<p class="k31-byline">By <a href="../#about">Argonaut Labs</a> · Published <time datetime="2026-11-06">6 November 2026</time> · Guide updated <time datetime="2026-11-09">9 November</time> · Benchmarks: 6–8 November · Built on Salvatore Sanfilippo’s ds4</p>
 <div class="actions"><a class="button primary" href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1">Get the Kimi engine ↗</a><a class="text-link" href="../guides/install-kimi-k31.html">Installation guide →</a><a class="text-link" href="#results">Read the measurements ↓</a></div>
 </header>
 <div aria-label="Highlights" class="k31-metrics">
@@ -213,7 +213,7 @@
 cd argodrive-ds4-kimi-k3.1
 git checkout k31-cuda-20261108
 make ds4 CUDA_ARCH=sm_120</code></pre>
-<p>Prepare the checkpoint using <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/k31-cuda-20261105/tools/kimi-k3/k31_extract.py">k31_extract.py</a> and <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/k31-cuda-20261105/tools/kimi-k3/k3_spine_to_gguf.py">k3_spine_to_gguf.py</a>. The spine metadata records the primary and secondary expert directories. The <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/kimi-k3/tools/kimi-k3/README.md#weight-layout">weight-layout guide</a> explains sparse-file requirements and the optional third and fourth directories. For contexts above 2,048 tokens, also cut the indexer weights out of the checkpoint with <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/k31-cuda-20261108/tools/kimi-k3/k31_indexer_extract.py">k31_indexer_extract.py</a> and add <code>DS4_K3_DSA=k31-indexer.bin DS4_K3_CACHE_CAP=16384</code> with <code>-c 16384</code>.</p>
+<p>Prepare the checkpoint using <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/k31-cuda-20261105/tools/kimi-k3/k31_extract.py">k31_extract.py</a> and <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/k31-cuda-20261105/tools/kimi-k3/k3_spine_to_gguf.py">k3_spine_to_gguf.py</a>. The spine metadata records the primary and secondary expert directories. The <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/main/tools/kimi-k3/README.md#weight-layout">weight-layout guide</a> explains sparse-file requirements and the optional third and fourth directories. For contexts above 2,048 tokens, also cut the indexer weights out of the checkpoint with <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/k31-cuda-20261108/tools/kimi-k3/k31_indexer_extract.py">k31_indexer_extract.py</a> and add <code>DS4_K3_DSA=k31-indexer.bin DS4_K3_CACHE_CAP=16384</code> with <code>-c 16384</code>.</p>
 <p>With the converted spine and all expert files in place, this is the plain, drafter-off 128-token financial-prompt configuration. Replace the example paths with your own prepared files:</p>
 <pre aria-label="Run the financial prompt with a third expert directory" tabindex="0"><code>DS4_K3_EXPERT_DIR_C=/data/tier-c/experts \
 ./ds4 -m /data/kimi/k3-spine.gguf \
@@ -222,7 +222,7 @@ make ds4 CUDA_ARCH=sm_120</code></pre>
   --temp 0 -c 2048 -n 128 \
   -p "The three main financial statements are"</code></pre>
 <p>Repeat with a fresh process, then change <code>-n 128</code> to <code>-n 512</code> for the longer run. Record the engine’s <code>K3 decode split</code> steady rate and process wall separately. Leave the full-precision attention-cache default in place. Measure your storage before changing the scheduler’s rate assumptions.</p>
-<p>The optional drafter needs commit <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/commit/6808130f7ff9fc94ff89e5535d308fc6b9589eb4">6808130</a> or later (c0dcf69 had the first version; the 8 November results are from b959c89), Python with CUDA torch, transformers, tokenizers, tiktoken and regex, and the Qwen3-0.6B-Base checkpoint. The <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/kimi-k3/tools/kimi-k3/README.md#the-optional-qwen-drafter">README</a> has the settings.</p>
+<p>The optional drafter needs commit <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/commit/6808130f7ff9fc94ff89e5535d308fc6b9589eb4">6808130</a> or later (c0dcf69 had the first version; the 8 November results are from b959c89), Python with CUDA torch, transformers, tokenizers, tiktoken and regex, and the Qwen3-0.6B-Base checkpoint. The <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/main/tools/kimi-k3/README.md#the-optional-qwen-drafter">README</a> has the settings.</p>
 <p class="table-note">The <a href="kimi-k31-2026-11-06.json">public JSON</a> contains the raw completion prompts, individual measurements and chat prompt lengths. It does not include the full chat prompt texts or an exact expert-placement manifest; it is not a complete reproduction bundle for every chat row or this machine’s disk layout. The timings above are recorded results, not a performance guarantee for another setup.</p>
 </section>
 <section id="validation">
@@ -234,7 +234,8 @@ make ds4 CUDA_ARCH=sm_120</code></pre>
 <p>These results concern K3.1 Pro on CUDA. Earlier Kimi K3 results on a Mac used a different model version, backend, hardware and drafting configuration, so they are not a controlled speedup baseline for this article.</p>
 </section>
 <section class="k31-questions" id="questions">
-<h3>Can I run Kimi K3.1 Pro at home?</h3><p>Yes, on the tested workstation-class setup described here. This is local inference with downloaded weights and NVMe expert streaming, not a cloud API. “One GPU” does not mean a typical gaming PC: the measurements use a 96 GB GPU, 70 GiB of VM RAM and five NVMe devices. Start with the <a href="../guides/install-kimi-k31.html">installation guide</a> and check storage capacity before downloading.</p><h2>Kimi K3.1 Pro local inference: common questions.</h2>
+<h2>Kimi K3.1 Pro local inference: common questions.</h2>
+<h3>Can I run Kimi K3.1 Pro at home?</h3><p>Yes, on the tested workstation-class setup described here. This is local inference with downloaded weights and NVMe expert streaming, not a cloud API. “One GPU” does not mean a typical gaming PC: the measurements use a 96 GB GPU, 70 GiB of VM RAM and five NVMe devices. Start with the <a href="../guides/install-kimi-k31.html">installation guide</a> and check storage capacity before downloading.</p>
 <h3>What hardware do I need?</h3>
 <p>The published setup uses one 96 GB RTX PRO 6000 Blackwell, 70 GiB of RAM assigned to an Ubuntu VM, and five NVMe devices. The unique expert files occupy about 1.45 TB; allow additional space for the checkpoint, spine and replicas. These are tested conditions, not proven minimum requirements. This article does not establish that the port runs on a 24 GB or 32 GB GPU.</p>
 <h3>Is Kimi generating 43 tokens per second?</h3>
@@ -260,7 +261,7 @@ make ds4 CUDA_ARCH=sm_120</code></pre>
 <li><a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/commit/6808130f7ff9fc94ff89e5535d308fc6b9589eb4">The wider-block drafter commit: 6808130</a></li>
 <li><a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/commit/c0dcf692b4fb5f1abb05a942ca222c767b153351">The first drafter commit: c0dcf69</a></li>
 <li><a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/tree/k31-cuda-20261105">Pinned CUDA release: k31-cuda-20261105</a></li>
-<li><a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/kimi-k3/tools/kimi-k3/README.md">Configuration knobs, layout and arithmetic comparisons</a></li>
+<li><a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/main/tools/kimi-k3/README.md">Configuration knobs, layout and arithmetic comparisons</a></li>
 <li><a href="https://github.com/argonautlabsai/argodrive">Argodrive: storage measurement and monitoring tools</a></li>
 </ul>
 <p>This port builds on <a href="https://github.com/antirez/ds4">Salvatore Sanfilippo’s ds4</a>, with its acknowledgements to llama.cpp and GGML preserved. The Kimi checkpoint is Moonshot’s work. Argonaut Labs develops the port and storage experiments with assistance from Claude and ChatGPT, with human-led testing and review.</p>
