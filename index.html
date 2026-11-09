@@ -40,7 +40,7 @@
       "isBasedOn": "https://github.com/antirez/ds4"
     }
   ]
-}</script><meta content="#020f20" name="theme-color"/><link href="assets/cinematic/fonts.css" rel="stylesheet"/><link href="assets/cinematic/home.css?v=20261108-kimi" rel="stylesheet"/></head><body class="al-home"><a class="skip" href="#main">Skip to content</a><header class="al-header" id="top">
+}</script><meta content="#020f20" name="theme-color"/><link href="assets/cinematic/fonts.css" rel="stylesheet"/><link href="assets/cinematic/home.css?v=20261109-mac" rel="stylesheet"/></head><body class="al-home"><a class="skip" href="#main">Skip to content</a><header class="al-header" id="top">
 <a aria-label="Argonaut Labs homepage" class="al-brand" href="#overview">
 <img alt="" class="al-brand-symbol" height="100" src="assets/cinematic/brand-icon.svg" width="100"/>
 <span class="al-brand-text"><strong>ARGONAUT</strong><span class="al-brand-labs"><i></i>LABS<i></i></span></span>
@@ -60,10 +60,10 @@
 <div aria-hidden="true" class="al-hero-art"><img alt="" aria-hidden="true" class="al-hero-creature" fetchpriority="high" height="1086" src="assets/cinematic/argonaut-hero.webp" width="1448"/></div>
 <div class="al-hero-content"><p class="al-eyebrow">ARGONAUT LABS / LOCAL AI RESEARCH</p>
 <h1 id="hero-title">Run Kimi K3.1 Pro<br/><span>on one GPU.</span></h1>
-<p class="al-hero-description">A 2.8-trillion-parameter model, streamed from NVMe. Our <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1"><strong>Argodrive DS4 Kimi K3.1</strong></a> engine includes the CUDA port, expert caches and storage scheduler.</p>
-<p class="al-hardware">Tested: one 96 GB RTX PRO 6000 Blackwell · 70 GiB VM RAM · five NVMe drives · 1.45 TB of unique experts.</p>
+<p class="al-hero-description">A 2.8-trillion-parameter model, streamed from NVMe. Our <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1"><strong>Argodrive DS4 Kimi K3.1</strong></a> engine includes the CUDA and Metal ports, expert caches and storage scheduler.</p>
+<p class="al-hardware">Tested: one 96 GB RTX PRO 6000 Blackwell · 70 GiB VM RAM · five NVMe drives; and a MacBook Pro M5 Max · 128 GB · internal SSD + two Thunderbolt 5 NVMe drives. 1.45 TB of unique experts.</p>
 <div class="al-hero-actions"><a class="al-btn al-btn-primary" href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1">Get the Kimi engine <span aria-hidden="true">↗</span></a><a class="al-btn al-btn-secondary" href="guides/install-kimi-k31.html">Installation guide <span aria-hidden="true">→</span></a></div>
-<div aria-label="Measured results with workload and date" class="al-hero-results"><a href="research/kimi-k31-single-gpu.html#drafter"><strong>~2 <small>tok/s</small></strong><span>Short-prompt chat</span><small>286 prompt / 200 output · 7 Nov</small></a><a href="research/kimi-k31-single-gpu.html#standard"><strong>3.05 <small>tok/s</small></strong><span>Raw text + Qwen drafter</span><small>6 prompt / 512 output · 8 Nov</small></a><a href="research/kimi-k31-single-gpu.html#standard"><strong>43 <small>tok/s</small></strong><span>Prefill, not generation</span><small>1,512-token prompt · 8 Nov</small></a></div>
+<div aria-label="Measured results with workload and date" class="al-hero-results"><a href="research/kimi-k31-single-gpu.html#drafter"><strong>~2 <small>tok/s</small></strong><span>Short-prompt chat</span><small>RTX PRO 6000 · 286 prompt / 200 output · 7 Nov</small></a><a href="research/kimi-k31-single-gpu.html#standard"><strong>3.05 <small>tok/s</small></strong><span>Raw text + Qwen drafter</span><small>RTX PRO 6000 · 6 prompt / 512 output · 8 Nov</small></a><a href="research/kimi-k31-single-gpu.html#standard"><strong>43 <small>tok/s</small></strong><span>Prefill, not generation</span><small>RTX PRO 6000 · 1,512-token prompt · 8 Nov</small></a><a href="research/kimi-k31-single-gpu.html#apple-silicon"><strong>2.04 <small>tok/s</small></strong><span>Raw text + Qwen drafter</span><small>MacBook Pro M5 Max · 6 prompt / 512 output · 9 Nov</small></a></div>
 <p class="al-hero-scope">Measured context caches up to 16,384 tokens with sparse attention; long-prompt decode 1.48–1.51 tok/s. Experimental port; reference-model equivalence is unvalidated. <a href="research/kimi-k31-single-gpu.html">Read the evidence and limits →</a></p></div>
 </section><section class="hero wrap kimi-launch" id="projects">
 <div>

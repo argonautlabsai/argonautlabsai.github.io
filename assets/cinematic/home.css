@@ -225,7 +225,7 @@ html { scroll-padding-top: 24px; }
 .al-hero-description { max-width: 610px; font-size: 18px; }
 .al-hero-description a, .al-hero-scope a { color: #b5edfa; text-decoration: underline; text-underline-offset: 3px; }
 .al-hardware { max-width: 640px; margin: 0 0 24px; color: #c4d7e5; font-size: 14px; line-height: 1.7; }
-.al-hero-results { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); max-width: 720px; margin-top: 30px; border: 1px solid #6ccef23b; border-radius: 14px; background: #031624e8; }
+.al-hero-results { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); max-width: 760px; margin-top: 30px; border: 1px solid #6ccef23b; border-radius: 14px; background: #031624e8; }
 .al-hero-results a { display: flex; flex-direction: column; gap: 7px; padding: 18px 16px; color: #e7f5fc; }
 .al-hero-results a + a { border-left: 1px solid #6ccef23b; }
 .al-hero-results strong { color: #ffbd82; font-size: 32px; line-height: 1.1; font-variant-numeric: tabular-nums; }
@@ -246,6 +246,9 @@ html { scroll-padding-top: 24px; }
  .al-hero-art { opacity: .45; }
  .al-hero-creature { top: 80px; right: -18%; }
  .al-hero-content { max-width: 700px; }
+ .al-hero-results { grid-template-columns: repeat(2,minmax(0,1fr)); }
+ .al-hero-results a:nth-child(3) { border-left: 0; }
+ .al-hero-results a:nth-child(n+3) { border-top: 1px solid #6ccef23b; }
 }
 @media (max-width: 620px) {
  .al-hero { min-height: auto; padding: 30px 24px 40px; }
