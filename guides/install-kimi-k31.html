@@ -31,7 +31,7 @@
     "url": "https://argonautlabs.ai/guides/install-kimi-k31.html",
     "mainEntityOfPage": "https://argonautlabs.ai/guides/install-kimi-k31.html",
     "datePublished": "2026-11-08",
-    "dateModified": "2026-11-08",
+    "dateModified": "2026-11-10",
     "author": {"@type": "Organization", "name": "Argonaut Labs", "url": "https://argonautlabs.ai/"},
     "publisher": {"@type": "Organization", "name": "Argonaut Labs", "url": "https://argonautlabs.ai/"},
     "about": {"@type": "SoftwareSourceCode", "@id": "https://argonautlabs.ai/#kimi-engine", "name": "Argodrive DS4 Kimi K3.1", "codeRepository": "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1"},
@@ -182,7 +182,7 @@ DS4_K3_DSA="$KIMI_DATA/k31-indexer.bin" DS4_K3_CACHE_CAP=8192 \
 
       <section id="next">
         <h2>Get it running first. Then tune it.</h2>
-        <p>The basic recipe above is not the 3.05 tok/s benchmark configuration. That result uses a Qwen drafter, a specific raw-text prompt and five NVMe devices across three storage tiers. Chat gains are smaller. <strong>43 tok/s is prefill, not output generation.</strong></p>
+        <p>The basic recipe above is not the 3.21 tok/s benchmark configuration. That result uses the 10 November release (tag k31-cuda-20261110), a Qwen drafter, a specific raw-text prompt and four NVMe devices across two storage tiers. Chat gains are smaller. <strong>43 tok/s is prefill, not output generation.</strong></p>
         <div class="install-next">
           <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/kimi-k3/tools/kimi-k3/README.md#the-optional-qwen-drafter"><strong>Add the optional drafter ↗</strong><span>Additional Qwen weights and Python dependencies.</span></a>
           <a href="../research/kimi-k31-single-gpu.html#hardware"><strong>Explore the multi-drive setup →</strong><span>Placement, replicas and the measured hardware.</span></a>
