@@ -11,7 +11,7 @@ Public website and reproducible research notes for local AI inference. The site 
 Our [Kimi K3.1 Pro guide](https://argonautlabs.ai/research/kimi-k31-single-gpu.html) documents an experimental CUDA port tested on one 96 GB RTX PRO 6000 Blackwell, with experts streamed from NVMe. It includes hardware, build instructions, benchmark definitions and validation limits.
 
 - [Kimi K3.1 engine, based on Salvatore Sanfilippo’s ds4](https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1)
-- [November 11 measurements](https://argonautlabs.ai/research/kimi-k31-2026-11-11.json): 3.79 tok/s on the raw financial prompt with the drafter, 1.97 without, on four NVMe devices; 43 tok/s (8 November, five devices) is prefill, not decode. The short-chat test measures 2.01–2.02 tok/s; historical results remain in the article.
+- [November 11 measurements](https://argonautlabs.ai/research/kimi-k31-2026-11-11.json): 3.79 tok/s on the raw financial prompt with the drafter, 1.97 without, on four NVMe devices; 120 tok/s (6,769-token prompt; 40.8 at 1,512 tokens) is prefill, not decode. The short-chat test measures 2.01–2.02 tok/s; historical results remain in the article.
 - Current sparse-attention release: context caches measured at 4k, 8k and 16k; long-prompt decode 1.54–1.56 tok/s. Equivalence to Moonshot’s reference implementation has not been validated.
 - [Apple silicon benchmark archive](https://argonautlabs.ai/research/apple-silicon-results.html): preserved drive ladders and tables for the earlier models.
 

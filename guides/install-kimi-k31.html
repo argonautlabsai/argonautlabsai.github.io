@@ -182,7 +182,7 @@ DS4_K3_DSA="$KIMI_DATA/k31-indexer.bin" DS4_K3_CACHE_CAP=8192 \
 
       <section id="next">
         <h2>Get it running first. Then tune it.</h2>
-        <p>The basic recipe above is not the 3.79 tok/s benchmark configuration. That result uses the 11 November release (tag k31-cuda-20261111), a Qwen drafter, a specific raw-text prompt and four NVMe devices across two storage tiers. Chat gains are smaller. <strong>43 tok/s is prefill, not output generation.</strong></p>
+        <p>The basic recipe above is not the 3.79 tok/s benchmark configuration. That result uses the 11 November release (tag k31-cuda-20261111), a Qwen drafter, a specific raw-text prompt and four NVMe devices across two storage tiers. Chat gains are smaller. <strong>120 tok/s is prefill on a 6,769-token prompt, not output generation.</strong></p>
         <div class="install-next">
           <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/kimi-k3/tools/kimi-k3/README.md#the-optional-qwen-drafter"><strong>Add the optional drafter ↗</strong><span>Additional Qwen weights and Python dependencies.</span></a>
           <a href="../research/kimi-k31-single-gpu.html#hardware"><strong>Explore the multi-drive setup →</strong><span>Placement, replicas and the measured hardware.</span></a>

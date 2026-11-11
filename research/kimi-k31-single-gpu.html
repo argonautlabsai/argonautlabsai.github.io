@@ -86,14 +86,14 @@
 <p class="eyebrow">ARGODRIVE DS4 KIMI K3.1 / SETUP + BENCHMARKS</p>
 <h1>Run Kimi K3.1 Pro locally<br/>on one GPU.</h1><p class="k31-hardware-line">Tested: 96 GB RTX PRO 6000 Blackwell · 70 GiB VM RAM · four NVMe drives (five in earlier runs) · 1.45 TB of unique experts.</p>
 
-<p class="k31-lede">Measured decode is about <strong>2 tok/s on the short chat test</strong> and <strong>3.79 tok/s on predictable raw text with the Qwen drafter</strong> (11 November). Sparse attention is measured up to 16,384 tokens of context; the long-prompt tests decode at 1.54–1.56 tok/s. This is an experimental port, not a validated replacement for Moonshot’s reference implementation.</p><p class="k31-product"><strong>Argodrive DS4 Kimi K3.1 is the integrated engine.</strong> One source build includes the CUDA port, NVMe streaming, caches and weight-preparation tools. Download the model weights separately.</p>
+<p class="k31-lede">Measured decode is about <strong>2 tok/s on the short chat test</strong> and <strong>3.79 tok/s on predictable raw text with the Qwen drafter</strong> (11 November). Sparse attention is measured up to 16,384 tokens of context; the long-prompt tests decode at 1.53–1.57 tok/s. This is an experimental port, not a validated replacement for Moonshot’s reference implementation.</p><p class="k31-product"><strong>Argodrive DS4 Kimi K3.1 is the integrated engine.</strong> One source build includes the CUDA port, NVMe streaming, caches and weight-preparation tools. Download the model weights separately.</p>
 <p class="k31-byline">By <a href="../#about">Argonaut Labs</a> · Published <time datetime="2026-11-06">6 November 2026</time> · Guide updated <time datetime="2026-11-11">11 November</time> · Benchmarks: 6–11 November · Built on Salvatore Sanfilippo’s ds4</p>
 <div class="actions"><a class="button primary" href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1">Get the Kimi engine ↗</a><a class="text-link" href="../guides/install-kimi-k31.html">Installation guide →</a><a class="text-link" href="#results">Read the measurements ↓</a></div>
 </header>
 <div aria-label="Highlights" class="k31-metrics">
 <div><span class="k31-metric-label">DECODE WITH THE DRAFTER / 512 TOKENS</span><strong>3.79 <small>tok/s</small></strong><span>Raw text, same tokens as plain · 11 November</span></div>
-<div><span class="k31-metric-label">PREFILL / 1,512-TOKEN PROMPT</span><strong>43 <small>tok/s</small></strong><span>35.4–35.5 seconds · 8 November</span></div>
-<div><span class="k31-metric-label">CHAT DECODE / 200 OUTPUT TOKENS</span><strong>~2 <small>tok/s</small></strong><span>286-token prompt · 7 November</span></div>
+<div><span class="k31-metric-label">PREFILL / 6,769-TOKEN PROMPT</span><strong>120 <small>tok/s</small></strong><span>56 seconds · 11 November</span></div>
+<div><span class="k31-metric-label">CHAT DECODE / 200 OUTPUT TOKENS</span><strong>~2 <small>tok/s</small></strong><span>286-token prompt · 11 November</span></div>
 <div><span class="k31-metric-label">GPU</span><strong>1 <small>GPU</small></strong><span>RTX PRO 6000 Blackwell, 96 GB</span></div>
 </div>
 <h2 class="k31-answer-heading">Can I run Kimi K3.1 Pro locally on one GPU?</h2>
@@ -244,8 +244,8 @@ make ds4 CUDA_ARCH=sm_120</code></pre>
 <h3>Can I run Kimi K3.1 Pro at home?</h3><p>Yes, on the tested workstation-class setup described here. This is local inference with downloaded weights and NVMe expert streaming, not a cloud API. “One GPU” does not mean a typical gaming PC: the measurements use a 96 GB GPU, 70 GiB of VM RAM and four or five NVMe devices. Start with the <a href="../guides/install-kimi-k31.html">installation guide</a> and check storage capacity before downloading.</p>
 <h3>What hardware do I need?</h3>
 <p>The published setup uses one 96 GB RTX PRO 6000 Blackwell, 70 GiB of RAM assigned to an Ubuntu VM, and five NVMe devices (four for the 10 and 11 November results). The unique expert files occupy about 1.45 TB; allow additional space for the checkpoint, spine and replicas. These are tested conditions, not proven minimum requirements. This article does not establish that the port runs on a 24 GB or 32 GB GPU. On a Mac, the tested setup is a MacBook Pro with an M5 Max and 128 GB of unified memory, its internal SSD and two Thunderbolt 5 NVMe drives (<a href="#apple-silicon">2.49 tok/s</a>).</p>
-<h3>Is Kimi generating 43 tokens per second?</h3>
-<p>No. <strong>43 tok/s is prompt processing (prefill)</strong> on a 1,512-token prompt. <strong>3.79 tok/s is measured decode</strong> on a predictable raw financial-text completion with the optional Qwen drafter. The tested chat prompt reached 2.01–2.02 tok/s with its chat settings. Prompt, output length and timing definition matter; see the <a href="#drafter">complete drafter table</a>.</p>
+<h3>Is Kimi generating 120 tokens per second?</h3>
+<p>No. <strong>120 tok/s is prompt processing (prefill)</strong> on a 6,769-token prompt; a 1,512-token prompt prefills at 40.8 tok/s. <strong>3.79 tok/s is measured decode</strong> on a predictable raw financial-text completion with the optional Qwen drafter. The tested chat prompt reached 2.01–2.02 tok/s with its chat settings. Prompt, output length and timing definition matter; see the <a href="#drafter">complete drafter table</a>.</p>
 <h3>Does the drafter replace Kimi with a smaller model?</h3>
 <p>No. Qwen proposes tokens and Kimi verifies them. The published tests produced the same token IDs as plain decoding, including the 512-token run. This comparison is against this port’s plain path; it is not validation against Moonshot’s reference implementation.</p>
 <h3>Do I need to install ds4 and the Argodrive Mac app separately?</h3>
