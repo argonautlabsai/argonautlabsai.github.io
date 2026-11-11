@@ -1,0 +1,939 @@
+{
+ "date": "2026-11-11",
+ "model": "Kimi K3.1 Pro: 2.8T MoE, 92 MoE layers, 896 experts per layer, 16 routed per token; Q8_0 spine, MXFP4 experts (82,432 files, 1.45 TB)",
+ "engine": "argonautlabsai/argodrive-ds4-kimi-k3.1, commit bb5c53b6f4d4602247e9f8950303fbf43e5175a6 (tag k31-metal-20261111), Metal (--metal)",
+ "hardware": "MacBook Pro, Apple M5 Max, 128 GB unified memory; the spine (62 GB) and a 40 GB expert cache in unified memory; expert files on the internal SSD (71,866; 13.7 GB/s on expert files), a Thunderbolt 5 NVMe drive (44,166: 10,566 plus copies of the 33,600 most used; 7.1 GB/s) and a second Thunderbolt 5 NVMe drive (all 82,432; 7.1 GB/s), each drive on its own port",
+ "settings": "the command in tools/kimi-k3/README.md#apple-silicon-metal: DS4_K3_EXPERT_DIR / _B / _C, DS4_K3_RATE_A/B/C_GBS 13.7 / 7.1 / 7.05, DS4_K3_HEAT (a histogram from our own earlier runs, not published), DS4_K3_PREFETCH=0, --metal --raw --ssd-streaming --ssd-streaming-cold --ssd-streaming-cache-experts 16 --temp 0 -c 2048; with the drafter DS4_K3_QWEN=1 and DS4_K3_QWEN_DEVICE=mps; DS4_K3_TRACE_HASH=1; one fresh process per run; Mac on AC power. 'defaults' are this release's; '9 November settings' are the same build with DS4_K3_QWEN_ROWS=16 DS4_K3_QWEN_KEEP=0 DS4_K3_METAL_PEND=0 DS4_K3_METAL_PREFILL_PF=0",
+ "sessions": {
+  "1": "other applications open, nobody at the laptop; runs in the order listed",
+  "2": "the two settings alternately, three pairs per test, with the laptop in use and other work running on it"
+ },
+ "prompts": {
+  "record": "The three main financial statements are",
+  "france": "The capital of France is",
+  "public_512": "prompt-512-tokens.txt in the deltafin Kimi K3 benchmark",
+  "code": "a Python function signature with a one-line docstring (merge sort), raw"
+ },
+ "output_check": "FNV-1a hashes of every position's logits compared with plain runs of the same prompt: 8,899 positions in the runs listed here, 0 differ",
+ "medians_steady_tok_s": {
+  "session 1": {
+   "record 128": {
+    "defaults": {
+     "runs": 3,
+     "values": [
+      1.79,
+      1.84,
+      1.71
+     ],
+     "median": 1.79
+    },
+    "nine_november_settings": {
+     "runs": 2,
+     "values": [
+      1.82,
+      1.78
+     ],
+     "median": 1.8
+    }
+   },
+   "record 512": {
+    "defaults": {
+     "runs": 3,
+     "values": [
+      2.49,
+      2.5,
+      2.48
+     ],
+     "median": 2.49
+    },
+    "nine_november_settings": {
+     "runs": 1,
+     "values": [
+      1.99
+     ],
+     "median": 1.99
+    }
+   },
+   "public_512 128": {
+    "defaults": {
+     "runs": 2,
+     "values": [
+      2.47,
+      2.44
+     ],
+     "median": 2.46
+    },
+    "nine_november_settings": {
+     "runs": 1,
+     "values": [
+      1.42
+     ],
+     "median": 1.42
+    }
+   },
+   "public_512 prefill_tok_s": {
+    "defaults": {
+     "runs": 2,
+     "values": [
+      9.05,
+      9.45
+     ],
+     "median": 9.25
+    },
+    "nine_november_settings": {
+     "runs": 1,
+     "values": [
+      7.9
+     ],
+     "median": 7.9
+    }
+   }
+  },
+  "session 2": {
+   "record 128": {
+    "defaults": {
+     "runs": 3,
+     "values": [
+      1.52,
+      1.59,
+      1.58
+     ],
+     "median": 1.58
+    },
+    "nine_november_settings": {
+     "runs": 3,
+     "values": [
+      1.59,
+      1.72,
+      1.73
+     ],
+     "median": 1.72
+    }
+   },
+   "record 512": {
+    "defaults": {
+     "runs": 3,
+     "values": [
+      2.31,
+      2.24,
+      2.29
+     ],
+     "median": 2.29
+    },
+    "nine_november_settings": {
+     "runs": 3,
+     "values": [
+      1.98,
+      1.8,
+      1.81
+     ],
+     "median": 1.81
+    }
+   },
+   "public_512 128": {
+    "defaults": {
+     "runs": 3,
+     "values": [
+      2.35,
+      2.41,
+      2.4
+     ],
+     "median": 2.4
+    },
+    "nine_november_settings": {
+     "runs": 3,
+     "values": [
+      1.36,
+      1.37,
+      1.35
+     ],
+     "median": 1.36
+    }
+   },
+   "public_512 prefill_tok_s": {
+    "defaults": {
+     "runs": 3,
+     "values": [
+      9.13,
+      10.36,
+      11.05
+     ],
+     "median": 10.36
+    },
+    "nine_november_settings": {
+     "runs": 3,
+     "values": [
+      7.61,
+      8.12,
+      8.33
+     ],
+     "median": 8.12
+    }
+   }
+  },
+  "session 1, other rows": {
+   "record 200": {
+    "runs": 1,
+    "values": [
+     2.19
+    ],
+    "median": 2.19
+   },
+   "france 17": {
+    "runs": 3,
+    "values": [
+     1.59,
+     1.68,
+     1.68
+    ],
+    "median": 1.68
+   },
+   "record 128 plain": {
+    "runs": 1,
+    "values": [
+     1.45
+    ],
+    "median": 1.45
+   },
+   "record 512 plain": {
+    "runs": 1,
+    "values": [
+     1.32
+    ],
+    "median": 1.32
+   },
+   "public_512 128 plain": {
+    "runs": 1,
+    "values": [
+     1.03
+    ],
+    "median": 1.03
+   },
+   "code 200": {
+    "runs": 1,
+    "values": [
+     1.32
+    ],
+    "median": 1.32
+   }
+  }
+ },
+ "reading": "long, predictable text decodes about 25 % faster than with the 9 November settings and the answer after the 512-token prompt about 75 % faster, with a prompt pass 15 to 20 % shorter; the 128-token test does not gain (equal in session 1, 8 % slower in session 2). Machine load moves all of these by several percent, so compare inside one session",
+ "timing": "steady = tokens after the first divided by the time after the first token; incl_first_step adds the first decode step; prefill and first_token_s as printed by the engine (first token includes start-up, which varies by a few seconds)",
+ "not_established": [
+  "comparison with Moonshot's own implementation",
+  "the same logits on CUDA and on Metal (the reduction orders differ)",
+  "other Macs, memory sizes or drive sets",
+  "contexts above 2,048 tokens on Metal",
+  "which of the three changed defaults costs the 128-token test under load"
+ ],
+ "runs": [
+  {
+   "tag": "S6_R512Qa",
+   "session": 1,
+   "settings": "defaults",
+   "prompt": "record",
+   "generated": 512,
+   "drafter": true,
+   "steady": 2.49,
+   "incl_first_step": 2.5,
+   "prefill_tok_s": 1.05,
+   "prefill_s": 5.71,
+   "first_token_s": 6.74,
+   "logits_vs_plain": "512 common, 0 differ",
+   "blocks": 28,
+   "block_tokens": 493,
+   "drafts": 520,
+   "accepted": 465,
+   "by_rows": "3:4 4:5 5:1 6:2 7:1 8:1 9:2 12:1 17:2 18:1 24:1 36:1 54:1 56:1 57:1 58:2 59:1"
+  },
+  {
+   "tag": "S6_R512old",
+   "session": 1,
+   "settings": "9 November settings",
+   "prompt": "record",
+   "generated": 512,
+   "drafter": true,
+   "steady": 1.99,
+   "incl_first_step": 1.99,
+   "prefill_tok_s": 1.02,
+   "prefill_s": 5.88,
+   "first_token_s": 6.96,
+   "logits_vs_plain": "512 common, 0 differ",
+   "blocks": 46,
+   "block_tokens": 489,
+   "drafts": 469,
+   "accepted": 443,
+   "by_rows": "3:4 4:6 5:1 6:3 7:1 8:2 9:3 10:1 12:1 16:24"
+  },
+  {
+   "tag": "S6_R512Qb",
+   "session": 1,
+   "settings": "defaults",
+   "prompt": "record",
+   "generated": 512,
+   "drafter": true,
+   "steady": 2.5,
+   "incl_first_step": 2.5,
+   "prefill_tok_s": 1.01,
+   "prefill_s": 5.92,
+   "first_token_s": 7.0,
+   "logits_vs_plain": "512 common, 0 differ",
+   "blocks": 28,
+   "block_tokens": 493,
+   "drafts": 520,
+   "accepted": 465,
+   "by_rows": "3:4 4:5 5:1 6:2 7:1 8:1 9:2 12:1 17:2 18:1 24:1 36:1 54:1 56:1 57:1 58:2 59:1"
+  },
+  {
+   "tag": "S6_PQa",
+   "session": 1,
+   "settings": "defaults",
+   "prompt": "public_512",
+   "generated": 128,
+   "drafter": true,
+   "steady": 2.47,
+   "incl_first_step": 2.48,
+   "prefill_tok_s": 9.05,
+   "prefill_s": 56.58,
+   "first_token_s": 57.65,
+   "logits_vs_plain": "128 common, 0 differ",
+   "blocks": 2,
+   "block_tokens": 127,
+   "drafts": 125,
+   "accepted": 125,
+   "by_rows": "63:1 64:1"
+  },
+  {
+   "tag": "S6_Pold",
+   "session": 1,
+   "settings": "9 November settings",
+   "prompt": "public_512",
+   "generated": 128,
+   "drafter": true,
+   "steady": 1.42,
+   "incl_first_step": 1.43,
+   "prefill_tok_s": 7.9,
+   "prefill_s": 64.81,
+   "first_token_s": 65.89,
+   "logits_vs_plain": "128 common, 0 differ",
+   "blocks": 8,
+   "block_tokens": 127,
+   "drafts": 119,
+   "accepted": 119,
+   "by_rows": "15:1 16:7"
+  },
+  {
+   "tag": "S6_PQb",
+   "session": 1,
+   "settings": "defaults",
+   "prompt": "public_512",
+   "generated": 128,
+   "drafter": true,
+   "steady": 2.44,
+   "incl_first_step": 2.45,
+   "prefill_tok_s": 9.45,
+   "prefill_s": 54.21,
+   "first_token_s": 55.31,
+   "logits_vs_plain": "128 common, 0 differ",
+   "blocks": 2,
+   "block_tokens": 127,
+   "drafts": 125,
+   "accepted": 125,
+   "by_rows": "63:1 64:1"
+  },
+  {
+   "tag": "S6_F1",
+   "session": 1,
+   "settings": "defaults",
+   "prompt": "france",
+   "generated": 17,
+   "drafter": true,
+   "steady": 1.59,
+   "incl_first_step": 1.68,
+   "prefill_tok_s": 0.9,
+   "prefill_s": 5.53,
+   "first_token_s": 6.6,
+   "logits_vs_plain": "17 common, 0 differ",
+   "blocks": 4,
+   "block_tokens": 13,
+   "drafts": 11,
+   "accepted": 9,
+   "by_rows": "3:1 4:3"
+  },
+  {
+   "tag": "S6_F2",
+   "session": 1,
+   "settings": "defaults",
+   "prompt": "france",
+   "generated": 17,
+   "drafter": true,
+   "steady": 1.68,
+   "incl_first_step": 1.78,
+   "prefill_tok_s": 0.9,
+   "prefill_s": 5.53,
+   "first_token_s": 6.6,
+   "logits_vs_plain": "17 common, 0 differ",
+   "blocks": 4,
+   "block_tokens": 13,
+   "drafts": 11,
+   "accepted": 9,
+   "by_rows": "3:1 4:3"
+  },
+  {
+   "tag": "S6_F3",
+   "session": 1,
+   "settings": "defaults",
+   "prompt": "france",
+   "generated": 17,
+   "drafter": true,
+   "steady": 1.68,
+   "incl_first_step": 1.78,
+   "prefill_tok_s": 0.93,
+   "prefill_s": 5.36,
+   "first_token_s": 6.44,
+   "logits_vs_plain": "17 common, 0 differ",
+   "blocks": 4,
+   "block_tokens": 13,
+   "drafts": 11,
+   "accepted": 9,
+   "by_rows": "3:1 4:3"
+  },
+  {
+   "tag": "S6_R128Q",
+   "session": 1,
+   "settings": "defaults",
+   "prompt": "record",
+   "generated": 128,
+   "drafter": true,
+   "steady": 1.79,
+   "incl_first_step": 1.8,
+   "prefill_tok_s": 1.08,
+   "prefill_s": 5.56,
+   "first_token_s": 6.64,
+   "logits_vs_plain": "128 common, 0 differ",
+   "blocks": 19,
+   "block_tokens": 117,
+   "drafts": 116,
+   "accepted": 98,
+   "by_rows": "3:4 4:5 5:1 6:2 7:1 8:1 9:2 12:1 17:1 24:1"
+  },
+  {
+   "tag": "S6_R200Q",
+   "session": 1,
+   "settings": "defaults",
+   "prompt": "record",
+   "generated": 200,
+   "drafter": true,
+   "steady": 2.19,
+   "incl_first_step": 2.2,
+   "prefill_tok_s": 1.01,
+   "prefill_s": 5.95,
+   "first_token_s": 7.02,
+   "logits_vs_plain": "200 common, 0 differ",
+   "blocks": 20,
+   "block_tokens": 189,
+   "drafts": 187,
+   "accepted": 169,
+   "by_rows": "3:4 4:5 5:1 6:1 7:1 8:1 9:2 12:1 17:1 24:2 54:1"
+  },
+  {
+   "tag": "S6_R512Qc",
+   "session": 1,
+   "settings": "defaults",
+   "prompt": "record",
+   "generated": 512,
+   "drafter": true,
+   "steady": 2.48,
+   "incl_first_step": 2.49,
+   "prefill_tok_s": 1.02,
+   "prefill_s": 5.88,
+   "first_token_s": 6.94,
+   "logits_vs_plain": "512 common, 0 differ",
+   "blocks": 28,
+   "block_tokens": 493,
+   "drafts": 520,
+   "accepted": 465,
+   "by_rows": "3:4 4:5 5:1 6:2 7:1 8:1 9:2 12:1 17:2 18:1 24:1 36:1 54:1 56:1 57:1 58:2 59:1"
+  },
+  {
+   "tag": "S6_R128P",
+   "session": 1,
+   "settings": "defaults",
+   "prompt": "record",
+   "generated": 128,
+   "drafter": false,
+   "steady": 1.45,
+   "incl_first_step": 1.46,
+   "prefill_tok_s": 1.04,
+   "prefill_s": 5.77,
+   "first_token_s": 6.83,
+   "logits_vs_plain": "128 common, 0 differ"
+  },
+  {
+   "tag": "S6_CQ",
+   "session": 1,
+   "settings": "defaults",
+   "prompt": "code",
+   "generated": 200,
+   "drafter": true,
+   "steady": 1.32,
+   "incl_first_step": 1.33,
+   "prefill_tok_s": 1.91,
+   "prefill_s": 10.48,
+   "first_token_s": 11.48,
+   "logits_vs_plain": "200 common, 0 differ",
+   "blocks": 23,
+   "block_tokens": 169,
+   "drafts": 200,
+   "accepted": 146,
+   "by_rows": "3:4 4:5 5:1 6:1 7:1 8:1 9:1 10:2 12:1 13:2 14:1 20:1 32:2"
+  },
+  {
+   "tag": "S6_PP",
+   "session": 1,
+   "settings": "defaults",
+   "prompt": "public_512",
+   "generated": 128,
+   "drafter": false,
+   "steady": 1.03,
+   "incl_first_step": 1.04,
+   "prefill_tok_s": 11.3,
+   "prefill_s": 45.29,
+   "first_token_s": 46.36,
+   "logits_vs_plain": "128 common, 0 differ"
+  },
+  {
+   "tag": "S6_R512P",
+   "session": 1,
+   "settings": "defaults",
+   "prompt": "record",
+   "generated": 512,
+   "drafter": false,
+   "steady": 1.32,
+   "incl_first_step": 1.33,
+   "prefill_tok_s": 1.07,
+   "prefill_s": 5.6,
+   "first_token_s": 6.62,
+   "logits_vs_plain": "512 common, 0 differ"
+  },
+  {
+   "tag": "B7_old1",
+   "session": 1,
+   "settings": "9 November settings",
+   "prompt": "record",
+   "generated": 128,
+   "drafter": true,
+   "steady": 1.82,
+   "incl_first_step": 1.84,
+   "prefill_tok_s": 1.03,
+   "prefill_s": 5.85,
+   "first_token_s": 6.84,
+   "logits_vs_plain": "128 common, 0 differ",
+   "blocks": 19,
+   "block_tokens": 116,
+   "drafts": 107,
+   "accepted": 97,
+   "by_rows": "3:4 4:5 5:1 6:2 7:1 8:1 9:2 12:1 16:2"
+  },
+  {
+   "tag": "B7_new1",
+   "session": 1,
+   "settings": "defaults",
+   "prompt": "record",
+   "generated": 128,
+   "drafter": true,
+   "steady": 1.84,
+   "incl_first_step": 1.86,
+   "prefill_tok_s": 1.01,
+   "prefill_s": 5.96,
+   "first_token_s": 6.99,
+   "logits_vs_plain": "128 common, 0 differ",
+   "blocks": 19,
+   "block_tokens": 117,
+   "drafts": 116,
+   "accepted": 98,
+   "by_rows": "3:4 4:5 5:1 6:2 7:1 8:1 9:2 12:1 17:1 24:1"
+  },
+  {
+   "tag": "B7_new2",
+   "session": 1,
+   "settings": "defaults",
+   "prompt": "record",
+   "generated": 128,
+   "drafter": true,
+   "steady": 1.71,
+   "incl_first_step": 1.72,
+   "prefill_tok_s": 1.03,
+   "prefill_s": 5.81,
+   "first_token_s": 6.83,
+   "logits_vs_plain": "128 common, 0 differ",
+   "blocks": 19,
+   "block_tokens": 117,
+   "drafts": 116,
+   "accepted": 98,
+   "by_rows": "3:4 4:5 5:1 6:2 7:1 8:1 9:2 12:1 17:1 24:1"
+  },
+  {
+   "tag": "B7_old2",
+   "session": 1,
+   "settings": "9 November settings",
+   "prompt": "record",
+   "generated": 128,
+   "drafter": true,
+   "steady": 1.78,
+   "incl_first_step": 1.8,
+   "prefill_tok_s": 1.02,
+   "prefill_s": 5.87,
+   "first_token_s": 6.92,
+   "logits_vs_plain": "128 common, 0 differ",
+   "blocks": 19,
+   "block_tokens": 116,
+   "drafts": 107,
+   "accepted": 97,
+   "by_rows": "3:4 4:5 5:1 6:2 7:1 8:1 9:2 12:1 16:2"
+  },
+  {
+   "tag": "S8_R512Q1",
+   "session": 2,
+   "settings": "defaults",
+   "prompt": "record",
+   "generated": 512,
+   "drafter": true,
+   "steady": 2.31,
+   "incl_first_step": 2.32,
+   "prefill_tok_s": 0.92,
+   "prefill_s": 6.51,
+   "first_token_s": 7.63,
+   "logits_vs_plain": "512 common, 0 differ",
+   "blocks": 27,
+   "block_tokens": 489,
+   "drafts": 515,
+   "accepted": 462,
+   "by_rows": "3:4 4:4 5:1 6:2 7:1 8:1 9:2 12:1 17:2 18:1 22:1 36:1 54:1 56:1 57:1 58:2 59:1"
+  },
+  {
+   "tag": "S8_R512O1",
+   "session": 2,
+   "settings": "9 November settings",
+   "prompt": "record",
+   "generated": 512,
+   "drafter": true,
+   "steady": 1.98,
+   "incl_first_step": 1.99,
+   "prefill_tok_s": 1.02,
+   "prefill_s": 5.88,
+   "first_token_s": 6.95,
+   "logits_vs_plain": "512 common, 0 differ",
+   "blocks": 46,
+   "block_tokens": 489,
+   "drafts": 469,
+   "accepted": 443,
+   "by_rows": "3:4 4:6 5:1 6:3 7:1 8:2 9:3 10:1 12:1 16:24"
+  },
+  {
+   "tag": "S8_PQ1",
+   "session": 2,
+   "settings": "defaults",
+   "prompt": "public_512",
+   "generated": 128,
+   "drafter": true,
+   "steady": 2.35,
+   "incl_first_step": 2.35,
+   "prefill_tok_s": 9.13,
+   "prefill_s": 56.06,
+   "first_token_s": 57.13,
+   "logits_vs_plain": "128 common, 0 differ",
+   "blocks": 2,
+   "block_tokens": 127,
+   "drafts": 125,
+   "accepted": 125,
+   "by_rows": "63:1 64:1"
+  },
+  {
+   "tag": "S8_PO1",
+   "session": 2,
+   "settings": "9 November settings",
+   "prompt": "public_512",
+   "generated": 128,
+   "drafter": true,
+   "steady": 1.36,
+   "incl_first_step": 1.37,
+   "prefill_tok_s": 7.61,
+   "prefill_s": 67.32,
+   "first_token_s": 68.44,
+   "logits_vs_plain": "128 common, 0 differ",
+   "blocks": 8,
+   "block_tokens": 127,
+   "drafts": 119,
+   "accepted": 119,
+   "by_rows": "15:1 16:7"
+  },
+  {
+   "tag": "S8_R128Q1",
+   "session": 2,
+   "settings": "defaults",
+   "prompt": "record",
+   "generated": 128,
+   "drafter": true,
+   "steady": 1.52,
+   "incl_first_step": 1.53,
+   "prefill_tok_s": 0.98,
+   "prefill_s": 6.1,
+   "first_token_s": 7.18,
+   "logits_vs_plain": "128 common, 0 differ",
+   "blocks": 19,
+   "block_tokens": 117,
+   "drafts": 114,
+   "accepted": 98,
+   "by_rows": "3:4 4:5 5:1 6:2 7:1 8:1 9:2 12:1 17:1 22:1"
+  },
+  {
+   "tag": "S8_R128O1",
+   "session": 2,
+   "settings": "9 November settings",
+   "prompt": "record",
+   "generated": 128,
+   "drafter": true,
+   "steady": 1.59,
+   "incl_first_step": 1.6,
+   "prefill_tok_s": 1.03,
+   "prefill_s": 5.84,
+   "first_token_s": 6.95,
+   "logits_vs_plain": "128 common, 0 differ",
+   "blocks": 19,
+   "block_tokens": 116,
+   "drafts": 107,
+   "accepted": 97,
+   "by_rows": "3:4 4:5 5:1 6:2 7:1 8:1 9:2 12:1 16:2"
+  },
+  {
+   "tag": "S8_R512O2",
+   "session": 2,
+   "settings": "9 November settings",
+   "prompt": "record",
+   "generated": 512,
+   "drafter": true,
+   "steady": 1.8,
+   "incl_first_step": 1.8,
+   "prefill_tok_s": 1.02,
+   "prefill_s": 5.89,
+   "first_token_s": 6.99,
+   "logits_vs_plain": "512 common, 0 differ",
+   "blocks": 46,
+   "block_tokens": 489,
+   "drafts": 469,
+   "accepted": 443,
+   "by_rows": "3:4 4:6 5:1 6:3 7:1 8:2 9:3 10:1 12:1 16:24"
+  },
+  {
+   "tag": "S8_R512Q2",
+   "session": 2,
+   "settings": "defaults",
+   "prompt": "record",
+   "generated": 512,
+   "drafter": true,
+   "steady": 2.24,
+   "incl_first_step": 2.25,
+   "prefill_tok_s": 1.01,
+   "prefill_s": 5.93,
+   "first_token_s": 7.06,
+   "logits_vs_plain": "512 common, 0 differ",
+   "blocks": 28,
+   "block_tokens": 493,
+   "drafts": 518,
+   "accepted": 465,
+   "by_rows": "3:4 4:5 5:1 6:2 7:1 8:1 9:2 12:1 17:2 18:1 22:1 36:1 54:1 56:1 57:1 58:2 59:1"
+  },
+  {
+   "tag": "S8_PO2",
+   "session": 2,
+   "settings": "9 November settings",
+   "prompt": "public_512",
+   "generated": 128,
+   "drafter": true,
+   "steady": 1.37,
+   "incl_first_step": 1.38,
+   "prefill_tok_s": 8.12,
+   "prefill_s": 63.04,
+   "first_token_s": 64.13,
+   "logits_vs_plain": "128 common, 0 differ",
+   "blocks": 8,
+   "block_tokens": 127,
+   "drafts": 119,
+   "accepted": 119,
+   "by_rows": "15:1 16:7"
+  },
+  {
+   "tag": "S8_PQ2",
+   "session": 2,
+   "settings": "defaults",
+   "prompt": "public_512",
+   "generated": 128,
+   "drafter": true,
+   "steady": 2.41,
+   "incl_first_step": 2.42,
+   "prefill_tok_s": 10.36,
+   "prefill_s": 49.41,
+   "first_token_s": 50.51,
+   "logits_vs_plain": "128 common, 0 differ",
+   "blocks": 2,
+   "block_tokens": 127,
+   "drafts": 125,
+   "accepted": 125,
+   "by_rows": "63:1 64:1"
+  },
+  {
+   "tag": "S8_R128O2",
+   "session": 2,
+   "settings": "9 November settings",
+   "prompt": "record",
+   "generated": 128,
+   "drafter": true,
+   "steady": 1.72,
+   "incl_first_step": 1.74,
+   "prefill_tok_s": 1.02,
+   "prefill_s": 5.87,
+   "first_token_s": 6.92,
+   "logits_vs_plain": "128 common, 0 differ",
+   "blocks": 19,
+   "block_tokens": 116,
+   "drafts": 107,
+   "accepted": 97,
+   "by_rows": "3:4 4:5 5:1 6:2 7:1 8:1 9:2 12:1 16:2"
+  },
+  {
+   "tag": "S8_R128Q2",
+   "session": 2,
+   "settings": "defaults",
+   "prompt": "record",
+   "generated": 128,
+   "drafter": true,
+   "steady": 1.59,
+   "incl_first_step": 1.61,
+   "prefill_tok_s": 1.0,
+   "prefill_s": 5.98,
+   "first_token_s": 7.07,
+   "logits_vs_plain": "128 common, 0 differ",
+   "blocks": 19,
+   "block_tokens": 117,
+   "drafts": 114,
+   "accepted": 98,
+   "by_rows": "3:4 4:5 5:1 6:2 7:1 8:1 9:2 12:1 17:1 22:1"
+  },
+  {
+   "tag": "S8_R512Q3",
+   "session": 2,
+   "settings": "defaults",
+   "prompt": "record",
+   "generated": 512,
+   "drafter": true,
+   "steady": 2.29,
+   "incl_first_step": 2.29,
+   "prefill_tok_s": 1.01,
+   "prefill_s": 5.95,
+   "first_token_s": 7.02,
+   "logits_vs_plain": "512 common, 0 differ",
+   "blocks": 28,
+   "block_tokens": 493,
+   "drafts": 520,
+   "accepted": 465,
+   "by_rows": "3:4 4:5 5:1 6:2 7:1 8:1 9:2 12:1 17:2 18:1 24:1 36:1 54:1 56:1 57:1 58:2 59:1"
+  },
+  {
+   "tag": "S8_R512O3",
+   "session": 2,
+   "settings": "9 November settings",
+   "prompt": "record",
+   "generated": 512,
+   "drafter": true,
+   "steady": 1.81,
+   "incl_first_step": 1.81,
+   "prefill_tok_s": 0.99,
+   "prefill_s": 6.04,
+   "first_token_s": 7.14,
+   "logits_vs_plain": "512 common, 0 differ",
+   "blocks": 46,
+   "block_tokens": 489,
+   "drafts": 469,
+   "accepted": 443,
+   "by_rows": "3:4 4:6 5:1 6:3 7:1 8:2 9:3 10:1 12:1 16:24"
+  },
+  {
+   "tag": "S8_PQ3",
+   "session": 2,
+   "settings": "defaults",
+   "prompt": "public_512",
+   "generated": 128,
+   "drafter": true,
+   "steady": 2.4,
+   "incl_first_step": 2.41,
+   "prefill_tok_s": 11.05,
+   "prefill_s": 46.33,
+   "first_token_s": 47.4,
+   "logits_vs_plain": "128 common, 0 differ",
+   "blocks": 2,
+   "block_tokens": 127,
+   "drafts": 125,
+   "accepted": 125,
+   "by_rows": "63:1 64:1"
+  },
+  {
+   "tag": "S8_PO3",
+   "session": 2,
+   "settings": "9 November settings",
+   "prompt": "public_512",
+   "generated": 128,
+   "drafter": true,
+   "steady": 1.35,
+   "incl_first_step": 1.36,
+   "prefill_tok_s": 8.33,
+   "prefill_s": 61.47,
+   "first_token_s": 62.52,
+   "logits_vs_plain": "128 common, 0 differ",
+   "blocks": 8,
+   "block_tokens": 127,
+   "drafts": 119,
+   "accepted": 119,
+   "by_rows": "15:1 16:7"
+  },
+  {
+   "tag": "S8_R128Q3",
+   "session": 2,
+   "settings": "defaults",
+   "prompt": "record",
+   "generated": 128,
+   "drafter": true,
+   "steady": 1.58,
+   "incl_first_step": 1.6,
+   "prefill_tok_s": 0.99,
+   "prefill_s": 6.09,
+   "first_token_s": 7.16,
+   "logits_vs_plain": "128 common, 0 differ",
+   "blocks": 19,
+   "block_tokens": 117,
+   "drafts": 114,
+   "accepted": 98,
+   "by_rows": "3:4 4:5 5:1 6:2 7:1 8:1 9:2 12:1 17:1 22:1"
+  },
+  {
+   "tag": "S8_R128O3",
+   "session": 2,
+   "settings": "9 November settings",
+   "prompt": "record",
+   "generated": 128,
+   "drafter": true,
+   "steady": 1.73,
+   "incl_first_step": 1.75,
+   "prefill_tok_s": 1.01,
+   "prefill_s": 5.92,
+   "first_token_s": 6.97,
+   "logits_vs_plain": "128 common, 0 differ",
+   "blocks": 19,
+   "block_tokens": 116,
+   "drafts": 107,
+   "accepted": 97,
+   "by_rows": "3:4 4:5 5:1 6:2 7:1 8:1 9:2 12:1 16:2"
+  }
+ ]
+}
