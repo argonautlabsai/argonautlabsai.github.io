@@ -1,0 +1,82 @@
+{
+ "title": "DeepSeek V4.1 Flash, October checkpoint: drive ladder on one MacBook Pro M5 Max",
+ "date": "2026-11-13",
+ "machine": "MacBook Pro M5 Max, 128 GB",
+ "model": "DeepSeek-V4.1-Flash-1017, MXFP4 routed experts, 501.6 GB GGUF",
+ "engine": "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1 (main 932e2cb), switches of tools/deepseek-v41 with DS4_ARGODRIVE_DECODE_PIPELINE=4",
+ "workload": "ds4-bench, 512-token prompt (speed-bench/promessi_sposi.txt), 200 generated tokens, fresh process per run, page cache of the model files dropped first, 4,368 cached experts",
+ "identity": "the generated text of every run has the same SHA-256; every decode step's full logits equal those of the engine without the switches (1,500 steps compared on 12 November)",
+ "upstream_reference": {
+  "engine": "antirez/ds4 b3f5018, no switches, internal SSD, 3,600 cached experts, 12 November 2026",
+  "prefill_tok_s": 17.59,
+  "steady_decode_tok_s": 13.0
+ },
+ "ladder": [
+  {
+   "drives": "internal SSD",
+   "median_prefill_tok_s": 44.36,
+   "median_steady_decode_tok_s": 18.38,
+   "runs": [
+    {
+     "prefill_tok_s": 44.02,
+     "steady_decode_tok_s": 17.88,
+     "generation_incl_first_tok_s": 17.12
+    },
+    {
+     "prefill_tok_s": 44.36,
+     "steady_decode_tok_s": 18.38,
+     "generation_incl_first_tok_s": 17.61
+    },
+    {
+     "prefill_tok_s": 44.51,
+     "steady_decode_tok_s": 18.43,
+     "generation_incl_first_tok_s": 17.59
+    }
+   ]
+  },
+  {
+   "drives": "internal SSD + one Thunderbolt 5 NVMe drive",
+   "median_prefill_tok_s": 59.51,
+   "median_steady_decode_tok_s": 20.69,
+   "runs": [
+    {
+     "prefill_tok_s": 59.55,
+     "steady_decode_tok_s": 20.69,
+     "generation_incl_first_tok_s": 19.69
+    },
+    {
+     "prefill_tok_s": 59.41,
+     "steady_decode_tok_s": 20.77,
+     "generation_incl_first_tok_s": 19.77
+    },
+    {
+     "prefill_tok_s": 59.51,
+     "steady_decode_tok_s": 20.68,
+     "generation_incl_first_tok_s": 19.69
+    }
+   ]
+  },
+  {
+   "drives": "internal SSD + two Thunderbolt 5 NVMe drives",
+   "median_prefill_tok_s": 72.76,
+   "median_steady_decode_tok_s": 22.47,
+   "runs": [
+    {
+     "prefill_tok_s": 72.76,
+     "steady_decode_tok_s": 22.43,
+     "generation_incl_first_tok_s": 21.35
+    },
+    {
+     "prefill_tok_s": 73.2,
+     "steady_decode_tok_s": 22.47,
+     "generation_incl_first_tok_s": 21.26
+    },
+    {
+     "prefill_tok_s": 72.67,
+     "steady_decode_tok_s": 22.55,
+     "generation_incl_first_tok_s": 21.36
+    }
+   ]
+  }
+ ]
+}
