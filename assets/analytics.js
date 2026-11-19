@@ -95,10 +95,9 @@
   panel.className = 'al-analytics-choice';
   panel.setAttribute('aria-label', 'Analytics preferences');
   panel.hidden = true;
-  panel.innerHTML = '<div><strong id="al-analytics-heading" tabindex="-1">Help us improve the lab.</strong>' +
-    '<p>Allow Google Analytics to measure visits, referral sources and clicks to our GitHub projects? ' +
-    'Analytics is optional. No advertising features.</p>' +
-    '<a href="/privacy.html">How we use analytics</a></div>' +
+  panel.innerHTML = '<div><strong id="al-analytics-heading" tabindex="-1">Optional analytics</strong>' +
+    '<p>Allow Google Analytics to count visits, referrals and GitHub clicks?</p> ' +
+    '<a href="/privacy.html">Privacy details</a></div>' +
     '<div class="al-analytics-actions"><button type="button" data-choice="no">Decline analytics</button>' +
     '<button type="button" data-choice="yes">Allow analytics</button></div>';
   document.body.appendChild(panel);
