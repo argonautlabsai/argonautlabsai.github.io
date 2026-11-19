@@ -6,18 +6,18 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="light dark" name="color-scheme"/>
 <title>How we run Kimi K3.1 Pro on two GPUs — Argonaut Labs</title>
-<meta content="How Argonaut Labs runs Kimi K3.1 Pro on one workstation: two RTX PRO 6000 cards, a 56 GiB RAM pool and four NVMe drives. An animated schematic, the measured speeds and what is verified." name="description"/>
+<meta content="Kimi K3.1 Pro on two RTX PRO 6000 GPUs and four NVMe drives. Drafted decode reached 5.52 tok/s on a financial completion and 2.93 on a separate chat prompt." name="description"/>
 <link href="https://argonautlabs.ai/research/kimi-k31-build.html" rel="canonical"/>
 <link href="../assets/cinematic/favicon.svg" rel="icon" type="image/svg+xml"/>
 <link href="../styles.css?v=20261106-bronze" rel="stylesheet"/>
 <link href="../assets/kimi-article.css?v=20261108-discovery" rel="stylesheet"/>
 <link href="../assets/workstation.css?v=20261106-compact" rel="stylesheet"/>
-<link href="../assets/kimi-build.css?v=20261119" rel="stylesheet"/>
+<link href="../assets/kimi-build.css?v=20261119b" rel="stylesheet"/>
 <script defer="" src="../assets/kimi-build.js?v=20261119"></script>
 <meta content="article" property="og:type"/>
 <meta content="Argonaut Labs" property="og:site_name"/>
 <meta content="How we run Kimi K3.1 Pro on two GPUs — Argonaut Labs" property="og:title"/>
-<meta content="How Argonaut Labs runs Kimi K3.1 Pro on one workstation: two RTX PRO 6000 cards, a 56 GiB RAM pool and four NVMe drives. An animated schematic, the measured speeds and what is verified." property="og:description"/>
+<meta content="Kimi K3.1 Pro on two RTX PRO 6000 GPUs and four NVMe drives. Drafted decode reached 5.52 tok/s on a financial completion and 2.93 on a separate chat prompt." property="og:description"/>
 <meta content="https://argonautlabs.ai/research/kimi-k31-build.html" property="og:url"/>
 <meta content="https://argonautlabs.ai/assets/og-kimi-k31.png?v=20261106-bronze" property="og:image"/>
 <meta content="Argonaut Labs: Kimi K3.1 Pro streamed from NVMe" property="og:image:alt"/>
@@ -25,13 +25,13 @@
 <meta content="2026-11-19" property="article:modified_time"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="How we run Kimi K3.1 Pro on two GPUs — Argonaut Labs" name="twitter:title"/>
-<meta content="How Argonaut Labs runs Kimi K3.1 Pro on one workstation: two RTX PRO 6000 cards, a 56 GiB RAM pool and four NVMe drives. An animated schematic, the measured speeds and what is verified." name="twitter:description"/>
+<meta content="Kimi K3.1 Pro on two RTX PRO 6000 GPUs and four NVMe drives. Drafted decode reached 5.52 tok/s on a financial completion and 2.93 on a separate chat prompt." name="twitter:description"/>
 <meta content="https://argonautlabs.ai/assets/og-kimi-k31.png?v=20261106-bronze" name="twitter:image"/>
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "TechArticle",
   "headline": "How we run Kimi K3.1 Pro on two GPUs",
-  "description": "How Argonaut Labs runs Kimi K3.1 Pro on one workstation: two RTX PRO 6000 cards, a 56 GiB RAM pool and four NVMe drives. An animated schematic, the measured speeds and what is verified.",
+  "description": "Kimi K3.1 Pro on two RTX PRO 6000 GPUs and four NVMe drives. Drafted decode reached 5.52 tok/s on a financial completion and 2.93 on a separate chat prompt.",
   "url": "https://argonautlabs.ai/research/kimi-k31-build.html",
   "mainEntityOfPage": "https://argonautlabs.ai/research/kimi-k31-build.html",
   "image": "https://argonautlabs.ai/assets/argonaut-workstation-1600.jpg",
@@ -81,22 +81,24 @@
 <header class="k31-intro">
 <p class="eyebrow">ARGODRIVE DS4 KIMI K3.1 / THE BUILD</p>
 <h1>How we run Kimi K3.1 Pro<br/>on two GPUs.</h1><p class="k31-hardware-line">Two RTX PRO 6000 Blackwell · 192 GB of VRAM · 80 GiB of RAM in the VM · four NVMe drives · 1.45 TB of experts.</p>
-<p class="k31-lede">Kimi K3.1 Pro has 2.8 trillion parameters, and its experts alone fill 1.45 TB. Our two graphics cards hold 192 GB between them. This page is about that gap: what we keep in memory, what stays on the drives, and what has to move every time the model writes a token.</p><p class="k31-product"><strong>The short version.</strong> On 19 November 2026 this build generated 5.52 tokens a second with a small drafter model helping, and 2.97 without it. The drives set that speed. The graphics cards spend most of their time waiting.</p>
+<p class="k31-lede">Kimi K3.1 Pro has 2.8 trillion parameters. Its experts occupy 1.45 TB, and our two graphics cards have 192 GB of VRAM between them. With the experts on four NVMe drives, we measured what the second GPU bought us.</p>
+<p class="k31-product">Given the six-token prompt “The three main financial statements are”, Kimi generated 512 tokens at <strong>3.87 tok/s on one card and 5.52 on two</strong> with the Qwen drafter. That’s a 43% gain on a completion Qwen predicts well. A separate chat prompt reached <strong>2.93 tok/s</strong> on two cards over 256 generated tokens. Processing a 1,512-token input stayed near 40 tok/s on either setup.</p>
 <p class="k31-byline">By <a href="../#about">Argonaut Labs</a> · Published <time datetime="2026-11-19">19 November 2026</time> · Figures are from the 19 November release unless a date is given · Built on Salvatore Sanfilippo’s ds4</p>
-<div class="actions"><a class="button primary" href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1">Get the Kimi engine ↗</a><a class="text-link" href="kimi-k31-single-gpu.html">Every measurement →</a><a class="text-link" href="#writers">If you are writing about this ↓</a></div>
+<div class="actions"><a class="button primary" href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1">Get the Kimi engine ↗</a><a class="text-link" href="#reproduce">Run this benchmark ↓</a><a class="text-link" href="#writers">If you are writing about this ↓</a></div>
 </header>
-<div aria-label="Highlights" class="k31-metrics">
-<div><span class="k31-metric-label">DECODE / TWO CARDS, WITH THE DRAFTER</span><strong>5.52 <small>tok/s</small></strong><span>Raw text, 512 tokens · 19 November</span></div>
-<div><span class="k31-metric-label">DECODE / TWO CARDS, NO DRAFTER</span><strong>2.97 <small>tok/s</small></strong><span>The same test · 19 November</span></div>
-<div><span class="k31-metric-label">EXPERTS ON THE DRIVES</span><strong>1.45 <small>TB</small></strong><span>82,432 files of 17.5 MB</span></div>
-<div><span class="k31-metric-label">IN MEMORY AT ANY MOMENT</span><strong>13 <small>%</small></strong><span>7,239 experts in VRAM, about 3,400 in RAM</span></div>
-</div>
+<div class="table-scroll"><table class="kb-comparison">
+<caption>One RTX PRO 6000 versus two, in tokens per second · 19 November 2026 · same four NVMe drives</caption>
+<thead><tr><th scope="col">Workload</th><th scope="col">One GPU</th><th scope="col">Two GPUs</th></tr></thead>
+<tbody>
+<tr><th scope="row">Financial completion · plain</th><td>2.04</td><td>2.97</td></tr>
+<tr><th scope="row">Same completion · Qwen drafter</th><td>3.87</td><td><strong>5.52</strong></td></tr>
+<tr><th scope="row">1,512-token prefill · plain</th><td>39.5</td><td>39.7</td></tr>
+</tbody></table></div>
+<p class="k31-answer">The second card raised GPU cache capacity from <strong>1,536 to 7,239 experts</strong>. More of the experts needed for the next token could stay in VRAM. Even with both cards, waiting for expert reads took <strong>85% of decode time</strong> on the profiled financial completion and <strong>78%</strong> on the chat run. <a href="#time">See the timing breakdown.</a></p>
 <dl class="kb-facts">
 <div><dt>Model</dt><dd>Kimi K3.1 Pro by Moonshot AI. 2.8 trillion parameters, a mixture of experts: 92 layers of 896 experts, 16 used per layer for each token.</dd></div>
 <div><dt>Weights</dt><dd>82,432 expert files of 17.5 MB each (1.45 TB, in the 4-bit MXFP4 format Moonshot ships) and a 62 GB spine at 8 bits.</dd></div>
 <div><dt>Machine</dt><dd>One Threadripper workstation: two NVIDIA RTX PRO 6000 Blackwell cards (96 GB each), an Ubuntu VM with 16 cores and 80 GiB of RAM, four NVMe drives.</dd></div>
-<div><dt>Writing speed</dt><dd>5.52 tok/s with the Qwen drafter and 2.97 without, on two cards; 3.87 and 2.04 on one. Six-token prompt, 512 tokens generated, 19 November 2026.</dd></div>
-<div><dt>Reading speed</dt><dd>16 tok/s on a 512-token prompt and 39 to 40 on a 1,512-token one. 120 tok/s on a 6,769-token prompt (11 November, one card).</dd></div>
 <div><dt>Context</dt><dd>Measured up to 16,384 tokens.</dd></div>
 <div><dt>Output</dt><dd>The same logits as our one-card reference runs at all 4,316 positions compared. No experts skipped. Not yet compared with Moonshot’s own implementation.</dd></div>
 <div><dt>Software</dt><dd><a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1">Argodrive DS4 Kimi K3.1</a>, release <code>k31-cuda-20261119</code>, source on GitHub. Built on Salvatore Sanfilippo’s <a href="https://github.com/antirez/ds4">ds4</a>.</dd></div>
@@ -197,13 +199,12 @@
 <div class="k31-bar-row"><span>256-row block</span><div><span style="width:9.34%"></span></div><strong>136</strong></div>
 <p>Wide blocks only happen when the drafter guesses long stretches correctly.</p>
 </figure>
-<p>How much this helps depends on what is being written. On the financial-statements prompt we use as our standard test, Kimi keeps 89% of Qwen’s drafts and decode reaches 5.52 tok/s. Two other continuations ran at 2.98 and 3.11 tok/s with the same settings, and a chat prompt at 2.93. The headline number is the best case, and we would rather say so here than have someone find out.</p>
+<p>How much this helps depends on what is being written. On the financial-statements prompt we use as our standard test, Kimi keeps 89% of Qwen’s drafts and decode reaches 5.52 tok/s. Two other continuations ran at 2.98 and 3.11 tok/s with the same settings, and a chat prompt at 2.93.</p>
 </section>
 
 <section id="two-cards"><h2>What the second card did, and what it did not.</h2>
-<p>Until 19 November everything ran on one card. A second GPU sounds like twice the computing. That is not what it gave us, because computing was never the slow part: the expert maths takes 0.5% of the time.</p>
-<p>What the second card brought is memory. With the layers split between the cards, what is left of both after the spine becomes one expert cache of 7,239 experts, where a single card had room for 1,536. Fewer experts fall out, fewer are read again, and decode goes from 2.04 to 2.97 tok/s, or from 3.87 to 5.52 with the drafter. Moving activations between the cards costs about 1.2% of the time.</p>
-<p>Reading a prompt did not get faster at all. A prompt pass goes through most of the model once, so it runs at the speed of the drives whatever the cards do: 16 tok/s on a 512-token prompt and 39 to 40 on a 1,512-token one, on either setup.</p>
+<p>Splitting the spine let each GPU use its remaining VRAM to cache experts. On the financial completion, moving activations between cards took 1.2% of decode time and the expert calculations took 0.5%. Waiting for expert reads dominated that run.</p>
+<p>Prefill exercises the drives differently. A long prompt selects many different experts within a layer. Both configurations read from the same four drives, and their prompt-processing rates were nearly identical at both input lengths we compared. <a href="#numbers">See the full measurements.</a></p>
 </section>
 
 <section id="time"><h2>Where the time goes.</h2>
@@ -222,7 +223,32 @@
 <section id="numbers"><h2>The numbers.</h2>
 <p>The same three tests on one card and on two, measured the same day. Prefill is how fast the prompt is read; decode is how fast the answer is written.</p>
 <div aria-label="Kimi K3.1 Pro on one and on two RTX PRO 6000 cards" class="table-scroll" role="region" tabindex="0"><table><caption>19 November · commit d29ddcb · one fresh process per run · greedy · raw prompts · four NVMe devices</caption><thead><tr><th scope="col">Setup</th><th scope="col">512-token prompt: prefill tok/s</th><th scope="col">decode tok/s</th><th scope="col">1,512-token prompt: prefill tok/s</th><th scope="col">decode tok/s</th><th scope="col">6-token prompt: decode tok/s</th></tr></thead><tbody><tr><th scope="row">One&nbsp;card</th><td>16.0</td><td>1.60</td><td>39.5</td><td>1.74</td><td>2.04</td></tr><tr><th scope="row">Two&nbsp;cards</th><td>16.1</td><td>2.05</td><td>39.7</td><td>2.26</td><td>2.97</td></tr><tr><th colspan="6" scope="colgroup">With the Qwen drafter</th></tr><tr><th scope="row">One&nbsp;card</th><td>16.0</td><td>3.95</td><td>39.6</td><td>3.01</td><td>3.87</td></tr><tr><th scope="row">Two&nbsp;cards</th><td>15.9</td><td>4.56</td><td>39.3</td><td>3.57</td><td><strong>5.52</strong></td></tr></tbody></table></div>
-<p>Decode is 200 tokens after the 512-token prompt, 128 after the 1,512-token one and 512 after the 6-token one. Every cell has the same logits as the one-card reference runs. Each run is a fresh process, greedy, on raw text. <a href="kimi-k31-2026-11-19.json">The runs as JSON →</a></p>
+<p>Decode is 200 tokens after the 512-token prompt, 128 after the 1,512-token one and 512 after the 6-token one. Logit hashes matched the one-card reference at every position compared. Each run is a fresh process, greedy, on raw text. <a href="kimi-k31-2026-11-19.json">The runs as JSON →</a></p>
+<details class="k31-details" id="reproduce" open><summary>Reproduce the 5.52 tok/s financial completion</summary>
+<p>On Linux with two 96 GB RTX PRO 6000 Blackwell cards, build the tagged engine in a new directory. The workstation had 80 GiB of host RAM. The <a href="../guides/install-kimi-k31.html">installation guide</a> covers the CUDA tools, Q8_0 spine and extracted MXFP4 experts. Prepare the <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/k31-cuda-20261119/tools/kimi-k3/README.md#the-optional-qwen-drafter">Qwen sidecar and its Python dependencies</a> with Qwen3-0.6B-Base at revision <code>da87bfb6</code>.</p>
+<pre><code>git clone --depth 1 --branch k31-cuda-20261119 \
+  https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1.git kimi-benchmark
+cd kimi-benchmark
+make ds4 CUDA_ARCH=sm_120</code></pre>
+<p>The measured layout placed 73,993 experts on a three-drive RAID0 and 44,413 on the fourth NVMe, including 35,974 second copies. Use a fresh shell and a fresh engine process for each run. Point the variables below at your expert directories, the Kimi tokenizer metadata and the Python environment with CUDA-enabled PyTorch.</p>
+<pre><code># Set these paths to the prepared files on your workstation.
+export KIMI_DATA=/path/to/kimi-k31
+export DS4_K3_EXPERT_DIR=/path/to/raid0/experts
+export DS4_K3_EXPERT_DIR_B=/path/to/fourth-nvme/experts
+export DS4_K3_QWEN_DIR=/path/to/Qwen3-0.6B-Base
+export DS4_K3_QWEN_META="$KIMI_DATA/meta"
+export DS4_K3_QWEN_PY=/path/to/venv/bin/python
+export DS4_K3_QWEN_SCRIPT="$PWD/tools/kimi-k3/qwen_sidecar.py"
+
+CUDA_VISIBLE_DEVICES=0,1 DS4_CUDA_STREAM_SPLIT=46 \
+DS4_K3_CACHE_RAM_GB=56 DS4_K3_QWEN=1 \
+DS4_K3_VERIFY_RANK=1 DS4_K3_VERIFY_PF_SCALE=8 DS4_K3_TRACE_HASH=1 \
+./ds4 -m "$KIMI_DATA/k3-spine.gguf" --cuda --raw \
+  --gpu-devices 0,1 --gpu-vram auto --ssd-streaming \
+  --ssd-streaming-cold --ssd-streaming-cache-experts 16 \
+  --temp 0 -c 2048 -n 512 -p "The three main financial statements are"</code></pre>
+<p>In the engine’s <code>K3 decode split</code> line, read the steady rate. Our run recorded <strong>511 tokens in 92.57 seconds (5.52 tok/s)</strong> after the first generated token. Three qualification runs ranged from 5.50 to 5.53 tok/s. Compare your result with <code>t-rec512-q</code> in the <a href="kimi-k31-2026-11-19.json">published run data</a>.</p>
+</details>
 <ul class="kb-list">
 <li>A 13,087-token prompt, with the context cache at 16k: read at 106 tok/s, then written at 1.93 tok/s, or 2.23 with the drafter.</li>
 <li>Through the chat endpoint, three requests of 36, 185 and 1,543 prompt tokens took 52, 28 and 75 seconds on two cards and 62, 33 and 89 on one, with the same three answers.</li>
@@ -257,7 +283,7 @@
 <li><strong>The drafter figure is a best case.</strong> It comes from text the small model predicts well. Other text ran at about 3 tok/s.</li>
 <li><strong>This is our build, not Moonshot’s service.</strong> We have not compared its output with their implementation.</li>
 </ul>
-<div class="kb-press"><p>Argonaut Labs runs Moonshot AI’s Kimi K3.1 Pro, a 2.8-trillion-parameter mixture-of-experts model, on a single workstation with two NVIDIA RTX PRO 6000 Blackwell cards. The model’s 1.45 TB of experts stay on four NVMe drives and are streamed through a 56 GiB RAM pool and a cache in VRAM as the router asks for them. On 19 November 2026 the build wrote 5.52 tokens a second with a small drafter model and 2.97 without it, with output identical to its own one-card runs. The engine is built on Salvatore Sanfilippo’s ds4 and its source is on GitHub.</p><p>A paragraph you can use as it stands. To cite the page: Argonaut Labs, “How we run Kimi K3.1 Pro on two GPUs”, 19 November 2026, https://argonautlabs.ai/research/kimi-k31-build.html</p></div>
+<div class="kb-press"><p>Argonaut Labs ran Moonshot AI’s 2.8-trillion-parameter Kimi K3.1 Pro on one workstation with two 96 GB RTX PRO 6000 Blackwell GPUs and four NVMe drives. On 19 November 2026, its CUDA port of Salvatore Sanfilippo’s ds4 generated 512 tokens from a six-token financial prompt at 5.52 tok/s with a Qwen drafter, up from 3.87 on one GPU. The same two-card completion ran at 2.97 tok/s with the drafter off. A separate 53-token chat prompt reached 2.93 tok/s over 256 generated tokens with the drafter.</p><p>A paragraph you can use as it stands. To cite the page: Argonaut Labs, “How we run Kimi K3.1 Pro on two GPUs”, 19 November 2026, https://argonautlabs.ai/research/kimi-k31-build.html</p></div>
 <p>The photograph and the schematic on this page may be reproduced with a credit to Argonaut Labs and a link back here. For questions and corrections, <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/discussions">open a discussion on GitHub</a>.</p>
 </section>
 

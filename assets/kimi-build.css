@@ -3,6 +3,9 @@
 .kb-facts>div{display:grid;grid-template-columns:150px minmax(0,1fr);gap:20px;padding:11px 0;border-bottom:1px solid var(--line)}
 .kb-facts dt{color:var(--muted)}
 .kb-facts dd{margin:0;color:var(--text);line-height:1.6}
+.k31-article .kb-comparison{min-width:0}
+.kb-comparison :is(th,td):nth-child(n+2){text-align:right}
+@media(max-width:540px){.kb-comparison th,.kb-comparison td{padding:10px 8px}}
 .kb-where th[scope="row"]{white-space:nowrap}
 .kb-where td:last-child{white-space:nowrap}
 .k31-article .kb-where td{font-family:inherit;font-size:.9rem}
