@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="light dark" name="color-scheme"/>
+<title>How one workstation runs a 2.8-trillion-parameter model — Argonaut Labs</title>
+<meta content="How Argonaut Labs runs Kimi K3.1 Pro on one workstation: two RTX PRO 6000 cards, a 56 GiB RAM pool and four NVMe drives. An animated schematic, the measured speeds and what is verified." name="description"/>
+<link href="https://argonautlabs.ai/research/kimi-k31-build.html" rel="canonical"/>
+<link href="../assets/cinematic/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="../styles.css?v=20261106-bronze" rel="stylesheet"/>
+<link href="../assets/kimi-article.css?v=20261108-discovery" rel="stylesheet"/>
+<link href="../assets/workstation.css?v=20261106-compact" rel="stylesheet"/>
+<link href="../assets/kimi-build.css?v=20261119" rel="stylesheet"/>
+<script defer="" src="../assets/kimi-build.js?v=20261119"></script>
+<meta content="article" property="og:type"/>
+<meta content="Argonaut Labs" property="og:site_name"/>
+<meta content="How one workstation runs a 2.8-trillion-parameter model — Argonaut Labs" property="og:title"/>
+<meta content="How Argonaut Labs runs Kimi K3.1 Pro on one workstation: two RTX PRO 6000 cards, a 56 GiB RAM pool and four NVMe drives. An animated schematic, the measured speeds and what is verified." property="og:description"/>
+<meta content="https://argonautlabs.ai/research/kimi-k31-build.html" property="og:url"/>
+<meta content="https://argonautlabs.ai/assets/og-kimi-k31.png?v=20261106-bronze" property="og:image"/>
+<meta content="Argonaut Labs: Kimi K3.1 Pro streamed from NVMe" property="og:image:alt"/>
+<meta content="2026-11-19" property="article:published_time"/>
+<meta content="2026-11-19" property="article:modified_time"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="How one workstation runs a 2.8-trillion-parameter model — Argonaut Labs" name="twitter:title"/>
+<meta content="How Argonaut Labs runs Kimi K3.1 Pro on one workstation: two RTX PRO 6000 cards, a 56 GiB RAM pool and four NVMe drives. An animated schematic, the measured speeds and what is verified." name="twitter:description"/>
+<meta content="https://argonautlabs.ai/assets/og-kimi-k31.png?v=20261106-bronze" name="twitter:image"/>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "How one workstation runs a 2.8-trillion-parameter model",
+  "description": "How Argonaut Labs runs Kimi K3.1 Pro on one workstation: two RTX PRO 6000 cards, a 56 GiB RAM pool and four NVMe drives. An animated schematic, the measured speeds and what is verified.",
+  "url": "https://argonautlabs.ai/research/kimi-k31-build.html",
+  "mainEntityOfPage": "https://argonautlabs.ai/research/kimi-k31-build.html",
+  "image": "https://argonautlabs.ai/assets/argonaut-workstation-1600.jpg",
+  "datePublished": "2026-11-19",
+  "dateModified": "2026-11-19",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "Argonaut Labs",
+    "url": "https://argonautlabs.ai/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Argonaut Labs",
+    "url": "https://argonautlabs.ai/"
+  },
+  "about": [
+    {
+      "@type": "SoftwareSourceCode",
+      "@id": "https://argonautlabs.ai/#kimi-engine",
+      "name": "Argodrive DS4 Kimi K3.1",
+      "codeRepository": "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1"
+    },
+    "Kimi K3.1 Pro",
+    "RTX PRO 6000 Blackwell",
+    "CUDA",
+    "NVMe expert streaming",
+    "mixture of experts"
+  ],
+  "isBasedOn": "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/tree/k31-cuda-20261119",
+  "citation": [
+    "https://argonautlabs.ai/research/kimi-k31-2026-11-19.json",
+    "https://argonautlabs.ai/research/kimi-k31-single-gpu.html",
+    "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/main/tools/kimi-k3/README.md#two-cards-19-november-2026"
+  ]
+}</script>
+<meta content="#f5f4ef" media="(prefers-color-scheme: light)" name="theme-color"/><meta content="#191c1b" media="(prefers-color-scheme: dark)" name="theme-color"/><link rel="stylesheet" href="/assets/analytics.css?v=20261109">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header wrap">
+<a aria-label="Argonaut Labs home" class="brand" href="../"><img alt="" class="brand-mark" height="32" src="../assets/cinematic/brand-icon.svg" width="32"/><span>ARGONAUT <b>LABS</b></span></a>
+<nav aria-label="Main navigation"><a href="../#research">Research</a><a href="kimi-k31-single-gpu.html">Measurements</a><a class="nav-source" href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1">Get the engine ↗</a></nav>
+</header>
+<main class="wrap k31-article" id="main">
+<article>
+<header class="k31-intro">
+<p class="eyebrow">ARGODRIVE DS4 KIMI K3.1 / THE BUILD</p>
+<h1>How one workstation runs<br/>a 2.8-trillion-parameter model.</h1><p class="k31-hardware-line">Two RTX PRO 6000 Blackwell · 192 GB of VRAM · 80 GiB of RAM in the VM · four NVMe drives · 1.45 TB of experts.</p>
+<p class="k31-lede">Kimi K3.1 Pro’s experts fill 1.45 TB. Our two graphics cards hold 192 GB between them. This page is about that gap: what we keep in memory, what stays on the drives, and what has to move every time the model writes a token.</p><p class="k31-product"><strong>The short version.</strong> On 19 November 2026 this build generated 5.52 tokens a second with a small drafter model helping, and 2.97 without it. The drives set that speed. The graphics cards spend most of their time waiting.</p>
+<p class="k31-byline">By <a href="../#about">Argonaut Labs</a> · Published <time datetime="2026-11-19">19 November 2026</time> · Figures are from the 19 November release unless a date is given · Built on Salvatore Sanfilippo’s ds4</p>
+<div class="actions"><a class="button primary" href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1">Get the Kimi engine ↗</a><a class="text-link" href="kimi-k31-single-gpu.html">Every measurement →</a><a class="text-link" href="#writers">If you are writing about this ↓</a></div>
+</header>
+<div aria-label="Highlights" class="k31-metrics">
+<div><span class="k31-metric-label">DECODE / TWO CARDS, WITH THE DRAFTER</span><strong>5.52 <small>tok/s</small></strong><span>Raw text, 512 tokens · 19 November</span></div>
+<div><span class="k31-metric-label">DECODE / TWO CARDS, NO DRAFTER</span><strong>2.97 <small>tok/s</small></strong><span>The same test · 19 November</span></div>
+<div><span class="k31-metric-label">EXPERTS ON THE DRIVES</span><strong>1.45 <small>TB</small></strong><span>82,432 files of 17.5 MB</span></div>
+<div><span class="k31-metric-label">IN MEMORY AT ANY MOMENT</span><strong>13 <small>%</small></strong><span>7,239 experts in VRAM, about 3,400 in RAM</span></div>
+</div>
+<dl class="kb-facts">
+<div><dt>Model</dt><dd>Kimi K3.1 Pro by Moonshot AI. 2.8 trillion parameters, a mixture of experts: 92 layers of 896 experts, 16 used per layer for each token.</dd></div>
+<div><dt>Weights</dt><dd>82,432 expert files of 17.5 MB each (1.45 TB, in the 4-bit MXFP4 format Moonshot ships) and a 62 GB spine at 8 bits.</dd></div>
+<div><dt>Machine</dt><dd>One Threadripper workstation: two NVIDIA RTX PRO 6000 Blackwell cards (96 GB each), an Ubuntu VM with 16 cores and 80 GiB of RAM, four NVMe drives.</dd></div>
+<div><dt>Writing speed</dt><dd>5.52 tok/s with the Qwen drafter and 2.97 without, on two cards; 3.87 and 2.04 on one. Six-token prompt, 512 tokens generated, 19 November 2026.</dd></div>
+<div><dt>Reading speed</dt><dd>16 tok/s on a 512-token prompt and 39 to 40 on a 1,512-token one. 120 tok/s on a 6,769-token prompt (11 November, one card).</dd></div>
+<div><dt>Context</dt><dd>Measured up to 16,384 tokens.</dd></div>
+<div><dt>Output</dt><dd>The same logits as our one-card reference runs at all 4,316 positions compared. No experts skipped. Not yet compared with Moonshot’s own implementation.</dd></div>
+<div><dt>Software</dt><dd><a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1">Argodrive DS4 Kimi K3.1</a>, release <code>k31-cuda-20261119</code>, source on GitHub. Built on Salvatore Sanfilippo’s <a href="https://github.com/antirez/ds4">ds4</a>.</dd></div>
+</dl>
+<nav aria-label="Page contents" class="k31-contents"><a href="#arithmetic">The arithmetic</a><a href="#machine">The machine</a><a href="#token">One token</a><a href="#hot">Hot experts</a><a href="#drafter">The drafter</a><a href="#two-cards">Two cards</a><a href="#time">Where the time goes</a><a href="#numbers">Numbers</a><a href="#checked">What is checked</a><a href="#history">History</a><a href="#writers">For writers</a></nav>
+
+<section id="arithmetic"><h2>Start with the arithmetic.</h2>
+<p>Kimi K3.1 Pro is a mixture-of-experts model from Moonshot AI. It has 92 expert layers with 896 experts in each, and every layer uses 16 of them for each token. That is close to 1,500 experts per token. One expert is a 17.5 MB file, so a single token touches about 26 GB of weights.</p>
+<p>Our machine cannot hold 1.45 TB in memory, so the experts live on NVMe drives and the engine fetches the ones the router asks for. If every one of them came from the drives we would get about 1.4 tokens a second, because the four drives together deliver roughly 36 GB/s when the engine is waiting on them. Everything that makes the build faster than that is a way of not reading an expert: keep it on the card, keep it in RAM, or make one read serve several tokens.</p>
+</section>
+
+<section id="machine"><h2>The machine.</h2>
+<p>It is one tower: a Threadripper workstation with two RTX PRO 6000 Blackwell cards and four NVMe drives, three of them joined in a RAID0. The engine runs in an Ubuntu virtual machine with 16 cores and 80 GiB of RAM. Everything on this page happens inside that box. There is no second machine and no network storage.</p>
+<figure class="workstation-photo">
+<a aria-label="View the workstation photograph at full size" href="../assets/argonaut-workstation-1600.jpg"><img alt="Argonaut Labs workstation with two installed NVIDIA RTX PRO 6000 cards and a Hyper M.2 x16 Gen5 expansion card beneath them." decoding="async" height="885" loading="lazy" sizes="(max-width: 364px) calc(100vw - 44px), (max-width: 800px) 320px, 560px" src="../assets/argonaut-workstation-1600.jpg" srcset="../assets/argonaut-workstation-800.jpg 800w, ../assets/argonaut-workstation-1600.jpg 1600w" width="1600"/></a>
+<figcaption><strong>The two RTX PRO 6000 cards, with a Hyper M.2 expansion card beneath them.</strong> A crop of the original workstation photograph, not a recording of a benchmark run.</figcaption>
+</figure>
+<div aria-label="Where the model lives" class="table-scroll" role="region" tabindex="0"><table class="kb-where"><caption>Where the model lives · two cards · the layout of 19 November</caption><thead><tr><th scope="col">Where</th><th scope="col">What</th><th scope="col">How much</th></tr></thead><tbody>
+<tr><th scope="row">VRAM, both cards</th><td>The spine: everything that is not an expert, at 8 bits</td><td>62 GB</td></tr>
+<tr><th scope="row">VRAM, both cards</th><td>The expert cache: what is left of both cards after the spine</td><td>7,239 experts, 127 GB</td></tr>
+<tr><th scope="row">RAM</th><td>A pinned pool of experts that are one upload away from a card</td><td>56 GiB, about 3,400 experts</td></tr>
+<tr><th scope="row">RAID0 of three NVMe drives</th><td>The most used experts first</td><td>73,993 experts, 1.30 TB</td></tr>
+<tr><th scope="row">Fourth NVMe drive</th><td>The rest of the model, plus second copies of 35,974 experts</td><td>44,413 experts, 0.78 TB</td></tr>
+</tbody></table></div>
+<p>The spine is the attention, the routers and the embeddings. It never leaves VRAM. The experts are not converted or shrunk: they are the weights Moonshot publishes, in the same 4-bit format, cut into one file per expert. The two drive groups overlap on purpose: an expert with a copy on both can be read from whichever will deliver it sooner.</p>
+</section>
+
+<section id="token"><h2>One token, step by step.</h2>
+<p>The drawing follows a single token through the machine. Press a step to hold it there, or let it run. Switching to one card shows what the second card changes.</p>
+<figure aria-describedby="bd-disclaimer" aria-labelledby="bd-title" class="build-diagram" data-build-diagram="" data-cards="2" data-running="false" data-step="1">
+<svg aria-hidden="true" focusable="false" height="0" style="position:absolute" width="0"><defs>
+<symbol id="bd-ssd" viewBox="0 0 24 24"><rect height="14" rx="2" width="18" x="3" y="5"></rect><rect height="6" rx="1" width="7" x="6" y="8"></rect><path d="M16 8h2m-2 3h2M7 19v2m4-2v2m4-2v2m4-2v2"></path><circle cx="17" cy="15" r="1"></circle></symbol>
+<symbol id="bd-ram" viewBox="0 0 24 24"><path d="M2 6h20v11H2zM5 17v3m4-3v3m6-3v3m4-3v3"></path><rect height="5" rx=".5" width="5" x="5" y="9"></rect><rect height="5" rx=".5" width="5" x="14" y="9"></rect></symbol>
+<symbol id="bd-gpu" viewBox="0 0 24 24"><rect height="14" rx="2" width="14" x="5" y="5"></rect><rect height="6" rx="1" width="6" x="9" y="9"></rect><path d="M8 2v3m4-3v3m4-3v3M8 19v3m4-3v3m4-3v3M2 8h3m-3 4h3m-3 4h3M19 8h3m-3 4h3m-3 4h3"></path></symbol>
+<symbol id="bd-cpu" viewBox="0 0 24 24"><rect height="16" rx="2" width="16" x="4" y="4"></rect><path d="M9 9h6v6H9zM9 1v3m6-3v3M9 20v3m6-3v3M1 9h3m-3 6h3M20 9h3m-3 6h3"></path></symbol>
+</defs></svg>
+<div class="bd-heading"><span id="bd-title">ONE TOKEN THROUGH THE MACHINE</span><span class="bd-concept">CONCEPTUAL</span></div>
+<div class="bd-controls" hidden=""><div aria-label="Cards in use" class="bd-group" role="group"><button aria-pressed="false" data-bd-cards="1" type="button">One card</button><button aria-pressed="true" data-bd-cards="2" type="button">Two cards</button></div>
+<span class="bd-readout">Measured 19 Nov: <b data-bd-text="plain">2.97</b> tok/s, <b data-bd-text="drafter">5.52</b> with the drafter</span>
+<button aria-label="Pause the diagram" class="bd-pause" type="button"><svg aria-hidden="true" viewBox="0 0 14 14"><path d="M3 2h2v10H3zM9 2h2v10H9z"></path></svg><span>Pause</span></button></div>
+<ol aria-label="Steps of one token" class="bd-steps" hidden=""><li><button aria-controls="bd-caption" aria-pressed="true" data-bd-step="1" type="button"><b>1</b>Route</button></li><li><button aria-controls="bd-caption" aria-pressed="false" data-bd-step="2" type="button"><b>2</b>Look up</button></li><li><button aria-controls="bd-caption" aria-pressed="false" data-bd-step="3" type="button"><b>3</b>Read</button></li><li><button aria-controls="bd-caption" aria-pressed="false" data-bd-step="4" type="button"><b>4</b>Upload</button></li><li><button aria-controls="bd-caption" aria-pressed="false" data-bd-step="5" type="button"><b>5</b>Compute</button></li><li><button aria-controls="bd-caption" aria-pressed="false" data-bd-step="6" type="button"><b>6</b>Cross</button></li></ol>
+<div class="bd-gpus">
+<div class="bd-gpu" data-gpu="0"><div class="bd-gpu-head"><svg aria-hidden="true" class="bd-icon"><use href="#bd-gpu"></use></svg><div><strong>Card one · RTX PRO 6000 Blackwell</strong><span data-bd-text="card0">Embedding, layers 0–45, output head</span></div><small>96 GB</small></div>
+<div aria-hidden="true" class="bd-layers"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div aria-hidden="true" class="bd-layers-label"><span>layer 0</span><span data-bd-text="last0">45</span></div>
+<div class="bd-cache"><div><strong>Expert cache</strong><small data-bd-text="cache0">Part of one 7,239-expert cache</small></div><div aria-hidden="true" class="bd-grid"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div></div>
+<div aria-hidden="true" class="bd-hop"><svg preserveAspectRatio="none" viewBox="0 0 100 40"><path d="M0 12h100"></path><path d="M0 28h100"></path><path class="bd-flow hop" d="M0 12h100"></path><path class="bd-flow hop back" d="M0 28h100"></path></svg><span>the token’s state crosses and returns</span></div>
+<div class="bd-gpu" data-gpu="1"><div class="bd-gpu-head"><svg aria-hidden="true" class="bd-icon"><use href="#bd-gpu"></use></svg><div><strong>Card two · RTX PRO 6000 Blackwell</strong><span data-bd-text="card1">Layers 46–92</span></div><small>96 GB</small></div>
+<div aria-hidden="true" class="bd-layers"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div aria-hidden="true" class="bd-layers-label"><span>layer 46</span><span>92</span></div>
+<div class="bd-cache"><div><strong>Expert cache</strong><small data-bd-text="cache1">Part of one 7,239-expert cache</small></div><div aria-hidden="true" class="bd-grid"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div></div>
+</div>
+<svg aria-hidden="true" class="bd-wires" preserveAspectRatio="none" viewBox="0 0 600 38"><path d="M140 0v38"></path><path d="M460 0v38"></path><path class="bd-flow to-host" d="M140 0v38"></path><path class="bd-flow to-card" d="M140 0v38"></path><path class="bd-flow to-card card-two" d="M460 0v38"></path></svg>
+<div class="bd-host">
+<div class="bd-cpu"><svg aria-hidden="true" class="bd-icon"><use href="#bd-cpu"></use></svg><div><strong>CPU · 16 cores</strong><span>Follows the router, chooses a drive for each read, runs the reader threads</span></div></div>
+<div class="bd-ram"><svg aria-hidden="true" class="bd-icon"><use href="#bd-ram"></use></svg><div><strong>Pinned RAM pool · 56 GiB</strong><span>About 3,400 experts, one upload away from a card</span></div><div aria-hidden="true" class="bd-pins"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+</div>
+<svg aria-hidden="true" class="bd-wires" preserveAspectRatio="none" viewBox="0 0 600 38"><path d="M165 0v38"></path><path d="M465 0v38"></path><path class="bd-flow to-ram" d="M165 0v38"></path><path class="bd-flow to-ram" d="M465 0v38"></path></svg>
+<div class="bd-drives">
+<div class="bd-drive"><div class="bd-drive-top"><svg aria-hidden="true" class="bd-icon"><use href="#bd-ssd"></use></svg><svg aria-hidden="true" class="bd-icon"><use href="#bd-ssd"></use></svg><svg aria-hidden="true" class="bd-icon"><use href="#bd-ssd"></use></svg><span>RAID0 · 3 × NVMe</span></div><strong>73,993 experts</strong><small>The most used experts live here</small></div>
+<div class="bd-drive"><div class="bd-drive-top"><svg aria-hidden="true" class="bd-icon"><use href="#bd-ssd"></use></svg><span>FOURTH NVMe</span></div><strong>44,413 experts</strong><small>35,974 of them are second copies</small></div>
+</div>
+<div class="bd-legend"><span><i class="l-want"></i>Picked by the router</span><span><i></i>Already on the card</span><span><i class="l-ram"></i>From the RAM pool</span><span><i class="l-disk"></i>From a drive</span></div>
+<figcaption aria-live="polite" data-bd-caption="" id="bd-caption"><strong>1. Route.</strong> In every layer the attention and the router run on the card. The router picks 16 of that layer’s 896 experts, and the CPU gets the same list.</figcaption>
+<p class="bd-disclaimer" id="bd-disclaimer">A drawing of the order of events, not a recording. The lit cells are a small sample, not 896 experts or a measured hit rate. Card sizes, expert counts and speeds are the measured ones.</p>
+</figure>
+<ol class="k31-steps">
+<li><strong>The router picks.</strong> Attention and the router run on the card, layer by layer. In each layer the router chooses 16 of 896 experts, and the same choice is made on the CPU so the host knows what to fetch.</li>
+<li><strong>Three places to look.</strong> An expert already in the card’s cache is ready. One in the RAM pool needs an upload. Anything else needs a drive.</li>
+<li><strong>Reads go to the drive that will finish first.</strong> Reader threads read directly into pinned memory, bypassing the page cache, two chunks per file. For an expert with two homes the engine compares what each drive is already busy with and how fast it is.</li>
+<li><strong>Nothing waits for the whole set.</strong> Each expert starts computing as soon as its bytes are on the card. While the card runs attention, the engine is already fetching a few experts for the next layer.</li>
+<li><strong>The layer ends with its slowest expert.</strong> A layer needs all 16 results, so one late read holds up the other fifteen. Most of the tuning in this engine is about that last arrival.</li>
+<li><strong>Halfway, the token changes cards.</strong> With two cards, layers 0 to 45 run on the first and 46 to 92 on the second. The token’s state is copied across before the cut and back after the last layer, card to card.</li>
+</ol>
+</section>
+
+<section id="hot"><h2>Hot experts.</h2>
+<p>Within one text the router keeps coming back to the same experts. In our 512-token test run, 72% of the drive reads fetched an expert that had already been read earlier in the same run and had since fallen out of both caches. The whole design leans on that habit.</p>
+<figure aria-labelledby="kb-strip-title" class="kb-strip">
+<figcaption id="kb-strip-title"><strong>Where the 82,432 experts are at any moment.</strong><span>Two cards, 19 November. The share in memory is what the caches can hold, not a hit rate.</span></figcaption>
+<div aria-hidden="true" class="kb-strip-bar"><span class="in-vram" style="width:8.8%"></span><span class="in-ram" style="width:4.2%"></span><span class="on-disk" style="width:87%"></span></div>
+<div class="kb-strip-legend"><div><b>8.8%</b><i></i>in VRAM: 7,239 experts</div><div class="in-ram"><b>4.2%</b><i></i>in the RAM pool: about 3,400</div><div class="on-disk"><b>87%</b><i></i>only on the drives, one read away</div></div>
+</figure>
+<ul class="kb-list">
+<li><strong>Placement.</strong> When the weights were laid out, the most used experts went to the fastest storage, the RAID0. The fourth drive holds the rest and the second copies.</li>
+<li><strong>Memory.</strong> The cards keep 7,239 experts between them and the RAM pool about 3,400 more. An expert pushed out of VRAM drops into the pool only if it has been used more often lately than the one it would replace.</li>
+<li><strong>Eviction.</strong> When a cache is full something has to go. In our two-card runs without the drafter, the card gives up the entry with the lowest recent use count. With the drafter, each block ranks a layer’s experts by how many of its rows want them and keeps the top of the list.</li>
+</ul>
+<p>Which experts are hot depends on the text. We tried loading the caches in advance from the statistics of other texts, and it gained nothing.</p>
+</section>
+
+<section id="drafter"><h2>A small model that saves reads.</h2>
+<p>The other way to avoid reads is to make one read serve several tokens. A small model, Qwen3-0.6B, runs beside Kimi and guesses the next stretch of text, up to 63 tokens. Kimi then checks the guesses in one pass, a block of rows, and keeps them up to the first one it disagrees with. The tokens that come out are always the ones Kimi would have chosen alone. We compare the two ways of running by hashing the logits, and they match bit for bit.</p>
+<p>The gain comes from sharing. Neighbouring tokens tend to want the same experts, and a block reads each expert once for all of its rows.</p>
+<figure aria-labelledby="kb-rows-title" class="k31-chart">
+<figcaption id="kb-rows-title"><strong>Experts that must be on hand, per row.</strong><span>A recorded 512-token continuation · distinct experts divided by the rows that share them</span></figcaption>
+<div class="k31-bar-row"><span>A row alone</span><div><span style="width:100%"></span></div><strong>1,456</strong></div>
+<div class="k31-bar-row"><span>64-row block</span><div><span style="width:23.83%"></span></div><strong>347</strong></div>
+<div class="k31-bar-row"><span>128-row block</span><div><span style="width:14.84%"></span></div><strong>216</strong></div>
+<div class="k31-bar-row"><span>256-row block</span><div><span style="width:9.34%"></span></div><strong>136</strong></div>
+<p>Wide blocks only happen when the drafter guesses long stretches correctly.</p>
+</figure>
+<p>How much this helps depends on what is being written. On the financial-statements prompt we use as our standard test, Kimi keeps 89% of Qwen’s drafts and decode reaches 5.52 tok/s. Two other continuations ran at 2.98 and 3.11 tok/s with the same settings, and a chat prompt at 2.93. The headline number is the best case, and we would rather say so here than have someone find out.</p>
+</section>
+
+<section id="two-cards"><h2>What the second card did, and what it did not.</h2>
+<p>Until 19 November everything ran on one card. A second GPU sounds like twice the computing. That is not what it gave us, because computing was never the slow part: the expert maths takes 0.5% of the time.</p>
+<p>What the second card brought is memory. With the layers split between the cards, what is left of both after the spine becomes one expert cache of 7,239 experts, where a single card had room for 1,536. Fewer experts fall out, fewer are read again, and decode goes from 2.04 to 2.97 tok/s, or from 3.87 to 5.52 with the drafter. Moving activations between the cards costs about 1.2% of the time.</p>
+<p>Reading a prompt did not get faster at all. A prompt pass goes through most of the model once, so it runs at the speed of the drives whatever the cards do: 16 tok/s on a 512-token prompt and 39 to 40 on a 1,512-token one, on either setup.</p>
+</section>
+
+<section id="time"><h2>Where the time goes.</h2>
+<figure aria-labelledby="kb-time-title" class="k31-chart kb-wide">
+<figcaption id="kb-time-title"><strong>Share of decode time, two cards with the drafter.</strong><span>The 512-token test run of 19 November · the four parts we measured separately</span></figcaption>
+<div class="k31-bar-row"><span>Waiting for expert reads</span><div><span style="width:85%"></span></div><strong>85%</strong></div>
+<div class="k31-bar-row"><span>Uploads still running after the reads</span><div><span style="width:1.2%"></span></div><strong>1.2%</strong></div>
+<div class="k31-bar-row"><span>Activations between the cards</span><div><span style="width:1.2%"></span></div><strong>1.2%</strong></div>
+<div class="k31-bar-row"><span>The expert maths itself</span><div><span style="width:.5%"></span></div><strong>0.5%</strong></div>
+<p>The remaining 12% is the rest of the forward pass. On a chat prompt the same four are 78%, 4.1%, 3.1% and 1.6%.</p>
+</figure>
+<p>So the list of things that would make this machine faster is short: more cache, or faster drives. We did try to be clever instead. Keeping a chosen set of experts resident, with the list taken from the same text’s own statistics, which is knowledge no real run has, gained 1.8% on our standard prompt and 3.7% on chat. A larger drafter disagreed with Kimi 21 times instead of 23. Starting the next block early while the drafter was still guessing turned 5.43 tok/s into 5.44.</p>
+<p>One thing we did not plan for. A drive behind an external link began answering reads with zeros, and no error was reported anywhere. Since then, a directory we cannot fully trust is read against a table of checksums, and a bad read is served from another copy.</p>
+</section>
+
+<section id="numbers"><h2>The numbers.</h2>
+<p>The same three tests on one card and on two, measured the same day. Prefill is how fast the prompt is read; decode is how fast the answer is written.</p>
+<div aria-label="Kimi K3.1 Pro on one and on two RTX PRO 6000 cards" class="table-scroll" role="region" tabindex="0"><table><caption>19 November · commit d29ddcb · one fresh process per run · greedy · raw prompts · four NVMe devices</caption><thead><tr><th scope="col">Setup</th><th scope="col">512-token prompt: prefill tok/s</th><th scope="col">decode tok/s</th><th scope="col">1,512-token prompt: prefill tok/s</th><th scope="col">decode tok/s</th><th scope="col">6-token prompt: decode tok/s</th></tr></thead><tbody><tr><th scope="row">One&nbsp;card</th><td>16.0</td><td>1.60</td><td>39.5</td><td>1.74</td><td>2.04</td></tr><tr><th scope="row">Two&nbsp;cards</th><td>16.1</td><td>2.05</td><td>39.7</td><td>2.26</td><td>2.97</td></tr><tr><th colspan="6" scope="colgroup">With the Qwen drafter</th></tr><tr><th scope="row">One&nbsp;card</th><td>16.0</td><td>3.95</td><td>39.6</td><td>3.01</td><td>3.87</td></tr><tr><th scope="row">Two&nbsp;cards</th><td>15.9</td><td>4.56</td><td>39.3</td><td>3.57</td><td><strong>5.52</strong></td></tr></tbody></table></div>
+<p>Decode is 200 tokens after the 512-token prompt, 128 after the 1,512-token one and 512 after the 6-token one. Every cell has the same logits as the one-card reference runs. Each run is a fresh process, greedy, on raw text. <a href="kimi-k31-2026-11-19.json">The runs as JSON →</a></p>
+<ul class="kb-list">
+<li>A 13,087-token prompt, with the context cache at 16k: read at 106 tok/s, then written at 1.93 tok/s, or 2.23 with the drafter.</li>
+<li>Through the chat endpoint, three requests of 36, 185 and 1,543 prompt tokens took 52, 28 and 75 seconds on two cards and 62, 33 and 89 on one, with the same three answers.</li>
+<li>On one card, 11 November: a 6,769-token prompt read at 120 tok/s, and short chat written at about 2 tok/s.</li>
+<li>The same engine on a MacBook Pro M5 Max, 11 November: 2.49 tok/s with the drafter. <a href="kimi-k31-single-gpu.html#apple-silicon">The Mac section →</a></li>
+</ul>
+</section>
+
+<section id="checked"><h2>What is checked, and what is not.</h2>
+<p>Fast and wrong is easy, so every change has to give the same output as before. We hash the logits, the model’s raw scores for every possible next token, at each position and compare them with a reference run. For the 19 November release that was 4,316 positions: plain decoding, the drafter, long prompts, chat, one card and two. None differed.</p>
+<p>That proves something narrow. Caches, read scheduling, the drafter and the split between cards do not change the arithmetic. It does not prove that our build matches Moonshot’s own implementation. We have not run that comparison, and our spine is stored at 8 bits. We do not skip experts, drop layers or shrink the experts.</p>
+<aside aria-label="Scope" class="k31-limit"><strong>Scope.</strong> An experimental port, measured on one machine. Contexts up to 16,384 tokens. Other hardware, other drives and other prompts will give other numbers.</aside>
+</section>
+
+<section id="history"><h2>How it got here.</h2>
+<ul class="kb-timeline">
+<li><time datetime="2026-09">September 2026</time><span>Kimi K3 on a MacBook Pro with four drives, in our fork of deltafin: about 1 tok/s.</span></li>
+<li><time datetime="2026-11-06">6 November</time><span>Kimi K3.1 Pro on one RTX PRO 6000. About 2 tok/s, no drafter.</span></li>
+<li><time datetime="2026-11-07">7 November</time><span>The Qwen drafter, with output identical to plain decoding.</span></li>
+<li><time datetime="2026-11-08">8 November</time><span>K3.1’s sparse attention: contexts up to 16,384 tokens.</span></li>
+<li><time datetime="2026-11-09">9 November</time><span>The same engine on a MacBook Pro M5 Max, through Metal.</span></li>
+<li><time datetime="2026-11-11">10 and 11 November</time><span>Wider drafter blocks: 3.21, then 3.79 tok/s on the 512-token test.</span></li>
+<li><time datetime="2026-11-19">19 November</time><span>The layers split over two cards: 5.52 tok/s.</span></li>
+</ul>
+</section>
+
+<section id="writers"><h2>If you are writing about this.</h2>
+<p>You are welcome to. A few things will keep the piece accurate.</p>
+<ul class="kb-list">
+<li><strong>Give a speed its test and its date.</strong> 5.52 tok/s means two cards, the Qwen drafter, a six-token financial prompt and 512 generated tokens, on 19 November 2026. Without the drafter the same test gives 2.97.</li>
+<li><strong>Reading is not writing.</strong> 120 tok/s, or 16, or 40, is how fast a prompt is read. It says nothing about how fast an answer appears.</li>
+<li><strong>The drafter figure is a best case.</strong> It comes from text the small model predicts well. Other text ran at about 3 tok/s.</li>
+<li><strong>This is our build, not Moonshot’s service.</strong> We have not compared its output with their implementation.</li>
+</ul>
+<div class="kb-press"><p>Argonaut Labs runs Moonshot AI’s Kimi K3.1 Pro, a 2.8-trillion-parameter mixture-of-experts model, on a single workstation with two NVIDIA RTX PRO 6000 Blackwell cards. The model’s 1.45 TB of experts stay on four NVMe drives and are streamed through a 56 GiB RAM pool and a cache in VRAM as the router asks for them. On 19 November 2026 the build wrote 5.52 tokens a second with a small drafter model and 2.97 without it, with output identical to its own one-card runs. The engine is built on Salvatore Sanfilippo’s ds4 and its source is on GitHub.</p><p>A paragraph you can use as it stands. To cite the page: Argonaut Labs, “How one workstation runs a 2.8-trillion-parameter model”, 19 November 2026, https://argonautlabs.ai/research/kimi-k31-build.html</p></div>
+<p>The photograph and the schematic on this page may be reproduced with a credit to Argonaut Labs and a link back here. For questions and corrections, <a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/discussions">open a discussion on GitHub</a>.</p>
+</section>
+
+<section class="k31-evidence" id="evidence">
+<p class="eyebrow">SOURCES</p>
+<h2>Where each figure comes from.</h2>
+<ul>
+<li><a href="kimi-k31-2026-11-19.json">The 19 November runs, one card and two, as JSON</a></li>
+<li><a href="kimi-k31-single-gpu.html">The Kimi K3.1 Pro article: every measurement since 6 November, with definitions and limits</a></li>
+<li><a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/main/tools/kimi-k3/README.md#two-cards-19-november-2026">README: two cards, what changed, where the time goes and what was tried</a></li>
+<li><a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/main/tools/kimi-k3/README.md#what-the-engine-does-per-token">README: what the engine does per token</a></li>
+<li><a href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/tree/k31-cuda-20261119">The code: release k31-cuda-20261119</a></li>
+<li><a href="../guides/install-kimi-k31.html">Installation guide</a></li>
+<li><a href="../#deepseek-cuda-results">DeepSeek V4.1 Flash on the same two cards</a></li>
+</ul>
+<p>This port builds on <a href="https://github.com/antirez/ds4">Salvatore Sanfilippo’s ds4</a>, with its acknowledgements to llama.cpp and GGML preserved. The drafter recipe comes from the deltafin Kimi K3 work. The Kimi checkpoint is Moonshot’s work. Argonaut Labs develops the port and the storage experiments with assistance from Claude and ChatGPT, with human-led testing and review.</p>
+</section>
+</article>
+</main>
+<footer class="wrap"><a href="../">← Argonaut Labs research</a><a href="https://github.com/antirez/ds4">Built on Antirez’s ds4 ↗</a><div class="al-privacy-links"><a href="/privacy.html">Privacy</a><button type="button" class="al-analytics-settings" data-analytics-settings>Analytics preferences</button></div></footer>
+<script defer src="/assets/analytics.js?v=20261109"></script>
+</body>
+</html>

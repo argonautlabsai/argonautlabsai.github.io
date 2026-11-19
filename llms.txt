@@ -25,6 +25,7 @@ Argodrive DS4 Kimi K3.1 is the integrated Linux/CUDA inference engine, not an ad
 
 ## Pages
 - [Apple silicon benchmark archive](https://argonautlabs.ai/research/apple-silicon-results.html): charts and tables for DeepSeek V4.1 (October checkpoint, 13 November, and the September ladders), Kimi K3.1 Pro on the M5 Max (11 November: 2.49 tok/s with the Qwen drafter, 1.32 plain, 512 generated tokens), Kimi K3 and GLM-5.3; all original measurements retained.
+- [How one workstation runs a 2.8-trillion-parameter model](https://argonautlabs.ai/research/kimi-k31-build.html): the Kimi K3.1 Pro build explained for readers and writers. What sits where (62 GB spine and a 7,239-expert cache in VRAM on two RTX PRO 6000, a 56 GiB pinned RAM pool, 82,432 expert files on four NVMe drives), what happens for each token, hot experts, the Qwen drafter, where the time goes (85% waiting for expert reads), the 19 November table, what is verified, and how to cite.
 - [Run Kimi K3.1 Pro locally on one GPU](https://argonautlabs.ai/research/kimi-k31-single-gpu.html): November 6–19 measurements, two cards (19 November), drafter results, long context with sparse attention, NVMe layout, pinned CUDA build, metric definitions and reference-validation limits.
 - [DeepSeek V4.1 stack, drive ladder, prefill follow-ups](https://argonautlabs.ai/research/deepseek-2026-09-27.html): method, levers, every arm, 30 September prefill qualification.
 - [DeepSeek V4.1 prefill experiment, 15 September](https://argonautlabs.ai/research/deepseek-2026-09-15.html)

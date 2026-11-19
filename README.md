@@ -11,6 +11,7 @@ Public website and reproducible research notes for local AI inference. The site 
 Our [Kimi K3.1 Pro guide](https://argonautlabs.ai/research/kimi-k31-single-gpu.html) documents an experimental CUDA port tested on one 96 GB RTX PRO 6000 Blackwell, with experts streamed from NVMe. It includes hardware, build instructions, benchmark definitions and validation limits.
 
 - [Kimi K3.1 engine, based on Salvatore Sanfilippo’s ds4](https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1)
+- [How the build works](https://argonautlabs.ai/research/kimi-k31-build.html): the machine, what sits where, a schematic of one token through the cards, the RAM pool and the drives, and notes for anyone writing about it.
 - [November 19 measurements, two cards](https://argonautlabs.ai/research/kimi-k31-2026-11-19.json): 5.52 tok/s on the raw financial prompt with the drafter and the layers split between two RTX PRO 6000 (3.87 on one card the same day), 2.97 without the drafter (2.04 on one).
 - [DeepSeek V4.1 Flash on two cards, 18 November](https://argonautlabs.ai/research/deepseek-2026-11-18.json): 44.6–45.9 tok/s decode against 21.0–21.9 on one card, 47.7–49.2 with the caches loaded at start-up.
 - [November 11 measurements](https://argonautlabs.ai/research/kimi-k31-2026-11-11.json): 3.79 tok/s on the raw financial prompt with the drafter, 1.97 without, on four NVMe devices; 120 tok/s (6,769-token prompt; 40.8 at 1,512 tokens) is prefill, not decode. The short-chat test measures 2.01–2.02 tok/s; historical results remain in the article.
