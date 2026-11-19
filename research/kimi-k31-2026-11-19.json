@@ -1,0 +1,268 @@
+{
+ "date": "2026-11-19",
+ "title": "Kimi K3.1 Pro on one and on two RTX PRO 6000 cards: the same three tests",
+ "model": "Kimi K3.1 Pro: 2.8T MoE, 92 MoE layers, 896 experts per layer, 16 routed per token; Q8_0 spine, MXFP4 experts (82,432 files, 1.45 TB)",
+ "engine": "argonautlabsai/argodrive-ds4-kimi-k3.1, commit d29ddcb77d0c3894c0ad21aecdd1ded6cb7737b7; tag k31-cuda-20261119 is this code with the README of the release",
+ "hardware": "two RTX PRO 6000 Blackwell (96 GB each) in an 80 GiB VM; a 56 GiB pinned expert pool (DS4_K3_CACHE_RAM_GB=56); the experts on the four NVMe devices of 11 November: 73,993 on a RAID0 of three, 44,413 on the fourth, 35,974 of those second copies",
+ "settings": {
+  "common": "one fresh process per run, greedy (--temp 0), raw prompts, -c 2048, --ssd-streaming --ssd-streaming-cold --ssd-streaming-cache-experts 16",
+  "one_card": "the same build on the same day with no new switch",
+  "two_cards": "DS4_CUDA_STREAM_SPLIT=46 with --gpu-devices 0,1 --gpu-vram auto: the embedding, the output head and the layers below the cut on the first card, the others on the second; what is left of both cards is one expert cache",
+  "two_cards_plain": "DS4_K3_CACHE_POLICY=decay-device DS4_K3_CACHE_DECAY=0.95",
+  "two_cards_drafter": "DS4_K3_VERIFY_RANK=1 DS4_K3_VERIFY_PF_SCALE=8"
+ },
+ "drafter": "Qwen/Qwen3-0.6B-Base, as in the 11 November release; Kimi verifies its drafts in blocks, so the generated tokens are those of plain decoding",
+ "prompts": {
+  "pp512": "prompt-512-tokens.txt in the deltafin Kimi K3 benchmark, 200 generated",
+  "pp1512": "a 1,512-token raw prompt, text not published, 128 generated",
+  "record": "The three main financial statements are (6 tokens), 512 generated"
+ },
+ "definitions": "prefill: prompt tokens divided by the seconds of the prompt pass; decode: the steady rate after the first generated token, (generated - 1) / seconds",
+ "output_check": "FNV-1a hashes of every position's logits, compared with the one-card reference run of the same prompt: 0 differ in every run of this file. The qualification of the release compared 4,316 positions in 33 runs, 0 differ",
+ "pivot": {
+  "plain": {
+   "one_card": {
+    "pp512_prefill_tok_s": 16.0,
+    "pp512_decode_tok_s": 1.6,
+    "pp1512_prefill_tok_s": 39.5,
+    "pp1512_decode_tok_s": 1.74,
+    "record_512_decode_tok_s": 2.04
+   },
+   "two_cards": {
+    "pp512_prefill_tok_s": 16.1,
+    "pp512_decode_tok_s": 2.05,
+    "pp1512_prefill_tok_s": 39.7,
+    "pp1512_decode_tok_s": 2.26,
+    "record_512_decode_tok_s": 2.97
+   }
+  },
+  "qwen_drafter": {
+   "one_card": {
+    "pp512_prefill_tok_s": 16.0,
+    "pp512_decode_tok_s": 3.95,
+    "pp1512_prefill_tok_s": 39.6,
+    "pp1512_decode_tok_s": 3.01,
+    "record_512_decode_tok_s": 3.87
+   },
+   "two_cards": {
+    "pp512_prefill_tok_s": 15.9,
+    "pp512_decode_tok_s": 4.56,
+    "pp1512_prefill_tok_s": 39.3,
+    "pp1512_decode_tok_s": 3.57,
+    "record_512_decode_tok_s": 5.52
+   }
+  }
+ },
+ "runs": [
+  {
+   "tag": "o-pp512-plain",
+   "setup": "one card",
+   "test": "pp512 / tg200",
+   "drafter": false,
+   "steady_tok_s": 1.6,
+   "steady_tokens": 199,
+   "steady_s": 124.34,
+   "generated": 200,
+   "prefill_tokens": 512,
+   "prefill_s": 31.97,
+   "prefill_tok_s": 16.02,
+   "hashes": "128 common, 0 differ"
+  },
+  {
+   "tag": "o-pp1512-plain",
+   "setup": "one card",
+   "test": "pp1512 / tg128",
+   "drafter": false,
+   "steady_tok_s": 1.74,
+   "steady_tokens": 127,
+   "steady_s": 72.88,
+   "generated": 128,
+   "prefill_tokens": 1512,
+   "prefill_s": 38.32,
+   "prefill_tok_s": 39.46,
+   "hashes": "128 common, 0 differ"
+  },
+  {
+   "tag": "o-rec512-plain",
+   "setup": "one card",
+   "test": "record / tg512",
+   "drafter": false,
+   "steady_tok_s": 2.04,
+   "steady_tokens": 511,
+   "steady_s": 249.88,
+   "generated": 512,
+   "prefill_tokens": 6,
+   "prefill_s": 3.33,
+   "hashes": "512 common, 0 differ"
+  },
+  {
+   "tag": "t-pp512-plain",
+   "setup": "two cards",
+   "test": "pp512 / tg200",
+   "drafter": false,
+   "steady_tok_s": 2.05,
+   "steady_tokens": 199,
+   "steady_s": 96.95,
+   "generated": 200,
+   "prefill_tokens": 512,
+   "prefill_s": 31.87,
+   "prefill_tok_s": 16.07,
+   "hashes": "128 common, 0 differ"
+  },
+  {
+   "tag": "t-pp1512-plain",
+   "setup": "two cards",
+   "test": "pp1512 / tg128",
+   "drafter": false,
+   "steady_tok_s": 2.26,
+   "steady_tokens": 127,
+   "steady_s": 56.22,
+   "generated": 128,
+   "prefill_tokens": 1512,
+   "prefill_s": 38.1,
+   "prefill_tok_s": 39.69,
+   "hashes": "128 common, 0 differ"
+  },
+  {
+   "tag": "t-rec512-plain",
+   "setup": "two cards",
+   "test": "record / tg512",
+   "drafter": false,
+   "steady_tok_s": 2.97,
+   "steady_tokens": 511,
+   "steady_s": 171.82,
+   "generated": 512,
+   "prefill_tokens": 6,
+   "prefill_s": 3.43,
+   "hashes": "512 common, 0 differ"
+  },
+  {
+   "tag": "o-pp512-q",
+   "setup": "one card",
+   "test": "pp512 / tg200",
+   "drafter": true,
+   "steady_tok_s": 3.95,
+   "steady_tokens": 199,
+   "steady_s": 50.34,
+   "generated": 200,
+   "prefill_tokens": 512,
+   "prefill_s": 32.01,
+   "prefill_tok_s": 16.0,
+   "hashes": "128 common, 0 differ"
+  },
+  {
+   "tag": "o-pp1512-q",
+   "setup": "one card",
+   "test": "pp1512 / tg128",
+   "drafter": true,
+   "steady_tok_s": 3.01,
+   "steady_tokens": 127,
+   "steady_s": 42.18,
+   "generated": 128,
+   "prefill_tokens": 1512,
+   "prefill_s": 38.19,
+   "prefill_tok_s": 39.59,
+   "hashes": "128 common, 0 differ"
+  },
+  {
+   "tag": "o-rec512-q",
+   "setup": "one card",
+   "test": "record / tg512",
+   "drafter": true,
+   "steady_tok_s": 3.87,
+   "steady_tokens": 511,
+   "steady_s": 131.89,
+   "generated": 512,
+   "prefill_tokens": 6,
+   "prefill_s": 3.34,
+   "hashes": "512 common, 0 differ"
+  },
+  {
+   "tag": "t-pp512-q",
+   "setup": "two cards",
+   "test": "pp512 / tg200",
+   "drafter": true,
+   "steady_tok_s": 4.56,
+   "steady_tokens": 199,
+   "steady_s": 43.64,
+   "generated": 200,
+   "prefill_tokens": 512,
+   "prefill_s": 32.16,
+   "prefill_tok_s": 15.92,
+   "hashes": "128 common, 0 differ"
+  },
+  {
+   "tag": "t-pp1512-q",
+   "setup": "two cards",
+   "test": "pp1512 / tg128",
+   "drafter": true,
+   "steady_tok_s": 3.57,
+   "steady_tokens": 127,
+   "steady_s": 35.62,
+   "generated": 128,
+   "prefill_tokens": 1512,
+   "prefill_s": 38.44,
+   "prefill_tok_s": 39.33,
+   "hashes": "128 common, 0 differ"
+  },
+  {
+   "tag": "t-rec512-q",
+   "setup": "two cards",
+   "test": "record / tg512",
+   "drafter": true,
+   "steady_tok_s": 5.52,
+   "steady_tokens": 511,
+   "steady_s": 92.57,
+   "generated": 512,
+   "prefill_tokens": 6,
+   "prefill_s": 3.34,
+   "hashes": "512 common, 0 differ"
+  }
+ ],
+ "qualification_two_cards": {
+  "record_512_drafter": {
+   "steady_tok_s": [
+    5.53,
+    5.5,
+    5.51
+   ],
+   "steady_s": [
+    92.35,
+    92.87,
+    92.7
+   ],
+   "steady_tokens": 511
+  },
+  "record_256_plain": {
+   "steady_tok_s": [
+    3.04,
+    3.05,
+    3.04
+   ],
+   "steady_s": [
+    83.95,
+    83.69,
+    83.83
+   ],
+   "steady_tokens": 255
+  },
+  "france_17_drafter": {
+   "steady_tok_s": [
+    2.53,
+    2.49,
+    2.45
+   ]
+  },
+  "record_128_drafter_tok_s": 3.69,
+  "record_200_drafter_tok_s": 4.53,
+  "chat_53_prompt_256_generated_drafter_tok_s": 2.93,
+  "long_prompt_13087_tokens_16k_cache": {
+   "prefill_tok_s": 106,
+   "decode_plain_tok_s": 1.93,
+   "decode_drafter_tok_s": 2.23,
+   "generated": 48
+  },
+  "chat_endpoint_16k_cache": "three requests of 36, 185 and 1,543 prompt tokens took 52, 28 and 75 s on two cards against 62, 33 and 89 s on one, with the same three answers"
+ },
+ "not_established": "equivalence to Moonshot's reference implementation; speeds on other hardware, other prompts or other drive layouts. Prefill is set by the drives on either setup and does not gain from the second card"
+}

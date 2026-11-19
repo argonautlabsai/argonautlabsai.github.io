@@ -1,0 +1,212 @@
+{
+ "title": "DeepSeek V4.1 Flash, October checkpoint, on one and on two RTX PRO 6000 cards",
+ "date": "2026-11-18",
+ "machine": "two RTX PRO 6000 Blackwell (96 GB each) in an Ubuntu VM with 16 cores and 80 GiB of RAM; the model file on a RAID0 of three NVMe drives",
+ "model": "DeepSeek-V4.1-Flash-1017, MXFP4 routed experts, 501.6 GB GGUF",
+ "engine": "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1 (main 920757a), switches of tools/deepseek-v41: DS4_CUDA_STREAM_SPLIT=1 with --gpu-devices 0,1 puts the first 20 layers on one card and the other 20 on the second, each card with its own cache of routed experts",
+ "workload": "ds4-bench, greedy, a fresh process per run, the head of I Promessi Sposi as the prompt: 512 tokens with 200 generated, 1,556 tokens with 300 generated; 4,600 cached experts asked for per card; prefill is the prompt pass, decode the steady rate after the first token",
+ "identity": "every decode step of every row has the logits of the one-card build before the change (hashes of the full logits, 3,900 steps compared)",
+ "rows": [
+  {
+   "setup": "one card, serial reads",
+   "note": "no switches",
+   "prompt_512_generated_200": {
+    "prefill_tok_s": [
+     46.73
+    ],
+    "steady_decode_tok_s": [
+     16.98
+    ],
+    "runs": [
+     {
+      "prefill_tok_s": 46.73,
+      "steady_decode_tok_s": 16.98
+     }
+    ]
+   },
+   "prompt_1556_generated_300": {
+    "prefill_tok_s": [
+     112.8
+    ],
+    "steady_decode_tok_s": [
+     16.27
+    ],
+    "runs": [
+     {
+      "prefill_tok_s": 112.8,
+      "steady_decode_tok_s": 16.27
+     }
+    ]
+   }
+  },
+  {
+   "setup": "one card",
+   "note": "parallel expert reads, no preload",
+   "prompt_512_generated_200": {
+    "prefill_tok_s": [
+     53.96,
+     54.16
+    ],
+    "steady_decode_tok_s": [
+     21.63,
+     21.85
+    ],
+    "runs": [
+     {
+      "prefill_tok_s": 53.96,
+      "steady_decode_tok_s": 21.63,
+      "generation_incl_first_tok_s": 21.18
+     },
+     {
+      "prefill_tok_s": 54.16,
+      "steady_decode_tok_s": 21.85,
+      "generation_incl_first_tok_s": 21.39
+     },
+     {
+      "prefill_tok_s": 54.05,
+      "steady_decode_tok_s": 21.85,
+      "generation_incl_first_tok_s": 21.39
+     }
+    ]
+   },
+   "prompt_1556_generated_300": {
+    "prefill_tok_s": [
+     114.53
+    ],
+    "steady_decode_tok_s": [
+     21.01
+    ],
+    "runs": [
+     {
+      "prefill_tok_s": 114.53,
+      "steady_decode_tok_s": 21.01,
+      "generation_incl_first_tok_s": 20.6
+     }
+    ]
+   }
+  },
+  {
+   "setup": "two cards",
+   "note": "parallel expert reads, no preload; measured on the commit before the preload was added",
+   "prompt_512_generated_200": {
+    "prefill_tok_s": [
+     53.06,
+     53.33
+    ],
+    "steady_decode_tok_s": [
+     44.64,
+     44.72
+    ],
+    "runs": [
+     {
+      "prefill_tok_s": 53.06,
+      "steady_decode_tok_s": 44.72,
+      "generation_incl_first_tok_s": 43.83
+     },
+     {
+      "prefill_tok_s": 53.19,
+      "steady_decode_tok_s": 44.66,
+      "generation_incl_first_tok_s": 43.74
+     },
+     {
+      "prefill_tok_s": 53.33,
+      "steady_decode_tok_s": 44.64,
+      "generation_incl_first_tok_s": 43.75
+     }
+    ]
+   },
+   "prompt_1556_generated_300": {
+    "prefill_tok_s": [
+     112.19,
+     112.58
+    ],
+    "steady_decode_tok_s": [
+     45.61,
+     45.93
+    ],
+    "runs": [
+     {
+      "prefill_tok_s": 112.19,
+      "steady_decode_tok_s": 45.61,
+      "generation_incl_first_tok_s": 44.7
+     },
+     {
+      "prefill_tok_s": 112.58,
+      "steady_decode_tok_s": 45.78,
+      "generation_incl_first_tok_s": 44.87
+     },
+     {
+      "prefill_tok_s": 112.53,
+      "steady_decode_tok_s": 45.93,
+      "generation_incl_first_tok_s": 45.01
+     }
+    ]
+   }
+  },
+  {
+   "setup": "two cards, the caches and a 48 GiB host-RAM tier loaded at start-up",
+   "note": "lists written by make_cuda_preload.py from the repository's ranking; loading takes about 22 s before the first prompt",
+   "prompt_512_generated_200": {
+    "prefill_tok_s": [
+     144.83,
+     149.01
+    ],
+    "steady_decode_tok_s": [
+     47.72,
+     47.8
+    ],
+    "runs": [
+     {
+      "prefill_tok_s": 144.83,
+      "steady_decode_tok_s": 47.8,
+      "generation_incl_first_tok_s": 46.78
+     },
+     {
+      "prefill_tok_s": 148.34,
+      "steady_decode_tok_s": 47.72,
+      "generation_incl_first_tok_s": 46.65
+     },
+     {
+      "prefill_tok_s": 149.01,
+      "steady_decode_tok_s": 47.78,
+      "generation_incl_first_tok_s": 46.75
+     }
+    ]
+   },
+   "prompt_1556_generated_300": {
+    "prefill_tok_s": [
+     219.0,
+     220.21
+    ],
+    "steady_decode_tok_s": [
+     49.11,
+     49.2
+    ],
+    "runs": [
+     {
+      "prefill_tok_s": 219.0,
+      "steady_decode_tok_s": 49.11,
+      "generation_incl_first_tok_s": 48.04
+     },
+     {
+      "prefill_tok_s": 219.57,
+      "steady_decode_tok_s": 49.2,
+      "generation_incl_first_tok_s": 48.14
+     },
+     {
+      "prefill_tok_s": 220.21,
+      "steady_decode_tok_s": 49.18,
+      "generation_incl_first_tok_s": 48.13
+     }
+    ]
+   },
+   "prompt_3000_generated_48_ctx_8192": {
+    "prefill_tok_s": 304.89,
+    "steady_decode_tok_s": 47.34,
+    "generation_incl_first_tok_s": 45.9
+   }
+  }
+ ],
+ "server": "through ds4-server with the preload, a chat prompt of about 1,600 tokens that follows another is processed in 4.6 to 4.9 s (four prompts in a row after the first)",
+ "not_established": "speeds on other hardware, drives or prompts"
+}

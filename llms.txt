@@ -1,8 +1,12 @@
 # Argonaut Labs
 
-> Independent measurements of frontier-scale open-weight models streamed from NVMe on one machine: Kimi K3.1 Pro on one 96 GB RTX PRO 6000, and DeepSeek V4.1 Flash, Kimi K3 and GLM-5.3 on a single 128 GB Apple M5 Max MacBook Pro.
+> Independent measurements of frontier-scale open-weight models streamed from NVMe on one machine: Kimi K3.1 Pro and DeepSeek V4.1 Flash on one or two 96 GB RTX PRO 6000 cards, and DeepSeek V4.1 Flash, Kimi K3 and GLM-5.3 on a single 128 GB Apple M5 Max MacBook Pro.
 
 Kimi K3.1 Pro (2.8T, 1.45 TB of experts), one 96 GB RTX PRO 6000: 3.79 tok/s decode on raw text with a Qwen drafter that keeps the answer identical, prefill up to 120 tok/s (6,769-token prompt; 40.8 at 1,512 tokens), contexts up to 16,384 tokens with K3.1's sparse attention. Standard tests, 11 November 2026, commit bb5c53b (tag k31-cuda-20261111), four NVMe devices, fresh process per run, greedy, raw prompts, drafter on / off: tg128 on "The three main financial statements are" (6 tokens) decode 2.76 / 2.06-2.07 tok/s; pp512 / tg200 prefill 15.7-15.9 tok/s, decode 3.88-3.89 / 1.55 tok/s; pp1512 / tg128 prefill 40.4-40.8 tok/s, decode 2.92 / 1.71 tok/s; the same 6-token prompt with 512 generated, decode 3.77-3.79 / 1.97 tok/s. Against the 10 November release on the same drives (3.21 and 2.98 tok/s on the two long tests), long predictable text decodes 18 to 30% faster with the drafter, because a verification block may take up to 64 rows; a code prompt, everyday prompts, chat and plain decode are unchanged; every compared position has the same logits as the 10 November release (4,747), and the drafter's 2,639 logit vectors are identical to plain decoding. On 8 November, with a fifth NVMe, prefill reached 18.0 tok/s at 512 tokens and 43 tok/s at 1,512. Chat runs at about 2 tok/s. Long context: a 6,769-token prompt takes about 56 s at an 8k cache and decodes at 1.53-1.54 tok/s; a 13,167-token prompt takes about 115 s and decodes at 1.56-1.57 tok/s. The spine's activations are fp32 since 8 November. On a MacBook Pro M5 Max (128 GB, Metal, tag k31-metal-20261111) the same release decodes the 512-generated test at 2.49 tok/s with the drafter, against 1.99 with the 9 November settings in the same session (2.29 against 1.81 with the laptop in use). Code and caveats: https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1
+
+Kimi K3.1 Pro on two RTX PRO 6000 (2 x 96 GB), 19 November 2026, commit d29ddcb (tag k31-cuda-20261119), the layers split between the cards: 5.52 tok/s decode on raw text with the Qwen drafter and 2.97 without, against 3.87 and 2.04 on one card the same day, with the same logits; prefill is set by the drives and does not change (16 tok/s at 512 tokens, 39–40 at 1,512). Runs: https://argonautlabs.ai/research/kimi-k31-2026-11-19.json
+
+DeepSeek V4.1 Flash, October checkpoint (502 GB, MXFP4 experts), on the same two cards, 18 November 2026, 20 of its 40 layers on each: steady decode 21.0–21.9 tok/s on one card, 44.6–45.9 on two, 47.7–49.2 with the caches and a 48 GiB host-RAM tier loaded at start-up; prompt processing 53–54 tok/s (512-token prompt) and 112–115 (1,556 tokens) without the preload, 145–149 and 219–220 with it; logits identical to the one-card build. Runs: https://argonautlabs.ai/research/deepseek-2026-11-18.json
 
 Earlier, on the M5 Max. Key numbers (workloads, timing definitions and output comparisons differ by experiment; see the linked evidence):
 - DeepSeek V4.1 Flash, October checkpoint (502 GB, MXFP4 experts), 13 November 2026, in the engine that also runs Kimi K3.1 Pro (https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1): steady decode 18.38 tok/s on the internal SSD, 20.69 with one Thunderbolt 5 NVMe drive, 22.47 with two; prompt processing 44.36 / 59.51 / 72.76 tok/s (512-token prompt, 200 generated, medians of three). Upstream ds4 on the internal SSD: 13.00 decode, 17.59 prompt. Logits identical to the engine without the switches.
@@ -21,7 +25,7 @@ Argodrive DS4 Kimi K3.1 is the integrated Linux/CUDA inference engine, not an ad
 
 ## Pages
 - [Apple silicon benchmark archive](https://argonautlabs.ai/research/apple-silicon-results.html): charts and tables for DeepSeek V4.1 (October checkpoint, 13 November, and the September ladders), Kimi K3.1 Pro on the M5 Max (11 November: 2.49 tok/s with the Qwen drafter, 1.32 plain, 512 generated tokens), Kimi K3 and GLM-5.3; all original measurements retained.
-- [Run Kimi K3.1 Pro locally on one GPU](https://argonautlabs.ai/research/kimi-k31-single-gpu.html): November 6–11 measurements, drafter results, long context with sparse attention, NVMe layout, pinned CUDA build, metric definitions and reference-validation limits.
+- [Run Kimi K3.1 Pro locally on one GPU](https://argonautlabs.ai/research/kimi-k31-single-gpu.html): November 6–19 measurements, two cards (19 November), drafter results, long context with sparse attention, NVMe layout, pinned CUDA build, metric definitions and reference-validation limits.
 - [DeepSeek V4.1 stack, drive ladder, prefill follow-ups](https://argonautlabs.ai/research/deepseek-2026-09-27.html): method, levers, every arm, 30 September prefill qualification.
 - [DeepSeek V4.1 prefill experiment, 15 September](https://argonautlabs.ai/research/deepseek-2026-09-15.html)
 - [GLM-5.3 scheduling experiment](https://argonautlabs.ai/research/glm.html)
@@ -34,6 +38,8 @@ Argodrive DS4 Kimi K3.1 is the integrated Linux/CUDA inference engine, not an ad
 - https://argonautlabs.ai/research/kimi-k31-2026-11-08.json
 - https://argonautlabs.ai/research/kimi-k31-2026-11-10.json
 - https://argonautlabs.ai/research/kimi-k31-2026-11-11.json
+- https://argonautlabs.ai/research/kimi-k31-2026-11-19.json
+- https://argonautlabs.ai/research/deepseek-2026-11-18.json
 - https://argonautlabs.ai/research/kimi-k31-2026-11-11-m5max.json
 - https://argonautlabs.ai/research/deepseek-2026-11-13.json
 - https://argonautlabs.ai/research/deepseek-2026-09-27.json
