@@ -1,14 +1,14 @@
 {
   "date": "2026-11-22",
   "model": "DeepSeek-V4.1-Flash-1017-MXFP4-experts.gguf (October checkpoint, 4-bit experts, 502 GB)",
-  "hardware": "two RTX PRO 6000 Blackwell (96 GB each); Linux VM with 87 GiB of RAM; model file on a RAID0 of three NVMe drives, a copy of the experts on another NVMe drive",
+  "hardware": "two RTX PRO 6000 Blackwell (96 GB each); Linux VM with 87 GiB of RAM; model file on a RAID0 of three NVMe drives, a copy of the experts (288.8 GB) on another NVMe drive that takes a share of the expert reads",
   "engine": {
     "repository": "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1",
     "commit": "b10dc34",
     "tool": "ds4-bench",
     "drafter": "DSpark (the checkpoint's mtp weights)"
   },
-  "method": "a fresh process per run, both setups in one session, greedy decoding, caches and a 55 GiB RAM tier preloaded from lists ranked on other requests",
+  "method": "a fresh process per run, both setups in one session, greedy decoding; the VRAM caches and a 55 GiB RAM tier preloaded from lists made from the server's earlier JSON-extraction and commentary requests, before the table prompt was written",
   "prompts": {
     "table": {
       "tokens": 6051,
@@ -68,7 +68,9 @@
     "with and without the drafter the full logits of every position of the JSON answer were identical"
   ],
   "sources": [
+    "https://argonautlabs.ai/research/deepseek-v41-two-gpus.html",
     "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/main/tools/deepseek-v41/README.md#prompts-of-6000-tokens-22-november-afternoon",
+    "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/main/tools/deepseek-v41/README.md#the-dspark-drafter-on-both-cards-22-november",
     "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/discussions/3"
   ]
 }

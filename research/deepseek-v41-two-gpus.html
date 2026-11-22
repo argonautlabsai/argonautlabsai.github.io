@@ -61,8 +61,8 @@
 </section>
 
 <section id="machine"><h2>The machine.</h2>
-<p>It is one workstation with two RTX PRO 6000 Blackwell cards of 96 GB each. The engine runs in a Linux virtual machine with 87 GiB of RAM. The model file sits on a RAID0 of three NVMe drives, and a copy of its 289 GB of experts sits on another NVMe drive, so every expert read can be split between the two.</p>
-<p>What the model uses most stays closer to the cards. The weights that are not experts live in VRAM, together with a cache of experts. Behind that cache, 55 GiB of RAM hold the next most used experts. Everything else is read from the drives when a token asks for it. The lists of what to preload were ranked on other requests, never on the prompts measured here.</p>
+<p>It is one workstation with two RTX PRO 6000 Blackwell cards of 96 GB each. The engine runs in a Linux virtual machine with 87 GiB of RAM. The model file sits on a RAID0 of three NVMe drives, and a copy of its 289 GB of experts sits on another NVMe drive, which takes a share of the expert reads.</p>
+<p>What the model uses most stays closer to the cards. The weights that are not experts live in VRAM, together with a cache of experts. Behind that cache, 55 GiB of RAM hold the next most used experts. Everything else is read from the drives when a token asks for it. The lists of what to preload were made from the server’s earlier requests, mostly JSON extraction and commentary on tables of figures, before the table prompt was written. That is the same kind of work the table prompt asks for.</p>
 </section>
 
 <section id="cards"><h2>Two cards on every layer.</h2>
@@ -77,7 +77,7 @@
 <section id="checked"><h2>What is checked, and what is not.</h2>
 <ul class="kb-list">
 <li>For the table prompt we compared the full logits of every position of the answer with and without the drafter. They were identical.</li>
-<li>Without the drafter, the two-card output is the same as the one-card build’s.</li>
+<li>Without the drafter, the two-card build was checked against the one-card build on 21 November: every decode step had the same logits.</li>
 <li>One of the three drafter runs on the table prompt read its prompt at 839 tokens per second, with the same expert reads as the other two. The range in the table leaves it out.</li>
 <li>This is our build of DeepSeek’s open weights, not DeepSeek’s service. Equivalence to DeepSeek’s reference implementation has not been validated.</li>
 </ul>
