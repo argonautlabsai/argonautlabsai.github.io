@@ -1,0 +1,74 @@
+{
+  "date": "2026-11-22",
+  "model": "DeepSeek-V4.1-Flash-1017-MXFP4-experts.gguf (October checkpoint, 4-bit experts, 502 GB)",
+  "hardware": "two RTX PRO 6000 Blackwell (96 GB each); Linux VM with 87 GiB of RAM; model file on a RAID0 of three NVMe drives, a copy of the experts on another NVMe drive",
+  "engine": {
+    "repository": "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1",
+    "commit": "b10dc34",
+    "tool": "ds4-bench",
+    "drafter": "DSpark (the checkpoint's mtp weights)"
+  },
+  "method": "a fresh process per run, both setups in one session, greedy decoding, caches and a 55 GiB RAM tier preloaded from lists ranked on other requests",
+  "prompts": {
+    "table": {
+      "tokens": 6051,
+      "generated": 600,
+      "answer": "JSON",
+      "source": "tools/deepseek-v41/make_weather_prompt.py 67 (synthetic, seeded)"
+    },
+    "novel": {
+      "tokens": 6000,
+      "generated": 300,
+      "answer": "prose continuation",
+      "source": "the novel prompt of the README tables"
+    }
+  },
+  "results_tok_per_s": {
+    "two_cards": {
+      "table_prefill": [
+        1717.1,
+        1727.1
+      ],
+      "table_decode": [
+        80.5,
+        79.9
+      ],
+      "novel_prefill": [
+        1311.0,
+        1309.0
+      ],
+      "novel_decode": [
+        68.8,
+        69.1
+      ]
+    },
+    "two_cards_dspark": {
+      "table_prefill": [
+        1700.8,
+        1688.2,
+        839.1
+      ],
+      "table_decode": [
+        111.9,
+        111.3,
+        111.2
+      ],
+      "novel_prefill": [
+        1296.7,
+        1287.9
+      ],
+      "novel_decode": [
+        65.0,
+        66.4
+      ]
+    }
+  },
+  "notes": [
+    "the third drafter run on the table prompt read its prompt at 839.1 tok/s with the same expert reads as the other two",
+    "with and without the drafter the full logits of every position of the JSON answer were identical"
+  ],
+  "sources": [
+    "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/blob/main/tools/deepseek-v41/README.md#prompts-of-6000-tokens-22-november-afternoon",
+    "https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1/discussions/3"
+  ]
+}

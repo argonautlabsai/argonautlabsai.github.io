@@ -24,6 +24,7 @@ Argodrive DS4 Kimi K3.1 is the integrated Linux/CUDA inference engine, not an ad
 - [Build and setup](https://argonautlabs.ai/research/kimi-k31-single-gpu.html#reproduce): pinned release, weight preparation links and reproduction limits.
 
 ## Pages
+- [DeepSeek V4.1 Flash at 111 tokens per second on two GPUs](https://argonautlabs.ai/research/deepseek-v41-two-gpus.html): 22 November 2026, two RTX PRO 6000: a 6,051-token table prompt read at 1,688 to 1,727 tok/s, its 600-token JSON answer written at 111.2 to 111.9 tok/s with the DSpark drafter (79.9 to 80.5 without), the same output either way; a 6,000-token novel prompt at 1,288 to 1,311 tok/s and 65.0 to 69.1 tok/s decode; how to rerun it, and notes for writers.
 - [Apple silicon benchmark archive](https://argonautlabs.ai/research/apple-silicon-results.html): charts and tables for DeepSeek V4.1 (October checkpoint, 13 November, and the September ladders), Kimi K3.1 Pro on the M5 Max (11 November: 2.49 tok/s with the Qwen drafter, 1.32 plain, 512 generated tokens), Kimi K3 and GLM-5.3; all original measurements retained.
 - [How we run Kimi K3.1 Pro on two GPUs](https://argonautlabs.ai/research/kimi-k31-build.html): the Kimi K3.1 Pro build explained for readers and writers. What sits where (62 GB spine and a 7,239-expert cache in VRAM on two RTX PRO 6000, a 56 GiB pinned RAM pool, 82,432 expert files on four NVMe drives), what happens for each token, hot experts, the Qwen drafter, where the time goes (85% waiting for expert reads), the 19 November table, what is verified, and how to cite.
 - [Run Kimi K3.1 Pro locally on one GPU](https://argonautlabs.ai/research/kimi-k31-single-gpu.html): November 6–19 measurements, two cards (19 November), drafter results, long context with sparse attention, NVMe layout, pinned CUDA build, metric definitions and reference-validation limits.
@@ -40,6 +41,7 @@ Argodrive DS4 Kimi K3.1 is the integrated Linux/CUDA inference engine, not an ad
 - https://argonautlabs.ai/research/kimi-k31-2026-11-10.json
 - https://argonautlabs.ai/research/kimi-k31-2026-11-11.json
 - https://argonautlabs.ai/research/kimi-k31-2026-11-19.json
+- https://argonautlabs.ai/research/deepseek-2026-11-22.json
 - https://argonautlabs.ai/research/deepseek-2026-11-18.json
 - https://argonautlabs.ai/research/kimi-k31-2026-11-11-m5max.json
 - https://argonautlabs.ai/research/deepseek-2026-11-13.json
