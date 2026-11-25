@@ -61,7 +61,7 @@
 <p class="al-eyebrow">Argonaut Labs / Local AI research</p>
 <h1 id="hero-title">Run Kimi K3.1 Pro<br/>on one GPU.</h1>
 <p class="al-hero-description">Our open-source Argodrive DS4 engine runs Moonshot’s 2.8-trillion-parameter model locally, streaming 1.45 TB of experts from NVMe.</p>
-<p class="al-hero-finding"><span><strong>3.87</strong> tok/s on one GPU</span> <span class="al-compare-separator" aria-hidden="true">/</span> <span><strong>5.52</strong> tok/s on two</span></p>
+<p class="al-hero-finding"><span><strong>3.87</strong> tok/s on one GPU</span> <span class="al-compare-separator" aria-hidden="true">/</span> <span><strong>5.55</strong> tok/s on two</span></p>
 <p class="al-hero-protocol">Same six-token financial prompt. 512 tokens generated with Qwen drafting.</p>
 <div class="al-hero-actions"><a class="al-btn al-btn-primary" href="https://github.com/argonautlabsai/argodrive-ds4-kimi-k3.1">Get the Kimi engine</a><a class="al-experiment-link" href="research/kimi-k31-build.html">Read the experiment</a></div>
 </div></section>
@@ -115,7 +115,7 @@
 </figure>
 </section>
 <div aria-label="Measured results, separate from the conceptual animation" class="launch-evidence wrap">
-<div class="launch-evidence-grid"><a href="research/kimi-k31-single-gpu.html#drafter"><strong>2.01–2.02<small>tok/s</small></strong><span><b>Chat decode</b><em>286 prompt / 200 output · 11 November</em></span></a><a href="research/kimi-k31-single-gpu.html#two-cards"><strong>5.52<small>tok/s</small></strong><span><b>Raw text with drafter, two cards</b><em>6 prompt / 512 output · 19 November · one card 3.87</em></span></a><a href="research/kimi-k31-single-gpu.html#long-prompts"><strong>194<small>tok/s</small></strong><span><b>Prompt processing, two cards</b><em>21,873-token prompt · 25 November · 115 the day before</em></span></a><a href="research/kimi-k31-single-gpu.html#long-prompts"><strong>24k<small>context</small></strong><span><b>Sparse attention</b><em>Decode after a 21,873-token prompt: 1.90 tok/s</em></span></a></div>
+<div class="launch-evidence-grid"><a href="research/kimi-k31-single-gpu.html#expert-layout"><strong>3.04<small>tok/s</small></strong><span><b>Chat decode, two cards</b><em>256 output · 25 November · 2.18 the day before</em></span></a><a href="research/kimi-k31-single-gpu.html#expert-layout"><strong>5.55<small>tok/s</small></strong><span><b>Raw text with drafter, two cards</b><em>6 prompt / 512 output · 25 November · one card 3.87 on 19 November</em></span></a><a href="research/kimi-k31-single-gpu.html#long-prompts"><strong>194<small>tok/s</small></strong><span><b>Prompt processing, two cards</b><em>21,873-token prompt · 25 November · 115 the day before</em></span></a><a href="research/kimi-k31-single-gpu.html#long-prompts"><strong>24k<small>context</small></strong><span><b>Sparse attention</b><em>Decode after a 21,873-token prompt: 1.90 tok/s</em></span></a></div>
 <p>Measured 6 to 25 November 2026. Steady decode excludes loading, prefill and the first decode step. No expert skipping. The drafter is optional and gains most on predictable raw text; on chat it gains a little, with a stricter gate. <a href="research/kimi-k31-single-gpu.html#results">Inspect every repeat →</a></p>
 </div>
 
