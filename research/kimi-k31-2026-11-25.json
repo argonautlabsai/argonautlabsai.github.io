@@ -1,0 +1,57 @@
+{
+ "date": "2026-11-25",
+ "title": "Kimi K3.1 Pro on two RTX PRO 6000: long prompts read layer by layer",
+ "model": "Kimi K3.1 Pro: 2.8T MoE, 92 MoE layers, 896 experts per layer, 16 routed per token; Q8_0 spine, MXFP4 experts (82,432 files, 1.45 TB)",
+ "engine": "argonautlabsai/argodrive-ds4-kimi-k3.1, commit faceab6, tag k31-cuda-20261125",
+ "hardware": "two RTX PRO 6000 Blackwell (96 GB each), an 87 GiB VM with a 56 GiB pinned expert pool, four NVMe devices",
+ "settings": {
+  "common": "one fresh process per run, greedy (--temp 0), raw prompts, --ssd-streaming --ssd-streaming-cold --ssd-streaming-cache-experts 16, DS4_K3_DSA with the indexer file, a cache of 16,384 (13,087-token prompt) or 24,576 positions (21,873-token prompt)",
+  "two_cards": "DS4_CUDA_STREAM_SPLIT=46 with --gpu-devices 0,1 --gpu-vram auto, DS4_K3_TP=1 DS4_K3_SMCOPY=1, DS4_K3_CACHE_POLICY=decay-device DS4_K3_CACHE_DECAY=0.95",
+  "25_november": "DS4_K3_PREFILL_LAYER_MAJOR=1 DS4_K3_TP_SHARED=1 DS4_K3_TP_ATTN=1 DS4_K3_EXPERT_SPLIT=1 on top of the two-card settings"
+ },
+ "prompts": {
+  "13087": "(git show a67620e:README.md; git show a67620e:tools/kimi-k3/README.md | head -c 7874; printf '\\n\\n'; git show a67620e:docs/MODELS.md; printf '\\n\\n'; git show a67620e:docs/QWEN38_FLASH_NEXT.md)",
+  "21873": "(git show 2c4d7fc:tools/kimi-k3/README.md; git show 2c4d7fc:README.md) | head -c 76000"
+ },
+ "results_tok_s": [
+  {
+   "prompt_tokens": 13087,
+   "generated": 48,
+   "build": "24 November",
+   "prefill": 116,
+   "decode": 2.05
+  },
+  {
+   "prompt_tokens": 13087,
+   "generated": 48,
+   "build": "25 November",
+   "prefill": 175,
+   "decode": 2.05
+  },
+  {
+   "prompt_tokens": 21873,
+   "generated": 32,
+   "build": "24 November",
+   "prefill": 115,
+   "decode": 1.91
+  },
+  {
+   "prompt_tokens": 21873,
+   "generated": 32,
+   "build": "25 November",
+   "prefill": 194,
+   "decode": 1.9
+  }
+ ],
+ "switch_by_switch_21873_prompt_pass_s": {
+  "24 November, pass by pass": 191.0,
+  "layer-major": 148.7,
+  "+ shared experts on the second card": 142.8,
+  "+ half the attention heads on the other card": 130.9,
+  "+ expert split": 122.1,
+  "+ tiled DSA scores": 114.9,
+  "+ several heads per attention launch": 111.7
+ },
+ "logits": "every logit vector of every run is bit-identical with the 24 November build",
+ "one_card": "the pass keeps the pass-by-pass order: an 8,192-row pass leaves no room for a layer's experts"
+}
