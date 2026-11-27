@@ -276,3 +276,12 @@ html { scroll-padding-top: 24px; }
   .al-study-links { gap: 14px 22px; margin-top: 22px; }
   .al-study-links span { flex-basis: 100%; }
 }
+
+/* The hero film: a silent loop over the still illustration. The still stays underneath for visitors who ask for reduced motion. */
+.al-hero-film { object-position: 50% 50%; }
+@media (prefers-reduced-motion: reduce) { .al-hero-film { display: none; } }
+
+/* The thirty-second film, above the About section. Nothing loads until the visitor presses play. */
+.al-film { padding-top: clamp(56px, 6vw, 96px); }
+.al-film h2 { margin: 0 0 28px; }
+.al-film-player { display: block; width: 100%; max-width: 1180px; height: auto; aspect-ratio: 16 / 9; border-radius: 14px; background: #041b2c; border: 1px solid #6ccef23b; }
